@@ -1,0 +1,7 @@
+apply plugin: 'java'
+
+defaultTasks 'clean', 'build', 'install'
+
+group = 'com.seedollar.java.sandbox'
+archivesBaseName = 'lambda-builder'
+version = '1.0.0-SNAPSHOT'
