@@ -89,10 +89,12 @@ subprojects {
 
 /**
  * This custom task will create a Java sub-module, passing in the module name and group name via the parameters
- * e.g.: gradle createModule -PgroupName=<group-name> -PmoduleName=<new module name>.
+ * e.g.: gradle createJavaModule -PgroupName=<group-name> -PmoduleName=<new module name>.
  * You will still need to add an entry into the settings.gradle file for this module to be a sub-project.
  */
 task createJavaModule << {
+    createJavaModule.description = 'createJavaModule -PgroupName=<group-name> -PmoduleName=<new module name>'
+
     def groupName = "$groupName"
     def moduleName = "$moduleName"
     def moduleDirSrc = new File(moduleName + '/src/main/java')
