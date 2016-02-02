@@ -2,3 +2,4 @@ rootProject.name = 'springboot'
 
 include 'springboot-hello'
 include 'springboot-banner'
+include 'springboot-events-listeners'

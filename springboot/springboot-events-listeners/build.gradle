@@ -1,6 +1,7 @@
+
 apply plugin: 'spring-boot'
 
 jar {
-    archivesBaseName = 'springboot-banner'
+    archivesBaseName = 'springboot-events-listeners'
     version = '1.0.0-SNAPSHOT'
 }
