@@ -1,3 +1,4 @@
 rootProject.name = 'springboot'
 
 include 'springboot-hello'
+include 'springboot-banner'
