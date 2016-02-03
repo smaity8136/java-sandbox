@@ -130,13 +130,12 @@ task createJavaModule << {
     def file = new File(moduleName + '/build.gradle')
     file.createNewFile();
     java.io.FileWriter writer = new FileWriter(file);
-    writer.write("apply plugin: 'java'")
+    writer.write("apply plugin: 'spring-boot'")
     writer.write("\n")
-    writer.write("\ndefaultTasks 'clean', 'build', 'install'")
-    writer.write("\n")
-    writer.write("\ngroup = '" + groupName + "'")
-    writer.write("\narchivesBaseName = '" + moduleName + "'")
-    writer.write("\nversion = '1.0.0-SNAPSHOT'")
+    writer.write("\njar {")
+    writer.write("\n    archivesBaseName = '" + moduleName + "'")
+    writer.write("\n    version = '1.0.0-SNAPSHOT'")
+    writer.write("\n}")
     writer.close()
 }
 
