@@ -1,0 +1,8 @@
+# You can only use one of the configurations below, not both at the same time
+logging:
+#    file: mylog.log # Will specify the log name
+    path: log/default/ # Will specify the destination directory to save the spring.log file
+    level:
+        root: TRACE # Valid levels: TRACE, DEBUG, INFO, WARN, ERROR, FATAL
+        org:
+            hibernate: DEBUG # org.hibernate classes will use DEBUG level
