@@ -1,0 +1,28 @@
+# =================================================================================
+# YAML config which illustrates how we use spring profiles
+# =================================================================================
+# default profile configuration
+server:
+    address: default-address
+    port: 86863
+---
+# development profile configuration
+spring:
+    profiles: development
+server:
+    address: development-address
+    port: 27886
+---
+# uat profile configuration
+spring:
+    profiles: uat
+server:
+    address: uat-address
+    port: 7548
+---
+# preprod profile configuration
+spring:
+    profiles: preprod
+server:
+    address: preprod-address
+    port: 1863

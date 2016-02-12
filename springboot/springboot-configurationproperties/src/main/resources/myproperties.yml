@@ -1,0 +1,26 @@
+# =================================================================================
+# YAML config which illustrates how we use @ConfigurationProperties(prefix="????")
+# =================================================================================
+business:
+    designation: requirements
+    aliases:
+      - dummy
+      - stupido
+      - id10t
+
+designer:
+    designation: design
+    aliases:
+      - hippie
+      - photoshop
+
+developer:
+    designation: coding
+    aliases:
+      - keyslapper
+      - programmer
+      - jack
+      - robot
+
+
+
