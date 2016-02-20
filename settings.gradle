@@ -1,3 +1,6 @@
+//================================================================
+// Springboot modules
+//================================================================
 include 'springboot:springboot-hello'
 include 'springboot:springboot-banner'
 include 'springboot:springboot-events-listeners'
@@ -5,3 +8,8 @@ include 'springboot:springboot-application-arguments'
 include 'springboot:springboot-randomvaluepropertysource'
 include 'springboot:springboot-configurationproperties'
 include 'springboot:springboot-logging'
+
+//================================================================
+// Spring AMQP modules
+//================================================================
+include 'springamqp:test-harness'
