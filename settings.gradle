@@ -13,3 +13,8 @@ include 'springboot:springboot-logging'
 // Spring AMQP modules
 //================================================================
 include 'springamqp:test-harness'
+
+//================================================================
+// Spymemcached module
+//================================================================
+include 'spymemcached'
