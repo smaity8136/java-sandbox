@@ -1,6 +1,7 @@
 apply plugin: "java"
 apply plugin: "idea"
 apply plugin: "maven"
+apply plugin: "spring-boot"
 
 group = "com.seedollar.java.sandbox.spymemcached"
 version = "1.0"
@@ -22,7 +23,6 @@ ext {
 
 buildscript {
     repositories {
-        maven { url 'http://fhlbuildl1:8081/artifactory/repo' }
         mavenCentral()
         maven { url "http://repo.spring.io/release" }
         jcenter { url 'http://jcenter.bintray.com/' }
@@ -38,7 +38,6 @@ buildscript {
 //  Closure to specify local and remote repositories of module dependencies
 // ===========================================================================================================================================================================
 repositories {
-    maven { url 'http://fhlbuildl1:8081/artifactory/repo' }
     jcenter { url 'http://jcenter.bintray.com/' }
     mavenLocal()
     mavenCentral()
