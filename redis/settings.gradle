@@ -1,0 +1,4 @@
+rootProject.name = 'redis'
+
+include 'jedis-client'
+include 'lettuce-client'

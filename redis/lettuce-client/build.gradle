@@ -1,0 +1,10 @@
+apply plugin: 'spring-boot'
+
+jar {
+    archivesBaseName = 'lettuce-client'
+    version = '1.0.0-SNAPSHOT'
+}
+
+dependencies {
+    compile group: 'biz.paluch.redis', name: 'lettuce', version: '4.1.1.Final'
+}
