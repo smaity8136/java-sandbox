@@ -13,14 +13,6 @@ allprojects {
     defaultTasks 'clean', 'build', 'install'
 
     install.dependsOn ':build'
-
-    // ===========================================================================================================================================================================
-    // Project properties
-    // ===========================================================================================================================================================================
-    ext {
-        springVersion = "4.2.4-RELEASE"
-        junitVersion = '4.12'
-    }
 }
 
 subprojects {
@@ -35,7 +27,7 @@ subprojects {
 
         }
         dependencies {
-            classpath("org.springframework.boot:spring-boot-gradle-plugin:1.3.2.RELEASE")
+            classpath group: 'org.springframework.boot', name: 'spring-boot-gradle-plugin', version: "$springBootVersion"
         }
     }
 
@@ -86,8 +78,8 @@ subprojects {
         compile group: 'ch.qos.logback', name: 'logback-core', version: '1.1.2'
         testCompile group: 'junit', name: 'junit', version: "$junitVersion"
         // Springboot dependencies
-        compile("org.springframework.boot:spring-boot-starter-web")
-        testCompile("org.springframework.boot:spring-boot-starter-test")
+        compile group: 'org.springframework.boot', name: 'spring-boot-starter', version: "$springBootVersion"
+        compile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: "$springBootVersion"
     }
 
     // ===========================================================================================================================================================================
