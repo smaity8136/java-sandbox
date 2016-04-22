@@ -38,6 +38,11 @@ public class MongoRepositoriesMain implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+
+        // Flush the collections before we execute the code below
+        userRepository.deleteAll();
+        orderRepository.deleteAll();
+        
         userRepository.save(new User("Kevin", "Smith", new Date(), UserStatusType.LOCKED));
         userRepository.save(new User("Lenny", "Durran", new Date(), UserStatusType.INACTIVE));
         userRepository.save(new User("Carmen", "Salson", new Date(), UserStatusType.INACTIVE));
