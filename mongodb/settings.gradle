@@ -1,0 +1,4 @@
+rootProject.name = 'mongodb'
+
+include 'mongodb-repository'
+include 'mongodb-embedded-testing'
