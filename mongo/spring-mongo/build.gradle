@@ -1,0 +1,6 @@
+apply plugin: 'spring-boot'
+
+jar {
+    archivesBaseName = 'spring-mongo'
+    version = '1.0.0-SNAPSHOT'
+}
