@@ -1,0 +1,100 @@
+apply plugin: "java"
+apply plugin: "idea"
+apply plugin: "maven"
+apply plugin: 'spring-boot'
+
+group = "com.seedollar.java.sandbox.email"
+version = "1.0"
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+defaultTasks 'clean', 'build', 'install'
+
+install.dependsOn ':build'
+
+
+buildscript {
+    repositories {
+        maven { url 'http://fhlbuildl1:8081/artifactory/repo' }
+//        maven { url "http://repo.spring.io/release" }
+//        jcenter { url 'http://jcenter.bintray.com/' }
+//        mavenLocal()
+//        mavenCentral()
+
+    }
+    dependencies {
+        classpath group: 'org.springframework.boot', name: 'spring-boot-gradle-plugin', version: "$springBootVersion"
+    }
+}
+
+// ===========================================================================================================================================================================
+//  Closure to specify local and remote repositories of module dependencies
+// ===========================================================================================================================================================================
+repositories {
+    maven { url 'http://fhlbuildl1:8081/artifactory/repo' }
+//    jcenter { url 'http://jcenter.bintray.com/' }
+//    mavenLocal()
+//    mavenCentral()
+}
+
+// ===========================================================================================================================================================================
+// Configure module source directories
+// ===========================================================================================================================================================================
+sourceSets {
+    main {
+        java {
+            srcDir file('src/main/java')
+        }
+        resources.srcDir file('src/main/resources')
+    }
+
+    test {
+        java {
+            srcDir file('src/test/java')
+        }
+        resources.srcDir file('src/test/resources')
+    }
+
+    integrationTest {
+        java {
+            compileClasspath += main.output + test.output
+            runtimeClasspath += main.output + test.output
+            srcDir file('src/integration-test/java')
+        }
+        resources.srcDir file('src/integration-test/resources')
+    }
+}
+
+// ===========================================================================================================================================================================
+//  Closure to define common dependencies for all sub projects
+// ===========================================================================================================================================================================
+dependencies {
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.12'
+    compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.1.2'
+    compile group: 'ch.qos.logback', name: 'logback-core', version: '1.1.2'
+    testCompile group: 'junit', name: 'junit', version: "$junitVersion"
+    // Springboot dependencies
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: "$springBootVersion"
+    compile group: 'org.springframework', name: 'spring-context-support', version: "$springVersion"
+    compile group: 'javax.mail', name: 'mail', version: "$javaMailVersion"
+    compile group: 'org.thymeleaf', name: 'thymeleaf', version: "$thymeleafVersion"
+    compile group: 'org.thymeleaf', name: 'thymeleaf-spring4', version: "$thymeleafVersion"
+    compile group: 'org.apache.velocity', name: 'velocity', version: "$velocityVersion"
+
+
+}
+
+// ===========================================================================================================================================================================
+// Test closure to configure the testing JVM
+// ===========================================================================================================================================================================
+test {
+}
+
+// ===========================================================================================================================================================================
+// uploadArchives closure to configure where to deploy our artifacts to a remote repository
+// ===========================================================================================================================================================================
+uploadArchives {
+    /** repositories.mavenDeployer {repository(url: 'http://remoteurl') {authentication(username: 'admin', password: 'password')}} */
+}
+
