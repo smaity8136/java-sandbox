@@ -81,6 +81,7 @@ dependencies {
     compile group: 'org.thymeleaf', name: 'thymeleaf', version: "$thymeleafVersion"
     compile group: 'org.thymeleaf', name: 'thymeleaf-spring4', version: "$thymeleafVersion"
     compile group: 'org.apache.velocity', name: 'velocity', version: "$velocityVersion"
+    compile group: 'com.icegreen', name: 'greenmail', version: "$greenmailVersion"
 
 
 }

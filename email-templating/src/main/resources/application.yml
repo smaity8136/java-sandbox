@@ -1,0 +1,8 @@
+mail:
+  smtp:
+    host: localhost
+    port: 3025
+    username: oliver
+    password: password
+
+
