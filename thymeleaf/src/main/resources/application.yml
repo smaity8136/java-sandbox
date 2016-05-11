@@ -1,0 +1,24 @@
+thymeleaf:
+  defaultFeatures:
+    - Garden
+    - Entrance
+    - Swimming Pool
+    - Main Bedroom
+    - Second Bedroom
+    - Third Bedroom
+    - Toilet
+    - Lounge
+    - Dining Room
+    - Kitchen
+    - Patio
+    - Balcony
+  defaultItems:
+    - Walls
+    - Tiles
+    - Taps
+    - Lights
+    - Curtain Rails
+    - Door
+    - Carpet
+
+

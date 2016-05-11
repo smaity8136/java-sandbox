@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Features View</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+
+<form action="/features" method="POST">
+    <table>
+        <tr>
+            <td>
+                <select th:size="5">
+
+                </select>
+            </td>
+            <td><input type="text" id="emailAddress" name="emailAddress"/></td>
+        </tr>
+        <tr>
+            <td><label>User Name:</label></td>
+            <td><input type="text" id="userName" name="userName"/></td>
+        </tr>
+        <br/>
+        <br/>
+        <tr>
+            <td>
+                <button type="submit">Update</button>
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
