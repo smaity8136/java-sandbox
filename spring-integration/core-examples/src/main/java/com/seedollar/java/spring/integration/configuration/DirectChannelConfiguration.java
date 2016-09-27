@@ -18,15 +18,15 @@ import org.springframework.messaging.MessagingException;
 @Configuration
 @EnableIntegration
 @ComponentScan(value = {"com.seedollar.java.spring.integration.service.impl"})
-public class ChannelConfiguration {
+public class DirectChannelConfiguration {
 
     /**
      * This messaging template allows to you send you domain specific POJO to Spring's messaging system explicitly.
      *
      * @return
      */
-    @Bean
-    public MessagingTemplate messagingTemplate() {
+    @Bean(name = "directChannelMessagingTemplate")
+    public MessagingTemplate directChannelMessagingTemplate() {
         MessagingTemplate messagingTemplate = new MessagingTemplate(countingChannel());
         return messagingTemplate;
     }

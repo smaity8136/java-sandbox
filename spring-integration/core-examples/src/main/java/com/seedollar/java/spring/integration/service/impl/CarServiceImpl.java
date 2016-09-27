@@ -3,6 +3,7 @@ package com.seedollar.java.spring.integration.service.impl;
 import com.google.common.collect.Maps;
 import com.seedollar.java.spring.integration.domain.Car;
 import com.seedollar.java.spring.integration.service.ItemService;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.integration.core.MessagingTemplate;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageHeaders;
@@ -19,7 +20,7 @@ public class CarServiceImpl implements ItemService<Car> {
 
     private MessagingTemplate messagingTemplate;
 
-    public CarServiceImpl(MessagingTemplate messagingTemplate) {
+    public CarServiceImpl(@Qualifier("directChannelMessagingTemplate") MessagingTemplate messagingTemplate) {
         this.messagingTemplate = messagingTemplate;
     }
 
