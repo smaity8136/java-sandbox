@@ -1,0 +1,6 @@
+apply plugin: 'spring-boot'
+
+jar {
+    archivesBaseName = 'core-examples'
+    version = '1.0.0-SNAPSHOT'
+}
