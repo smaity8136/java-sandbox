@@ -5,7 +5,13 @@ package com.seedollar.java.spring.integration.domain;
  */
 public class Canon {
 
+    private int distance;
+
+    public Canon(int distance) {
+        this.distance = distance;
+    }
+
     public String fire() {
-        return "Boom!";
+        return "Boom!!! at a distance of: " + distance + " metres";
     }
 }

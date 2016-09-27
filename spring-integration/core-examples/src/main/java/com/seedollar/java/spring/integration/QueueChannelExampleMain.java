@@ -1,11 +1,11 @@
 package com.seedollar.java.spring.integration;
 
 import com.google.common.collect.Lists;
+import com.seedollar.java.spring.integration.configuration.QueueChannelConfiguration;
 import com.seedollar.java.spring.integration.domain.Tank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.integration.channel.QueueChannel;
 import org.springframework.integration.support.MutableMessage;
@@ -16,14 +16,13 @@ import java.util.ArrayList;
 /**
  * Created by seedollar on 9/27/16.
  */
-@SpringBootApplication
 public class QueueChannelExampleMain implements CommandLineRunner {
 
     @Autowired
     QueueChannel queueChannel;
 
     public static void main(String[] args) {
-        SpringApplication application = new SpringApplication(QueueChannelExampleMain.class);
+        SpringApplication application = new SpringApplication(QueueChannelExampleMain.class, QueueChannelConfiguration.class);
         application.setApplicationContextClass(AnnotationConfigApplicationContext.class);
         application.run(args);
     }
@@ -46,7 +45,7 @@ public class QueueChannelExampleMain implements CommandLineRunner {
         Thread.sleep(2000);
 
         // Now we consume each message
-        for (int x=0; x<tankMessages.size(); x++) {
+        for (int x = 0; x < tankMessages.size(); x++) {
             Message<?> receive = queueChannel.receive();
             Tank receivedTank = (Tank) receive.getPayload();
             System.out.println(String.format("queueChannel size: %s | tank received: %s", queueChannel.getQueueSize(), receivedTank.getCountry()));
