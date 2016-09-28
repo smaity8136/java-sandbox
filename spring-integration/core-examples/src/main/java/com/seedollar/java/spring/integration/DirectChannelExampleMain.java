@@ -27,7 +27,7 @@ public class DirectChannelExampleMain implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        ArrayList<Car> cars = Lists.newArrayList(new Car("BMW"), new Car("Audi"));
+        ArrayList<Car> cars = Lists.newArrayList(new Car("BMW", 5), new Car("Audi", 7));
         itemService.execute(cars);
     }
 }

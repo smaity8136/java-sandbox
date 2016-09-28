@@ -7,8 +7,19 @@ public class Car implements Vehicle {
 
     private String brand;
 
-    public Car(String brand) {
+    private int ranking;
+
+    public Car(String brand, int ranking) {
         this.brand = brand;
+        this.ranking = ranking;
+    }
+
+    public int getRanking() {
+        return ranking;
+    }
+
+    public void setRanking(int ranking) {
+        this.ranking = ranking;
     }
 
     public String getBrand() {

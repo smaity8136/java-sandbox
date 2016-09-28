@@ -5,6 +5,7 @@ import com.seedollar.java.spring.integration.domain.Vehicle;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.integration.channel.DirectChannel;
 import org.springframework.integration.config.EnableIntegration;
 import org.springframework.integration.core.MessagingTemplate;
@@ -17,6 +18,7 @@ import org.springframework.messaging.MessagingException;
  */
 @Configuration
 @EnableIntegration
+@Import(GlobalChannelInterceptorConfiguration.class)
 @ComponentScan(value = {"com.seedollar.java.spring.integration.service.impl"})
 public class DirectChannelConfiguration {
 
