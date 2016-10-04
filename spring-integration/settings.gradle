@@ -1,3 +1,4 @@
 rootProject.name = 'spring-integration'
 
 include 'core-examples'
+include 'message-endpoints-examples'

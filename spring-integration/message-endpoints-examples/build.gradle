@@ -1,0 +1,10 @@
+apply plugin: 'spring-boot'
+
+springBoot {
+    mainClass = "com.seedollar.java.spring.integration.EventDriverConsumerExampleMain"
+}
+
+jar {
+    archivesBaseName = 'message-endpoints-examples'
+    version = '1.0.0-SNAPSHOT'
+}

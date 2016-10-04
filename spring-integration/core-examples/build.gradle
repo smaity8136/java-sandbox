@@ -1,5 +1,9 @@
 apply plugin: 'spring-boot'
 
+springBoot {
+    mainClass = "com.seedollar.java.spring.integration.PriorityChannelExampleMain"
+}
+
 jar {
     archivesBaseName = 'core-examples'
     version = '1.0.0-SNAPSHOT'

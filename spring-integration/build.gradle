@@ -18,7 +18,7 @@ allprojects {
     // Project properties
     // ===========================================================================================================================================================================
     ext {
-        springVersion = "4.3.0.RELEASE"
+        springVersion = "4.3.3.RELEASE"
         springBootVersion = "1.4.0.RELEASE"
         junitVersion = '4.12'
     }
@@ -28,11 +28,11 @@ subprojects {
 
     buildscript {
         repositories {
+            maven { url 'http://fhlbuildl1:8081/artifactory/repo' }
 //            maven { url "https://repo.spring.io/snapshot" }
 //            maven { url "https://repo.spring.io/release" }
 //            jcenter { url 'http://jcenter.bintray.com/' }
             mavenLocal()
-//            maven { url 'http://fhlbuildl1:8081/artifactory/repo' }
             mavenCentral()
 
         }
@@ -45,7 +45,7 @@ subprojects {
     //  Closure to specify local and remote repositories of module dependencies
     // ===========================================================================================================================================================================
     repositories {
-//        maven { url 'http://fhlbuildl1:8081/artifactory/repo' }
+        maven { url 'http://fhlbuildl1:8081/artifactory/repo' }
 //        jcenter { url 'http://jcenter.bintray.com/' }
         maven { url "https://repo.spring.io/snapshot" }
         maven { url "https://repo.spring.io/release" }
