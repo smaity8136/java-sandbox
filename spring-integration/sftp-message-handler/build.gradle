@@ -1,0 +1,10 @@
+apply plugin: 'spring-boot'
+
+jar {
+    archivesBaseName = 'sftp-message-handler'
+    version = '1.0.0-SNAPSHOT'
+}
+
+dependencies {
+    compile group: "org.springframework.integration", name: "spring-integration-sftp", version: "$springVersion"
+}
