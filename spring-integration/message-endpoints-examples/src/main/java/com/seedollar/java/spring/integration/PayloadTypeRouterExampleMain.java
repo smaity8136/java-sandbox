@@ -2,7 +2,6 @@ package com.seedollar.java.spring.integration;
 
 import com.seedollar.java.spring.integration.configuration.PayloadTypeRouterConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -21,23 +20,18 @@ public class PayloadTypeRouterExampleMain implements CommandLineRunner {
     MessagingTemplate payloadTypeRouterMessagingTemplateInvoker;
 
     @Autowired
-    @Qualifier("stringTypeChannel")
     QueueChannel stringTypeChannel;
 
     @Autowired
-    @Qualifier("integerTypeChannel")
     QueueChannel integerTypeChannel;
 
     @Autowired
-    @Qualifier("booleanTypeChannel")
     QueueChannel booleanTypeChannel;
 
     @Autowired
-    @Qualifier("unknownTypeChannel")
     QueueChannel unknownTypeChannel;
 
     @Autowired
-    @Qualifier("errorTypeChannel")
     QueueChannel errorTypeChannel;
 
     public static void main(String[] args) {

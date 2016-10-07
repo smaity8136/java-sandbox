@@ -3,10 +3,12 @@ package com.seedollar.java.spring.integration.configuration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.integration.annotation.Router;
 import org.springframework.integration.channel.DirectChannel;
 import org.springframework.integration.channel.QueueChannel;
 import org.springframework.integration.config.EnableIntegration;
 import org.springframework.integration.core.MessagingTemplate;
+import org.springframework.integration.router.PayloadTypeRouter;
 import org.springframework.integration.scheduling.PollerMetadata;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.scheduling.support.PeriodicTrigger;
@@ -64,5 +66,18 @@ public class PayloadTypeRouterConfiguration {
         PollerMetadata pollerMetadata = new PollerMetadata();
         pollerMetadata.setTrigger(new PeriodicTrigger(10));
         return pollerMetadata;
+    }
+
+    @Bean
+    @Router(inputChannel = "startPayloadTypeRouterChannel")
+    public PayloadTypeRouter payloadTypeRouter() {
+        PayloadTypeRouter payloadTypeRouter = new PayloadTypeRouter();
+        payloadTypeRouter.setChannelMapping("java.lang.String", "stringTypeChannel");
+        payloadTypeRouter.setChannelMapping("java.lang.Integer", "integerTypeChannel");
+        payloadTypeRouter.setChannelMapping("java.lang.Boolean", "booleanTypeChannel");
+        payloadTypeRouter.setChannelMapping("java.lang.Exception", "errorTypeChannel");
+        payloadTypeRouter.setDefaultOutputChannel(unknownTypeChannel());
+        payloadTypeRouter.setResolutionRequired(false);
+        return payloadTypeRouter;
     }
 }
