@@ -2,6 +2,8 @@ package com.seedollar.java.spring.integration.configuration;
 
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.integration.annotation.Router;
