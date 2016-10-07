@@ -18,7 +18,6 @@ import org.springframework.scheduling.support.PeriodicTrigger;
  */
 @Configuration
 @EnableIntegration
-@ComponentScan("com.seedollar.java.spring.integration.endpoint")
 public class PayloadTypeRouterConfiguration {
 
     @Bean

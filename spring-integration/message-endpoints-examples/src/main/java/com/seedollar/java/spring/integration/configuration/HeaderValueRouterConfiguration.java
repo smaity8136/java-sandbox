@@ -16,7 +16,6 @@ import org.springframework.messaging.MessageChannel;
  */
 @Configuration
 @EnableIntegration
-@ComponentScan("com.seedollar.java.spring.integration")
 public class HeaderValueRouterConfiguration {
 
     @Bean
