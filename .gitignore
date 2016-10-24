@@ -22,3 +22,5 @@ build/
 
 **/log
 *.log
+out/
+generated/
