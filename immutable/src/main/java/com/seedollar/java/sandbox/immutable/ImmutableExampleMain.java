@@ -14,9 +14,18 @@ public class ImmutableExampleMain {
                 .addCrux(973l, 33343l)
                 .build();
 
+        FoobarValue copyValue = ImmutableFoobarValue.builder().from(value).bar("Tedd").build();
+
         System.out.println("foo = " + value.foo());
         System.out.println("bar = " + value.bar());
         System.out.println("Buz = " + value.buz());
         System.out.println("Crux = " + value.crux());
+
+        System.out.println("bar copy = " + copyValue.bar());
+
+        SnafuInterface snafu = ImmutableSnafuInterface.builder().build();
+        System.out.println("snafu = " + snafu);
+
+
     }
 }
