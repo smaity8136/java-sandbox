@@ -1,0 +1,71 @@
+buildscript {
+    repositories {
+        maven { url 'http://fhlbuildl1:8081/artifactory/repo' }
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.0-M3'
+    }
+}
+
+repositories {
+    maven { url 'http://fhlbuildl1:8081/artifactory/repo' }
+    mavenCentral()
+}
+
+ext.junit4Version = '4.12'
+ext.junitVintageVersion = '4.12.0-M3'
+ext.junitPlatformVersion = '1.0.0-M3'
+ext.junitJupiterVersion = '5.0.0-M3'
+ext.log4jVersion = '2.6.2'
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'org.junit.platform.gradle.plugin'
+
+jar {
+    baseName = 'junit5-firstlook'
+    version = '1.0.0-SNAPSHOT'
+}
+
+compileTestJava {
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+    options.compilerArgs += '-parameters'
+}
+
+junitPlatform {
+    // platformVersion '1.0.0-M3'
+    filters {
+        engines {
+            // include 'junit-jupiter', 'junit-vintage'
+            // exclude 'custom-engine'
+        }
+        tags {
+//            include 'tagged' // If you enable this, it will only execute the tests tagged with "tagged"
+            exclude 'slow'
+        }
+        // includeClassNamePattern '.*Test'
+    }
+    // enableStandardTestTask true
+    // reportsDir file('build/test-results/junit-platform') // this is the default
+    logManager 'org.apache.logging.log4j.jul.LogManager'
+}
+
+dependencies {
+    testCompile("org.junit.platform:junit-platform-runner:1.0.0-M3") //Added this for IntelliJ 2.2016 Community so we can use "@RunWith(JunitPlatform.class)"
+    testCompile("org.junit.jupiter:junit-jupiter-api:${junitJupiterVersion}")
+    testRuntime("org.junit.jupiter:junit-jupiter-engine:${junitJupiterVersion}")
+
+    // If you also want to support JUnit 3 and JUnit 4 tests
+    testCompile("junit:junit:${junit4Version}")
+    testRuntime("org.junit.vintage:junit-vintage-engine:${junitVintageVersion}")
+
+    testRuntime("org.apache.logging.log4j:log4j-core:${log4jVersion}")
+    testRuntime("org.apache.logging.log4j:log4j-jul:${log4jVersion}")
+}
+
+task wrapper(type: Wrapper) {
+    description = 'Generates gradlew[.bat] scripts'
+    gradleVersion = '3.0'
+}
