@@ -1,0 +1,31 @@
+apply plugin: "java"
+apply plugin: "idea"
+apply plugin: "maven"
+
+group = "com.seedollar.java.sandbox.javaslang"
+version = "1.0"
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    maven {url 'http://fhlbuildl1:8081/artifactory/repo'}
+    jcenter { url 'http://jcenter.bintray.com/' }
+    maven {url 'https://oss.sonatype.org/content/repositories/snapshots'}
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    compile("io.javaslang:javaslang:${javaSlangVersion}")
+
+    testCompile("org.junit.platform:junit-platform-runner:${junitPlatformVersion}")
+    testCompile("org.junit.jupiter:junit-jupiter-api:${junitJupiterVersion}")
+    testCompile("org.junit.jupiter:junit-jupiter-engine:${junitJupiterVersion}")
+
+    testRuntime("org.apache.logging.log4j:log4j-core:${log4jVersion}")
+    testRuntime("org.apache.logging.log4j:log4j-jul:${log4jVersion}")
+}
+
+
+
