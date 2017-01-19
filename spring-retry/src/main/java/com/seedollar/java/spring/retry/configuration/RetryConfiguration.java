@@ -1,4 +1,4 @@
-package com.seedollar.java.spring.retry;
+package com.seedollar.java.spring.retry.configuration;
 
 import com.seedollar.java.spring.retry.service.CalculationService;
 import com.seedollar.java.spring.retry.service.impl.CalculationServiceImpl;

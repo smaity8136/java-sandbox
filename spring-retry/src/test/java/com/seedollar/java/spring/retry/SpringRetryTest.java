@@ -1,7 +1,7 @@
 package com.seedollar.java.spring.retry;
 
+import com.seedollar.java.spring.retry.configuration.RetryConfiguration;
 import com.seedollar.java.spring.retry.service.CalculationService;
-import javaslang.control.Try;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.runner.RunWith;
