@@ -1,0 +1,68 @@
+apply plugin: "java"
+apply plugin: "idea"
+apply plugin: "maven"
+apply plugin: 'org.junit.platform.gradle.plugin'
+
+group = "com.seedollar.java.sandbox.javaslang"
+version = "1.0"
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+buildscript {
+    repositories {
+        maven { url 'http://fhlbuildl1:8081/artifactory/repo' }
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.0-M3'
+    }
+}
+
+repositories {
+    maven {url 'http://fhlbuildl1:8081/artifactory/repo'}
+    jcenter { url 'http://jcenter.bintray.com/' }
+    maven {url 'https://oss.sonatype.org/content/repositories/snapshots'}
+    mavenLocal()
+    mavenCentral()
+}
+
+junitPlatform {
+    // platformVersion '1.0.0-M3'
+    filters {
+        engines {
+            // include 'junit-jupiter', 'junit-vintage'
+            // exclude 'custom-engine'
+        }
+        tags {
+//            include 'tagged' // If you enable this, it will only execute the tests tagged with "tagged"
+            exclude 'slow'
+        }
+        // includeClassNamePattern '.*Test'
+    }
+    // enableStandardTestTask true
+    // reportsDir file('build/test-results/junit-platform') // this is the default
+    logManager 'org.apache.logging.log4j.jul.LogManager'
+}
+
+dependencies {
+    compile("io.javaslang:javaslang:${javaSlangVersion}")
+    compile("io.javaslang:javaslang-match:${javaSlangVersion}")
+    compile group: "org.springframework.boot", name: "spring-boot-starter", version: "$springBootVersion"
+    compile("org.springframework.retry:spring-retry:${springRetryVersion}")
+    compile("org.springframework:spring-context:${springVersion}")
+    compile("org.aspectj:aspectjweaver:${aspectJWeaverVersion}")
+
+
+    testCompile("org.junit.platform:junit-platform-runner:${junitPlatformVersion}")
+    testCompile("org.junit.jupiter:junit-jupiter-api:${junitJupiterVersion}")
+    testCompile("org.junit.jupiter:junit-jupiter-engine:${junitJupiterVersion}")
+    testCompile group: "org.springframework.boot", name: 'spring-boot-starter-test', version: "$springBootVersion"
+
+    testRuntime("org.junit.vintage:junit-vintage-engine:${junitVintageVersion}")
+    testRuntime("org.apache.logging.log4j:log4j-core:${log4jVersion}")
+    testRuntime("org.apache.logging.log4j:log4j-jul:${log4jVersion}")
+}
+
+
+
