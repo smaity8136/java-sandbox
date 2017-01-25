@@ -3,7 +3,7 @@ apply plugin: "idea"
 apply plugin: "maven"
 apply plugin: 'org.junit.platform.gradle.plugin'
 
-group = "com.seedollar.java.spring.retry"
+group = "com.seedollar.java.sandbox.futures"
 version = "1.0"
 
 sourceCompatibility = 1.8
@@ -48,18 +48,11 @@ junitPlatform {
 dependencies {
     compile("io.javaslang:javaslang:${javaSlangVersion}")
     compile("io.javaslang:javaslang-match:${javaSlangVersion}")
-    compile group: "org.springframework.boot", name: "spring-boot-starter", version: "$springBootVersion"
-    compile("org.springframework.retry:spring-retry:${springRetryVersion}")
-    compile("org.springframework:spring-context:${springVersion}")
-    compile("org.aspectj:aspectjweaver:${aspectJWeaverVersion}")
-
 
     testCompile("org.junit.platform:junit-platform-runner:${junitPlatformVersion}")
     testCompile("org.junit.jupiter:junit-jupiter-api:${junitJupiterVersion}")
     testCompile("org.junit.jupiter:junit-jupiter-engine:${junitJupiterVersion}")
-    testCompile group: "org.springframework.boot", name: 'spring-boot-starter-test', version: "$springBootVersion"
 
-    testRuntime("org.junit.vintage:junit-vintage-engine:${junitVintageVersion}")
     testRuntime("org.apache.logging.log4j:log4j-core:${log4jVersion}")
     testRuntime("org.apache.logging.log4j:log4j-jul:${log4jVersion}")
 }
