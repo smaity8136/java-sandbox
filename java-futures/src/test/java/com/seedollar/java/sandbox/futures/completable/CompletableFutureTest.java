@@ -1,5 +1,7 @@
 package com.seedollar.java.sandbox.futures.completable;
 
+import javaslang.Function1;
+import javaslang.Function2;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -30,7 +32,7 @@ public class CompletableFutureTest {
     @DisplayName("This test shows how to implement the CompletableFuture")
     public void testCompletableFuture() throws ExecutionException, InterruptedException {
         CompletableFuture<String> completableFuture = CompletableFuture.supplyAsync(this::sendMessage);
-        Assertions.assertEquals("Hello CompletableFuture!", completableFuture.get());
+        Assertions.assertEquals("Hello CompletableFuture! - 1", completableFuture.get());
     }
 
     @Test
@@ -64,6 +66,22 @@ public class CompletableFutureTest {
 
         Thread.sleep(2200);
         Assertions.assertEquals("Something failed", completableFuture.get());
+    }
+
+    @Test
+    @DisplayName("A CompletableFuture which will combine the outcome of 2 CompletionStage processes using the combine() method")
+    public void testCompletableFuture_Combine() throws InterruptedException, ExecutionException {
+        Function1<Integer, Integer> doubleComputation = num -> num * 2;
+        Function1<Integer, Integer> incrementComputation = num -> num + 16;
+        Function2<Integer, Integer, Boolean> classificationComputation = (result1, result2) -> (result1 + result2) % 2 == 0;
+
+        CompletableFuture<Integer> stageCompletion1 = CompletableFuture.supplyAsync(() -> doubleComputation.apply(5));
+        CompletableFuture<Integer> stageCompletion2 = CompletableFuture.supplyAsync(() -> incrementComputation.apply(3));
+
+        CompletableFuture<Boolean> booleanCompletableFuture = stageCompletion1.thenCombine(stageCompletion2, (doubledResult, incrementResult) -> classificationComputation.apply(doubledResult, incrementResult));
+
+        Thread.sleep(1000);
+        Assertions.assertFalse(booleanCompletableFuture.get());
     }
 
     private String sendMessage() {
