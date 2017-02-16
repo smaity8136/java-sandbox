@@ -32,12 +32,7 @@ public class MainView extends VerticalLayout implements View {
 
         // Have a clickable button
         addComponent(new Button("Push Me!",
-                new Button.ClickListener() {
-                    @Override
-                    public void buttonClick(Button.ClickEvent e) {
-                        Notification.show("Pushed!", "A button was pushed", Notification.Type.WARNING_MESSAGE);
-                    }
-                }));
+                e -> Notification.show("Pushed!", "A button was pushed", Notification.Type.WARNING_MESSAGE)));
 
     }
 }

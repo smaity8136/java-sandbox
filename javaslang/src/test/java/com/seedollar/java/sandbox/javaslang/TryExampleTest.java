@@ -49,4 +49,19 @@ public class TryExampleTest {
         Assertions.assertThrows(NumberFormatException.class, () -> numberDivisibleTry.getOrElseThrow((Supplier<NumberFormatException>) NumberFormatException::new));
     }
 
+    @Test
+    @DisplayName("A null pointer exception with Try.of()")
+    public void testNullPointerExceptionTry() {
+
+        class Bag {
+            private int size;
+            public int getSize() {
+                return size;
+            }
+        }
+        Bag bagTest = null;
+
+        Assertions.assertEquals(Integer.valueOf(0), Try.of(() -> bagTest.getSize()).getOrElse(0));
+    }
+
 }

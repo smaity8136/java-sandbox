@@ -1,0 +1,21 @@
+server:
+  port: 8082
+
+endpoints:
+    metrics:
+      id: sandoxMetrics
+      sensitive: true
+      enabled: true
+
+management:
+  security:
+    enabled: true
+
+security:
+  basic:
+    enabled: true
+  user:
+    name: admin
+    password: admin
+
+
