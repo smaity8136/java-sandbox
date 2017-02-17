@@ -12,6 +12,6 @@ public class Junit5LambdaAssertionsTest {
     @Test
     @DisplayName("Test which illustrates the evaluation of the assertion message lazily.")
     public void testLambdaAssertion() {
-        Assertions.assertEquals(3 == 2, true, () -> "3 not equal to 2!");
+        Assertions.assertEquals(3 != 2, true, () -> "3 not equal to 2!");
     }
 }

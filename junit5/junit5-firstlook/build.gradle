@@ -18,6 +18,7 @@ ext.junitVintageVersion = '4.12.0-M3'
 ext.junitPlatformVersion = '1.0.0-M3'
 ext.junitJupiterVersion = '5.0.0-M3'
 ext.log4jVersion = '2.6.2'
+ext.javaSlangVersion = '2.1.0-alpha'
 
 apply plugin: 'java'
 apply plugin: 'idea'
@@ -53,6 +54,9 @@ junitPlatform {
 }
 
 dependencies {
+    compile("io.javaslang:javaslang:${javaSlangVersion}")
+    compile("io.javaslang:javaslang-match:${javaSlangVersion}")
+
     testCompile("org.junit.platform:junit-platform-runner:1.0.0-M3") //Added this for IntelliJ 2.2016 Community so we can use "@RunWith(JunitPlatform.class)"
     testCompile("org.junit.jupiter:junit-jupiter-api:${junitJupiterVersion}")
     testRuntime("org.junit.jupiter:junit-jupiter-engine:${junitJupiterVersion}")

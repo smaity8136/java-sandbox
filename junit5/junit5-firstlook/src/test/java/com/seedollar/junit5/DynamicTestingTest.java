@@ -19,9 +19,9 @@ public class DynamicTestingTest {
         int randomValue = ThreadLocalRandom.current().nextInt();
         System.out.println("randomValue = " + randomValue);
         return Arrays.asList(
-                DynamicTest.dynamicTest("Dynamic Test 1 - Test if randomValue is greater than 0", () -> Assertions.assertTrue(randomValue > 0)),
+                DynamicTest.dynamicTest("Dynamic Test 1 - Test if randomValue is greater than 0", () -> Assumptions.assumeTrue(randomValue > 0)),
                 DynamicTest.dynamicTest("Dynamic Test 2 - Test if randomValue is divisible by 2", () -> Assumptions.assumeTrue(randomValue % 2 == 0)),
-                DynamicTest.dynamicTest("Dynamic Test 3 - Test if randomValue is greater than one billion", () -> Assertions.assertTrue(randomValue > 1_000_000_000))
+                DynamicTest.dynamicTest("Dynamic Test 3 - Test if randomValue is greater than one billion", () -> Assumptions.assumeTrue(randomValue > 1_000_000_000))
         );
 
     }
