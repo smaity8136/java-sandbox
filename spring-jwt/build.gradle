@@ -1,0 +1,44 @@
+buildscript {
+    repositories {
+        maven { url 'http://fhlbuildl1:8081/artifactory/repo' }
+        mavenCentral()
+        jcenter()
+    }
+
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootGradlePluginVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+
+version = '1.0.0'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+        maven { url 'http://fhlbuildl1:8081/artifactory/repo' }
+}       
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter:$springBootVersion")
+    compile("org.springframework.boot:spring-boot-starter-web:$springBootVersion")
+    compile("org.springframework.boot:spring-boot-starter-security:${springBootVersion}")
+    compile("io.javaslang:javaslang:${javaSlangVersion}")
+    compile("io.javaslang:javaslang-match:${javaSlangVersion}")
+    compile("com.google.guava:guava:${guavaVersion}")
+
+    compile("io.jsonwebtoken:jjwt:${jsonWebTokenVersion}")
+
+    compile("org.apache.logging.log4j:log4j-core:${log4jVersion}")
+    compile("org.apache.logging.log4j:log4j-jul:${log4jVersion}")
+
+    testCompile("org.junit.platform:junit-platform-runner:${junitPlatformVersion}")
+    testCompile("org.junit.jupiter:junit-jupiter-api:${junitJupiterVersion}")
+    testCompile("org.junit.jupiter:junit-jupiter-engine:${junitJupiterVersion}")
+
+    testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
+}
