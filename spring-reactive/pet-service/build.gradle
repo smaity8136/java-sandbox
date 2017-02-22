@@ -1,0 +1,10 @@
+apply plugin: 'org.springframework.boot'
+
+jar {
+    archivesBaseName = 'pet-service'
+    version = '1.0.0'
+}
+
+dependencies {
+    compile("com.seedollar.spring.reactive:domain:${version}")
+}

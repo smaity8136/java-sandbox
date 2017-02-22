@@ -1,0 +1,4 @@
+jar {
+    archivesBaseName = 'domain'
+    version = '1.0.0'
+}

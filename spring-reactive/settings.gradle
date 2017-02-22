@@ -1,0 +1,5 @@
+rootProject.name = 'spring-reactive'
+
+include 'domain'
+include 'pet-service'
+include 'owner-service'
