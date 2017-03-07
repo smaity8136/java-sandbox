@@ -19,7 +19,10 @@ subprojects {
     buildscript {
         repositories {
             mavenLocal()
-            maven { url 'http://hlbuildl1:8081/artifactory/repo' }
+            maven { url 'http://repo.spring.io/libs-release' }
+            maven { url 'http://repo.spring.io/libs-milestone' }
+            maven { url 'http://repo.spring.io/libs-snapshot' }
+            maven { url 'http://fhlbuildl1:8081/artifactory/repo' }
             mavenCentral()
             jcenter()
         }
@@ -29,28 +32,25 @@ subprojects {
     }
 
     repositories {
-        mavenLocal()
-        mavenCentral()
-        jcenter()
-        maven { url 'http://fhlbuildl1:8081/artifactory/repo' }
         maven { url 'http://repo.spring.io/libs-release' }
         maven { url 'http://repo.spring.io/libs-milestone' }
         maven { url 'http://repo.spring.io/libs-snapshot' }
+        maven { url 'http://fhlbuildl1:8081/artifactory/repo' }
+        mavenLocal()
+        mavenCentral()
+        jcenter()
+
     }
 
     dependencies {
-
-        compile("org.springframework.boot:spring-boot:${springBootVersion}")
-        compile("org.springframework.boot:spring-boot-starter:1.5.1.RELEASE")
         compile("org.springframework.boot:spring-boot-starter-data-mongodb-reactive:${springBootVersion}")
-        compile("org.springframework.data:spring-data-mongodb:${springDataMongoReactiveVersion}")
-//        compile("org.springframework.boot.experimental:spring-boot-dependencies-web-reactive:0.1.0.BUILD-SNAPSHOT")
         compile("org.springframework.boot.experimental:spring-boot-starter-web-reactive:${springBootWebReactiveVersion}") {
-            exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
+//            exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
         }
+        compile("org.springframework.data:spring-data-mongodb:${springDataMongoReactiveVersion}")
         compile("io.projectreactor:reactor-core:${projectReactorCoreVersion}")
-        compile("io.projectreactor.ipc:reactor-netty:${reactorNettyVersion}")
-        compile("io.netty:netty-all:${nettyVersion}")
+//        compile("io.projectreactor.ipc:reactor-netty:${reactorNettyVersion}")
+//        compile("io.netty:netty-all:${nettyVersion}")
         compile("io.javaslang:javaslang:${javaSlangVersion}")
         compile("io.javaslang:javaslang-match:${javaSlangVersion}")
         compile("com.google.guava:guava:${guavaVersion}")
