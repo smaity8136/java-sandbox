@@ -1,0 +1,7 @@
+server:
+  port: 8083
+
+graphite:
+  host: localhost
+  port: 2003
+
