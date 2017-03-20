@@ -1,0 +1,5 @@
+ldap:
+  url: ldap://local-openldap:389
+  partitionSuffix: dc=example,dc=org
+  principal: cn=admin,dc=example,dc=org
+  password: admin

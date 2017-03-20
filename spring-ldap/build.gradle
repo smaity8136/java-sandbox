@@ -1,0 +1,47 @@
+buildscript {
+
+    repositories {
+       mavenLocal()
+       maven { url 'http://repo.spring.io/libs-release' }
+       maven { url 'http://repo.spring.io/libs-milestone' }
+       maven { url 'http://repo.spring.io/libs-snapshot' }
+       maven { url 'http://fhlbuildl1:8081/artifactory/repo' }
+       mavenCentral()
+       jcenter()
+    }
+
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootGradlePluginVersion}")
+    }
+}
+
+apply plugin: "java"
+apply plugin: "idea"
+apply plugin: "org.springframework.boot"
+
+repositories {
+    mavenLocal()
+    maven { url 'http://repo.spring.io/libs-release' }
+    maven { url 'http://repo.spring.io/libs-milestone' }
+    maven { url 'http://repo.spring.io/libs-snapshot' }
+    maven { url 'http://fhlbuildl1:8081/artifactory/repo' }
+    mavenCentral()
+    jcenter()
+}
+
+dependencies {
+
+    compile("org.springframework.boot:spring-boot-starter:${springBootVersion}")
+    compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
+    compile("org.springframework.ldap:spring-ldap-core:${springLdapVersion}")
+
+    compile("io.javaslang:javaslang:${javaSlangVersion}")
+    compile("io.javaslang:javaslang-match:${javaSlangVersion}")
+    compile("org.apache.logging.log4j:log4j-core:${log4jVersion}")
+    compile("org.apache.logging.log4j:log4j-jul:${log4jVersion}")
+
+    testCompile("org.junit.platform:junit-platform-runner:${junitPlatformVersion}")
+    testCompile("org.junit.jupiter:junit-jupiter-api:${junitJupiterVersion}")
+    testCompile("org.junit.jupiter:junit-jupiter-engine:${junitJupiterVersion}")
+    testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
+}
