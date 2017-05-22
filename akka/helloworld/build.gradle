@@ -1,0 +1,4 @@
+jar {
+    archivesBaseName = 'helloworld'
+    version = '1.0.0'
+}

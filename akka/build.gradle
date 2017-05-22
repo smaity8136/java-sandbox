@@ -1,0 +1,42 @@
+allprojects {
+
+    apply plugin: "java"
+    apply plugin: "idea"
+    apply plugin: "maven"
+
+    group = "com.seedollar.java.akka"
+    version = "1.0"
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+}
+
+subprojects {
+
+    buildscript {
+        repositories {
+            maven { url "http://repo.spring.io/release" }
+            jcenter { url 'http://jcenter.bintray.com/' }
+            mavenLocal()
+            maven { url 'http://internal.fnb.co.za/artifactory/repo' }
+            mavenCentral()
+        }
+
+        dependencies {
+        }
+    }
+
+    // ===========================================================================================================================================================================
+    //  Closure to specify local and remote repositories of module dependencies
+    // ===========================================================================================================================================================================
+    repositories {
+        jcenter { url 'http://jcenter.bintray.com/' }
+        mavenLocal()
+        maven { url 'http://internal.fnb.co.za/artifactory/repo' }
+        mavenCentral()
+    }
+
+    dependencies {
+        compile("com.typesafe.akka:akka-actor_2.11:${akkaActorVersion}")
+    }
+}
