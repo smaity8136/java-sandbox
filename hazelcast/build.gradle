@@ -1,40 +1,50 @@
-apply plugin: "java"
-apply plugin: "idea"
-apply plugin: "maven"
+allprojects {
+    
+    apply plugin: "java"
+    apply plugin: "idea"
+    apply plugin: "maven"
 
-group = 'com.seedollar.java.hazelcast' 
-version = '1.0.0-SNAPSHOT'
+    group = 'com.seedollar.java.hazelcast' 
+    version = '1.0.0'
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
 
-buildscript {
+    defaultTasks 'clean', 'build', 'install'
+
+    install.dependsOn ':build'
+}
+
+subprojects {
+
+    buildscript {
+        repositories {
+            maven {url 'https://internal.hl.fnb.co.za/artifactory/repo'}
+            mavenCentral()
+            jcenter()
+        }
+    }       
+
     repositories {
-       maven {url 'https://internal.hl.fnb.co.za/artifactory/repo'}
-       mavenCentral()
-       jcenter()
+        maven { url 'https://internal.hl.fnb.co.za/artifactory/repo'}        
+        mavenCentral()
+        jcenter()
+
     }
-}
 
-repositories {
-    maven { url 'https://internal.hl.fnb.co.za/artifactory/repo'}        
-    mavenCentral()
-    jcenter()
+    dependencies {
+        compile("io.javaslang:javaslang:${javaSlangVersion}")
+        compile("io.javaslang:javaslang-match:${javaSlangVersion}")
+        compile("com.hazelcast:hazelcast:${hazelcastVersion}")
+        compile("com.hazelcast:hazelcast-client:${hazelcastVersion}")
 
-}
+        testCompile("org.junit.platform:junit-platform-runner:${junitPlatformVersion}")
+        testCompile("org.junit.jupiter:junit-jupiter-api:${junitJupiterVersion}")
+        testCompile("org.junit.jupiter:junit-jupiter-engine:${junitJupiterVersion}")
 
-dependencies {
-    compile("io.javaslang:javaslang:${javaSlangVersion}")
-    compile("io.javaslang:javaslang-match:${javaSlangVersion}")
-    compile("com.hazelcast:hazelcast:${hazelcastVersion}")
-    compile("com.hazelcast:hazelcast-client:${hazelcastVersion}")
-
-    testCompile("org.junit.platform:junit-platform-runner:${junitPlatformVersion}")
-    testCompile("org.junit.jupiter:junit-jupiter-api:${junitJupiterVersion}")
-    testCompile("org.junit.jupiter:junit-jupiter-engine:${junitJupiterVersion}")
-
-    testRuntime("org.junit.vintage:junit-vintage-engine:${junitVintageVersion}")
-    testRuntime("org.apache.logging.log4j:log4j-core:${log4jVersion}")
-    testRuntime("org.apache.logging.log4j:log4j-jul:${log4jVersion}")
+        testRuntime("org.junit.vintage:junit-vintage-engine:${junitVintageVersion}")
+        testRuntime("org.apache.logging.log4j:log4j-core:${log4jVersion}")
+        testRuntime("org.apache.logging.log4j:log4j-jul:${log4jVersion}")
+    }
 }
 
