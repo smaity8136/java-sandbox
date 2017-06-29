@@ -1,0 +1,138 @@
+allprojects {
+
+    apply plugin: "java"
+    apply plugin: "idea"
+    apply plugin: "maven"
+
+    group = "com.seedollar.java.sandbox.springcloud"
+    version = "1.0"
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    defaultTasks 'clean', 'build', 'install'
+
+    install.dependsOn ':build'
+}
+
+subprojects {
+
+    buildscript {
+        repositories {
+            maven { url 'http://repo.spring.io/libs-release' }
+            maven { url 'http://repo.spring.io/libs-milestone' }
+            maven { url 'http://repo.spring.io/libs-snapshot' }
+            jcenter { url 'http://jcenter.bintray.com/' }
+            mavenLocal()
+            maven { url 'http://fhlbuildl1:8081/artifactory/repo' }
+            mavenCentral()
+
+        }
+
+        dependencies {
+            classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootGradleVersion}")
+        }       
+    }
+
+    // ===========================================================================================================================================================================
+    //  Closure to specify local and remote repositories of module dependencies
+    // ===========================================================================================================================================================================
+    repositories {
+        maven { url 'http://repo.spring.io/libs-release' }
+        maven { url 'http://repo.spring.io/libs-milestone' }
+        maven { url 'http://repo.spring.io/libs-snapshot' }
+        jcenter { url 'http://jcenter.bintray.com/' }
+        mavenLocal()
+        maven { url 'http://fhlbuildl1:8081/artifactory/repo' }
+        mavenCentral()
+    }
+
+    // ===========================================================================================================================================================================
+    // Configure module source directories
+    // ===========================================================================================================================================================================
+    sourceSets {
+        main {
+            java {
+                srcDir file('src/main/java')
+            }
+            resources.srcDir file('src/main/resources')
+        }
+
+        test {
+            java {
+                srcDir file('src/test/java')
+            }
+            resources.srcDir file('src/test/resources')
+        }
+
+        integrationTest {
+            java {
+                compileClasspath += main.output + test.output
+                runtimeClasspath += main.output + test.output
+                srcDir file('src/integration-test/java')
+            }
+            resources.srcDir file('src/integration-test/resources')
+        }
+    }
+
+    // ===========================================================================================================================================================================
+    //  Closure to define common dependencies for all sub projects
+    // ===========================================================================================================================================================================
+    dependencies {
+        compile("org.apache.logging.log4j:log4j-core:${log4jVersion}")
+        compile("org.apache.logging.log4j:log4j-jul:${log4jVersion}")
+        compile("io.vavr:vavr:${vavrVersion}")
+
+        testCompile("org.junit.platform:${junitPlatformVersion}") 
+        testCompile("org.junit.jupiter:junit-jupiter-api:${junitJupiterVersion}")
+        testRuntime("org.junit.jupiter:junit-jupiter-engine:${junitJupiterVersion}")
+    }
+
+    // ===========================================================================================================================================================================
+    // Test closure to configure the testing JVM
+    // ===========================================================================================================================================================================
+    test {
+    }
+
+    // ===========================================================================================================================================================================
+    // uploadArchives closure to configure where to deploy our artifacts to a remote repository
+    // ===========================================================================================================================================================================
+    uploadArchives {
+        /** repositories.mavenDeployer {repository(url: 'http://remoteurl') {authentication(username: 'admin', password: 'password')}} */
+    }
+}
+
+/**
+ * This custom task will create a Java sub-module, passing in the module name and group name via the parameters
+ * e.g.: gradle createJavaModule -PmoduleName=<new module name>.
+ * You will still need to add an entry into the settings.gradle file for this module to be a sub-project.
+ */
+task createJavaModule << {
+    createJavaModule.description = 'createJavaModule -PmoduleName=<new module name>'
+
+    def moduleName = "$moduleName"
+    def moduleDirSrc = new File(moduleName + '/src/main/java')
+    def moduleDirSrcResources = new File(moduleName + '/src/main/resources')
+    def moduleDirTest = new File(moduleName + '/src/test/java')
+    def moduleDirTestResources = new File(moduleName + '/src/test/resources')
+    def moduleDirIntegrationTest = new File(moduleName + '/src/integration-test/java')
+    def moduleDirIntegrationTestResources = new File(moduleName + '/src/integration-test/resources')
+    moduleDirSrc.mkdirs();
+    moduleDirSrcResources.mkdirs();
+    moduleDirTest.mkdirs();
+    moduleDirTestResources.mkdirs();
+    moduleDirIntegrationTest.mkdirs();
+    moduleDirIntegrationTestResources.mkdirs();
+// Create the build.gradle file with defaults
+    def file = new File(moduleName + '/build.gradle')
+    file.createNewFile();
+    java.io.FileWriter writer = new FileWriter(file);
+    writer.write("apply plugin: 'spring-boot'")
+    writer.write("\n")
+    writer.write("\njar {")
+    writer.write("\n    archivesBaseName = '" + moduleName + "'")
+    writer.write("\n    version = '1.0.0-SNAPSHOT'")
+    writer.write("\n}")
+    writer.close()
+}
+

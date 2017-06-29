@@ -1,0 +1,5 @@
+rootProject.name = 'spring-cloud'
+
+include 'springcloud-stream-source'
+
+
