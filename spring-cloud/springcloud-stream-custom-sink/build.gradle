@@ -1,7 +1,7 @@
 apply plugin: 'spring-boot'
 
 jar {
-    archivesBaseName = 'springcloud-stream-custom-source'
+    archivesBaseName = 'springcloud-stream-custom-sink'
     version = '1.0.0-SNAPSHOT'
 }
 

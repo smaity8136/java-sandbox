@@ -7,3 +7,5 @@ The UUIDGenerator.java is the publisher which will utilize and enable the MyUUID
 This module will therefore publish messages to a Kafka topic called "uuidChannel" every 1 second.
 
 You can start the microservice by executing the following command: gradle bootRun
+
+Port offset to 8080 so that we can start the springcloud-steam-custom-sink microservice to show the full example.
