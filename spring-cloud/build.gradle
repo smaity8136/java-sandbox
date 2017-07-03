@@ -24,7 +24,7 @@ subprojects {
             maven { url 'http://repo.spring.io/libs-snapshot' }
             jcenter { url 'http://jcenter.bintray.com/' }
             mavenLocal()
-            maven { url 'http://fhlbuildl1:8081/artifactory/repo' }
+            maven { url 'http://internal.hl.fnb.co.za/artifactory/repo' }
             mavenCentral()
 
         }
@@ -43,7 +43,7 @@ subprojects {
         maven { url 'http://repo.spring.io/libs-snapshot' }
         jcenter { url 'http://jcenter.bintray.com/' }
         mavenLocal()
-        maven { url 'http://fhlbuildl1:8081/artifactory/repo' }
+        maven { url 'http://internal.hl.fnb.co.za/artifactory/repo' }
         mavenCentral()
     }
 
