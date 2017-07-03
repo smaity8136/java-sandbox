@@ -1,7 +1,7 @@
 rootProject.name = 'spring-cloud'
 
 include 'springcloud-stream-source'
-include 'springcloud-stream-custom-source'
 include 'springcloud-stream-sink'
+include 'springcloud-stream-custom-source'
 
 
