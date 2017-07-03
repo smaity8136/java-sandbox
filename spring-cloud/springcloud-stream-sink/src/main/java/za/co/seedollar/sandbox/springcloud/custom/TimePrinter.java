@@ -1,9 +1,8 @@
-package za.co.seedollar.sandbox.springcloud.component;
+package za.co.seedollar.sandbox.springcloud.custom;
 
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.messaging.Sink;
 import org.springframework.integration.annotation.ServiceActivator;
-import org.springframework.messaging.simp.annotation.SubscribeMapping;
 
 /**
  * Created by seedollar on 6/29/17.

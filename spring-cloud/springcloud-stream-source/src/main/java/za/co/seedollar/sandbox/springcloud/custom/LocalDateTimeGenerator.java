@@ -1,11 +1,9 @@
-package za.co.seedollar.sandbox.springcloud.component;
+package za.co.seedollar.sandbox.springcloud.custom;
 
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.messaging.Source;
 import org.springframework.integration.annotation.InboundChannelAdapter;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 /**
