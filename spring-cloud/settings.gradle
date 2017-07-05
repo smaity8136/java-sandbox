@@ -11,5 +11,4 @@ include 'springcloud-stream-multiple-binders'
 include 'springcloud-stream-consumer-groups'
 include 'springcloud-stream-errorchannel'
 include 'springcloud-stream-message-converter'
-
-
+include 'springcloud-stream-sendto'
