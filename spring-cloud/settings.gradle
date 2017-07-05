@@ -9,5 +9,6 @@ include 'springcloud-stream-custom-source'
 include 'springcloud-stream-custom-sink'
 include 'springcloud-stream-multiple-binders'
 include 'springcloud-stream-consumer-groups'
+include 'springcloud-stream-errorchannel'
 
 
