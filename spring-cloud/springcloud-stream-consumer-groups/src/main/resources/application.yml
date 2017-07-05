@@ -1,0 +1,12 @@
+spring:
+  cloud:
+    stream:
+      bindings:
+        numberSequenceChannel:
+          group: consumerGroup
+
+        input:
+          consumer:
+            partitioned: true
+
+      instanceCount: 2

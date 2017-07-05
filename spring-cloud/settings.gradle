@@ -1,11 +1,13 @@
 rootProject.name = 'spring-cloud'
 
 include 'springcloud-stream-source-timestamp'
+include 'springcloud-stream-source-numbersequence'
 include 'springcloud-stream-source'
 include 'springcloud-stream-sink'
 include 'springcloud-stream-custom-processor'
 include 'springcloud-stream-custom-source'
 include 'springcloud-stream-custom-sink'
 include 'springcloud-stream-multiple-binders'
+include 'springcloud-stream-consumer-groups'
 
 

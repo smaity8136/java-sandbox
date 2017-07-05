@@ -1,0 +1,16 @@
+apply plugin: 'spring-boot'
+
+jar {
+    archivesBaseName = 'springcloud-stream-consumer-groups'
+    version = '1.0.0-SNAPSHOT'
+}
+
+dependencies {
+    compile("org.springframework.cloud:spring-cloud-starter-stream-kafka:${springCloudStreamVersion}")
+}
+
+bootRun {
+    // support passing -Dsystem.property=value to bootRun task
+    systemProperties = System.properties
+}
+
