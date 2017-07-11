@@ -18,7 +18,7 @@ public class AssertExceptionsTest {
     @Test
     @DisplayName("Tests the expectThrows() method")
     void testExpectThrows() {
-        Exception expectedException = Assertions.expectThrows(IndexOutOfBoundsException.class, () -> {
+        Exception expectedException = Assertions.assertThrows(IndexOutOfBoundsException.class, () -> {
             "TestString".substring(-1);
         });
 
