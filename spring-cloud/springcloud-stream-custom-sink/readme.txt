@@ -2,7 +2,7 @@ This module will illustrate how we can create our own spring cloud custom "Sink"
 
 The MYUUIDConsumerSink.java class defines our custom sink and defines the channel name to be "uuidChannel".
 
-The MyGeneratorConsumer.java class will utilize and bind the MyUUIDConsumerSink to a Kafka topic and simple print the UUID to console.
+The MyUUIDConsumer.java class will utilize and bind the MyUUIDConsumerSink to a Kafka topic and simple print the UUID to console.
 
 You can start the microservice by executing the following command: gradle bootRun.
 

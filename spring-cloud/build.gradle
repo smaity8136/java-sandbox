@@ -85,9 +85,9 @@ subprojects {
         compile("org.springframework.cloud:spring-cloud-stream:${springCloudStreamVersion}")
         compile("com.google.guava:guava:${guavaVersion}")
 
-        testCompile("org.junit.platform:${junitPlatformVersion}") 
         testCompile("org.junit.jupiter:junit-jupiter-api:${junitJupiterVersion}")
         testRuntime("org.junit.jupiter:junit-jupiter-engine:${junitJupiterVersion}")
+        testRuntime("org.junit.platform:junit-platform-gradle-plugin:${junitPlatformVersion}")
     }
 
     // ===========================================================================================================================================================================
@@ -129,7 +129,7 @@ task createJavaModule << {
     def file = new File(moduleName + '/build.gradle')
     file.createNewFile();
     java.io.FileWriter writer = new FileWriter(file);
-    writer.write("apply plugin: 'spring-boot'")
+    writer.write("apply plugin: 'org.springframework.boot'")
     writer.write("\n")
     writer.write("\njar {")
     writer.write("\n    archivesBaseName = '" + moduleName + "'")
