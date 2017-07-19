@@ -4,3 +4,9 @@ The module uses RabbitMQ, so a temporary, exclusive queue will automatically be 
 
 The use-case will process colours (String values) and based on certain colours we map them to different method invocations with the @StreamListener annotation.
 
+This module depends on the 'springcloud-stream-source-color' module to publish color messages to the 'colorChannel' exchange.
+
+This module is explicitly offset to port 8081
+
+To start this microservice, execute: gradle bootRun
+
