@@ -4,3 +4,9 @@ jar {
     archivesBaseName = 'springcloud-stream-aggregation-builder'
     version = '1.0.0-SNAPSHOT'
 }
+
+dependencies {
+    compile project(':springcloud-stream-aggregation-source')
+    compile project(':springcloud-stream-aggregation-processor')
+    compile project(':springcloud-stream-aggregation-sink')
+}

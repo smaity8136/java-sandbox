@@ -4,3 +4,7 @@ jar {
     archivesBaseName = 'springcloud-stream-aggregation-processor'
     version = '1.0.0-SNAPSHOT'
 }
+
+dependencies {
+    compile("org.springframework.cloud:spring-cloud-starter-stream-kafka:${springCloudStreamVersion}")
+}
