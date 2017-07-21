@@ -13,6 +13,9 @@ import org.springframework.cloud.stream.aggregate.AggregateApplicationBuilder;
 public class SpringCloudStreamAggregationBuilderApplication {
 
     public static void main(String[] args) {
-        new AggregateApplicationBuilder().from(SpringCloudStreamAggregationSourceApplication.class).via(SpringCloudStreamAggregationProcessorApplication.class).to(SpringCloudStreamAggregationSinkApplication.class).args("--debug=true").run(args);
+        new AggregateApplicationBuilder()
+                .from(SpringCloudStreamAggregationSourceApplication.class).namespace("source").args("--fixedDelay=4000")
+                .via(SpringCloudStreamAggregationProcessorApplication.class)
+                .to(SpringCloudStreamAggregationSinkApplication.class).namespace("summary").run(args);
     }
 }

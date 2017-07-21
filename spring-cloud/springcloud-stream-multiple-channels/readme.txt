@@ -1,4 +1,4 @@
-This module will give an illustration of how you can have multiple binders in the same Spring Cloud Stream interface. In this example, we define a Judge.java interface which
+This module will give an illustration of how you can have multiple channel bindings in the same Spring Cloud Stream interface. In this example, we define a Judge.java interface which
 has 3 bindings:
 
 1) An @Input to a channel called: "sentenceChannel"

@@ -7,9 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * Created by seedollar on 7/3/17.
  */
 @SpringBootApplication
-public class SpringCloudStreamMultipleBindersApplication {
+public class SpringCloudStreamMultipleChannelsApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringCloudStreamMultipleBindersApplication.class, args);
+        SpringApplication.run(SpringCloudStreamMultipleChannelsApplication.class, args);
     }
 }

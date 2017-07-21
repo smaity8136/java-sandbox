@@ -1,7 +1,7 @@
 apply plugin: 'org.springframework.boot'
 
 jar {
-    archivesBaseName = 'springcloud-stream-multiple-binders'
+    archivesBaseName = 'springcloud-stream-multiple-channels'
     version = '1.0.0-SNAPSHOT'
 }
 
