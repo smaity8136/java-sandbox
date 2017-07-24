@@ -1,11 +1,11 @@
-package za.co.seedollar.sandbox.junit5.extension;
+package com.seedollar.sandbox.junit5.extension;
 
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.ParameterContext;
 import org.junit.jupiter.api.extension.ParameterResolutionException;
 import org.junit.jupiter.api.extension.ParameterResolver;
-import za.co.seedollar.sandbox.junit5.domain.BMW;
-import za.co.seedollar.sandbox.junit5.domain.X5;
+import com.seedollar.sandbox.junit5.domain.BMW;
+import com.seedollar.sandbox.junit5.domain.X5;
 
 /**
  * Created by seedollar on 7/11/17.

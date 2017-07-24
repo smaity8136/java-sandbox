@@ -1,4 +1,4 @@
-package za.co.seedollar.java.email.templating;
+package com.seedollar.java.email.templating;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

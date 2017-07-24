@@ -1,4 +1,4 @@
-package za.co.seedollar.java.email.templating.domain;
+package com.seedollar.java.email.templating.domain;
 
 /**
  * Created by seedollar on 5/4/16.

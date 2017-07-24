@@ -1,4 +1,4 @@
-package za.co.seedollar.sandbox.junit5.exception;
+package com.seedollar.sandbox.junit5.exception;
 
 /**
  * Created by seedollar on 7/12/17.

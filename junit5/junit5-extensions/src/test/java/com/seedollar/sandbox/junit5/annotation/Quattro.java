@@ -1,4 +1,4 @@
-package za.co.seedollar.sandbox.junit5.annotation;
+package com.seedollar.sandbox.junit5.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

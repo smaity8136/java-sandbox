@@ -1,8 +1,8 @@
-package za.co.seedollar.sandbox.junit5.extension;
+package com.seedollar.sandbox.junit5.extension;
 
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.TestInstancePostProcessor;
-import za.co.seedollar.sandbox.junit5.TestInstancePostProcessorExtensionTest;
+import com.seedollar.sandbox.junit5.TestInstancePostProcessorExtensionTest;
 
 /**
  * Created by seedollar on 7/11/17.

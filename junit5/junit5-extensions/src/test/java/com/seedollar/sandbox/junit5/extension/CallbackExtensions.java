@@ -1,4 +1,4 @@
-package za.co.seedollar.sandbox.junit5.extension;
+package com.seedollar.sandbox.junit5.extension;
 
 import org.junit.jupiter.api.extension.*;
 

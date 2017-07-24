@@ -1,8 +1,8 @@
-package za.co.seedollar.sandbox.junit5.extension;
+package com.seedollar.sandbox.junit5.extension;
 
 import org.junit.jupiter.api.extension.TestExecutionExceptionHandler;
 import org.junit.jupiter.api.extension.TestExtensionContext;
-import za.co.seedollar.sandbox.junit5.exception.CustomTestException;
+import com.seedollar.sandbox.junit5.exception.CustomTestException;
 
 /**
  * Created by seedollar on 7/12/17.

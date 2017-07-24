@@ -1,4 +1,4 @@
-package za.co.seedollar.java.email.templating.configuration;
+package com.seedollar.java.email.templating.configuration;
 
 import com.icegreen.greenmail.util.GreenMail;
 import com.icegreen.greenmail.util.ServerSetupTest;

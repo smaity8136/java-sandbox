@@ -1,4 +1,4 @@
-package za.co.seedollar.java.email.templating.service.impl;
+package com.seedollar.java.email.templating.service.impl;
 
 import org.apache.velocity.app.VelocityEngine;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,8 +7,8 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.velocity.VelocityEngineUtils;
-import za.co.seedollar.java.email.templating.domain.User;
-import za.co.seedollar.java.email.templating.service.RegistrationService;
+import com.seedollar.java.email.templating.domain.User;
+import com.seedollar.java.email.templating.service.RegistrationService;
 
 import javax.mail.internet.MimeMessage;
 import java.util.HashMap;

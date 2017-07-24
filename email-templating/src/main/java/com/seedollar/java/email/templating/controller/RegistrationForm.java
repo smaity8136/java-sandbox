@@ -1,4 +1,4 @@
-package za.co.seedollar.java.email.templating.controller;
+package com.seedollar.java.email.templating.controller;
 
 /**
  * Created by seedollar on 5/4/16.
