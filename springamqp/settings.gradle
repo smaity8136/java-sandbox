@@ -2,3 +2,4 @@ rootProject.name = 'springamqp'
 
 include 'rpc'
 include 'test-harness'
+include 'json-message-converter'
