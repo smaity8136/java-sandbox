@@ -1,0 +1,3 @@
+rootProject.name = 'ocr'
+
+include 'tess4j'
