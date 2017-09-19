@@ -1,0 +1,15 @@
+apply plugin: 'org.springframework.boot'
+
+jar {
+    archivesBaseName = 'conditional-beans'
+    version = '1.0.0-SNAPSHOT'
+}
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter:${springBootVersion}")
+}
+
+// Magic config to pass JVM arguments using gradle bootRun
+bootRun {
+   systemProperties System.properties 
+}
