@@ -2,3 +2,4 @@ rootProject.name = 'spring-core'
 
 include 'bean-lifecycle'
 include 'embedded-database-builder'
+include 'spring-profiles'

@@ -1,0 +1,19 @@
+apply plugin: 'org.springframework.boot'
+
+jar {
+    archivesBaseName = 'spring-profiles'
+    version = '1.0.0-SNAPSHOT'
+}
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter:${springBootVersion}")
+    testCompile("org.junit.platform:junit-platform-runner:1.0.0-M5") //Added this for IntelliJ 2.2016 Community so we can use "@RunWith(JunitPlatform.class)"
+    testCompile("org.junit.jupiter:junit-jupiter-api:${junitJupiterVersion}")
+    testRuntime("org.junit.jupiter:junit-jupiter-engine:${junitJupiterVersion}")
+    testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
+}
+
+// Magic to get JVM arguments to work with bootRun
+bootRun {
+    systemProperties System.properties
+}
