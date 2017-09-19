@@ -1,0 +1,71 @@
+buildscript {
+    repositories {
+        maven { url 'http://internal.hl.fnb.co.za/artifactory/repo' }
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.junit.platform:junit-platform-gradle-plugin:${junitPlatformVersion}")
+    }
+}
+
+repositories {
+    maven { url 'https://jitpack.io'}
+    maven { url 'http://internal.hl.fnb.co.za/artifactory/repo' }
+    mavenCentral()
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'org.junit.platform.gradle.plugin'
+
+jar {
+    baseName = 'junit5-spring4'
+    version = '1.0.0-SNAPSHOT'
+}
+
+compileTestJava {
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+    options.compilerArgs += '-parameters'
+}
+
+junitPlatform {
+     platformVersion '1.0.0'
+    filters {
+        engines {
+            // include 'junit-jupiter', 'junit-vintage'
+            // exclude 'custom-engine'
+        }
+        tags {
+//            include 'tagged' // If you enable this, it will only execute the tests tagged with "tagged"
+            exclude 'slow'
+        }
+        // includeClassNamePattern '.*Test'
+    }
+    // enableStandardTestTask true
+    // reportsDir file('build/test-results/junit-platform') // this is the default
+    logManager 'org.apache.logging.log4j.jul.LogManager'
+}
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
+    compile("io.vavr:vavr:${vavrVersion}")
+    compile("io.vavr:vavr-match:${vavrVersion}")
+
+    testCompile('com.github.sbrannen:spring-test-junit5:1.0.0')
+    testCompile("org.junit.platform:junit-platform-runner:${junitPlatformVersion}") //Added this for IntelliJ 2.2016 Community so we can use "@RunWith(JunitPlatform.class)"
+    testCompile("org.junit.jupiter:junit-jupiter-api:${junitJupiterVersion}")
+    testRuntime("org.junit.jupiter:junit-jupiter-engine:${junitJupiterVersion}")
+
+    // If you also want to support JUnit 3 and JUnit 4 tests
+//    testCompile("junit:junit:${junit4Version}")
+//    testRuntime("org.junit.vintage:junit-vintage-engine:${junitVintageVersion}")
+
+    testRuntime("org.apache.logging.log4j:log4j-core:${log4jVersion}")
+    testRuntime("org.apache.logging.log4j:log4j-jul:${log4jVersion}")
+}
+
+task wrapper(type: Wrapper) {
+    description = 'Generates gradlew[.bat] scripts'
+    gradleVersion = '3.0'
+}
