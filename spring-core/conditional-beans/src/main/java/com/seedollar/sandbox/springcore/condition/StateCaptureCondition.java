@@ -7,6 +7,9 @@ import org.springframework.core.type.AnnotatedTypeMetadata;
 public class StateCaptureCondition implements Condition {
     @Override
     public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
-        return context.getEnvironment().containsProperty("capture");
+        if (context.getEnvironment().acceptsProfiles("gupta")) {
+            return context.getEnvironment().containsProperty("capture");
+        }
+        return false;
     }
 }
