@@ -9,7 +9,6 @@ buildscript {
 }
 
 repositories {
-    maven { url 'https://jitpack.io'}
     maven { url 'http://internal.hl.fnb.co.za/artifactory/repo' }
     mavenCentral()
 }
@@ -19,7 +18,7 @@ apply plugin: 'idea'
 apply plugin: 'org.junit.platform.gradle.plugin'
 
 jar {
-    baseName = 'junit5-spring4'
+    baseName = 'junit5-spring5'
     version = '1.0.0-SNAPSHOT'
 }
 
@@ -52,7 +51,6 @@ dependencies {
     compile("io.vavr:vavr:${vavrVersion}")
     compile("io.vavr:vavr-match:${vavrVersion}")
 
-    testCompile('com.github.sbrannen:spring-test-junit5:1.0.0')
     testCompile("org.junit.platform:junit-platform-runner:${junitPlatformVersion}") //Added this for IntelliJ 2.2016 Community so we can use "@RunWith(JunitPlatform.class)"
     testCompile("org.junit.jupiter:junit-jupiter-api:${junitJupiterVersion}")
     testRuntime("org.junit.jupiter:junit-jupiter-engine:${junitJupiterVersion}")

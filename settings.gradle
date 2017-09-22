@@ -17,4 +17,4 @@ include 'springamqp:test-harness'
 //================================================================
 // Spymemcached module
 //================================================================
-include 'spymemcached'
+//include 'spymemcached'
