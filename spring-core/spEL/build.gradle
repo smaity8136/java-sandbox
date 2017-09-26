@@ -1,0 +1,14 @@
+apply plugin: 'org.springframework.boot'
+
+jar {
+    archivesBaseName = 'spEL'
+    version = '1.0.0-SNAPSHOT'
+}
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter:${springBootVersion}")
+}
+
+bootRun {
+    systemProperties System.properties
+}
