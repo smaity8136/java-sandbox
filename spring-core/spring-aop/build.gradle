@@ -1,0 +1,14 @@
+apply plugin: 'org.springframework.boot'
+
+jar {
+    archivesBaseName = 'spring-aop'
+    version = '1.0.0-SNAPSHOT'
+}
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-aop:${springBootVersion}")
+}
+
+bootRun {
+    systemProperties = System.properties
+}
