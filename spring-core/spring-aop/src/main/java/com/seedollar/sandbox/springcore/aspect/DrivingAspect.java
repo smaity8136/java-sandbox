@@ -37,7 +37,8 @@ public class DrivingAspect {
 
     // Declare pointcut
     @Pointcut("execution(* com.seedollar.sandbox.springcore.domain.Car.reverse(..))")
-    public void reverse() {}
+    public void reverse() {
+    }
 
     @Around("reverse()")
     public void duringReverse(ProceedingJoinPoint proceedingJoinPoint) {
@@ -50,8 +51,9 @@ public class DrivingAspect {
             System.out.println("[AFTER] REVERSING - Press brake pedal");
             System.out.println("[AFTER] REVERSING - Pull handbrake up");
             System.out.println("[AFTER] REVERSING - Put into Park mode");
+            System.out.println("[AFTER] REVERSING - Press 'START' Button to turn off engine");
         } catch (Throwable throwable) {
-            throwable.printStackTrace();
+            System.out.println("[AFTER THROWING] REVERSING - Put hazard lights on");
         }
     }
 
