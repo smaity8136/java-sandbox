@@ -1,4 +1,4 @@
-package com.seedollar.sandbox.springcore.controller;
+package com.seedollar.sandbox.springcore.web.controller;
 
 import com.seedollar.sandbox.springcore.domain.Judge;
 import com.seedollar.sandbox.springcore.domain.MP;
@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/regional")
-public class RegionalController {
+@RequestMapping("/parliament")
+public class ParliamentController {
 
     private President president;
 
@@ -24,7 +24,7 @@ public class RegionalController {
     @Autowired
     private Judge judge;
 
-    public RegionalController(President president) {
+    public ParliamentController(President president) {
         this.president = president;
     }
 
@@ -47,5 +47,4 @@ public class RegionalController {
     public String judge() {
         return judge.getIdentifier();
     }
-
 }
