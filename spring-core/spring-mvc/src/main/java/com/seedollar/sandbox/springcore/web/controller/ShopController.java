@@ -17,7 +17,7 @@ public class ShopController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public String shop(Model model) {
+    public String showEntireInventory(Model model) {
         model.addAttribute("inventory", shopService.getEntireInventory());
         return "shop/landing";
     }
