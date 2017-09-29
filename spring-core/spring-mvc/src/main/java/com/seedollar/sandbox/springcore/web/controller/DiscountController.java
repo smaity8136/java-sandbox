@@ -8,20 +8,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequestMapping("/shop")
-public class ShopController {
+public class DiscountController {
 
     private ShopService shopService;
 
-    public ShopController(ShopService shopService) {
+    public DiscountController(ShopService shopService) {
         this.shopService = shopService;
     }
 
-    @RequestMapping(method = RequestMethod.GET)
-    public String showEntireInventory(Model model) {
-        model.addAttribute("inventory", shopService.getEntireInventory());
-        return "shop/landing";
+    @RequestMapping(value = "/discounts", method = RequestMethod.GET)
+    public String showDiscounted(@RequestParam("amount") Float amount, Model model) {
+        model.addAttribute("discountedItems", shopService.getDiscounted(amount));
+        return "shop/discounted";
     }
-
-
 }

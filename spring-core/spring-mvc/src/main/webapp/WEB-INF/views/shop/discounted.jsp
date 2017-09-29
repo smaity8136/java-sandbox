@@ -8,7 +8,7 @@ type="text/css"
 href="<c:url value="/resources/style.css" />" >
 </head>
 <body>
-<h1>MOB SHOP - OPEN FOR BUSINESS</h1>
+<h1>MOB SHOP - DISCOUNTED ITEMS</h1>
 
 <table>
     <tr>
@@ -20,7 +20,7 @@ href="<c:url value="/resources/style.css" />" >
         <th>In Stock</th>
     </tr>
 
-<c:forEach items="${inventory}" var="item" >
+<c:forEach items="${discountedItems}" var="item" >
     <tr>
         <td><a href="<c:url value="/shop/view-item?itemId=1" />"><c:out value="${item.id}"/></a></td>
         <td><c:out value="${item.name}"/></td>

@@ -20,4 +20,9 @@ public class ShopServiceImpl implements ShopService {
     public List<Weapon> getEntireInventory() {
         return weaponRepository.getAll();
     }
+
+    @Override
+    public List<Weapon> getDiscounted(Float amount) {
+        return weaponRepository.getDiscounted(amount);
+    }
 }

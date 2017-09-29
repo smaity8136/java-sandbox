@@ -7,4 +7,6 @@ import java.util.List;
 public interface ShopService {
 
     List<Weapon> getEntireInventory();
+
+    List<Weapon> getDiscounted(Float amount);
 }
