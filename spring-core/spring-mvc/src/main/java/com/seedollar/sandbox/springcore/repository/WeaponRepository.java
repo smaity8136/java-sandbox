@@ -22,12 +22,12 @@ public class WeaponRepository {
     public List<Weapon> getAll() {
         return jdbcTemplate.query("SELECT id, name, description, damage_indicator, price, in_stock from weapon", (rs, rowNum) -> {
             Weapon weapon = new Weapon();
-            weapon.setId(rs.getLong(0));
-            weapon.setName(rs.getString(1));
-            weapon.setDescription(rs.getString(2));
-            weapon.setDamageIndicator(rs.getInt(3));
-            weapon.setPrice(rs.getFloat(4));
-            weapon.setInStock(rs.getBoolean(5));
+            weapon.setId(rs.getLong(1));
+            weapon.setName(rs.getString(2));
+            weapon.setDescription(rs.getString(3));
+            weapon.setDamageIndicator(rs.getInt(4));
+            weapon.setPrice(rs.getFloat(5));
+            weapon.setInStock(rs.getBoolean(6));
             return weapon;
         });
     }

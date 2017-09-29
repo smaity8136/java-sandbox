@@ -1,4 +1,4 @@
-apply plugin: 'org.akhikhl.gretty'
+apply plugin: 'java'
 apply plugin: 'war'
 
 sourceCompatibility = 1.8
@@ -10,17 +10,13 @@ jar {
 }
 
 dependencies {
+    compile("javax.servlet:javax.servlet-api:${servletApiVersion}");
     compile("org.springframework:spring-web:${springVersion}")
     compile("org.springframework:spring-webmvc:${springVersion}")
     compile("org.springframework:spring-jdbc:${springVersion}")
     compile("org.hsqldb:hsqldb:${hsqldbVersion}")
     testCompile("junit:junit:${junitVersion}")
+    testCompile("org.mockito:mockito-core:${mockitoVersion}")
     testCompile("org.springframework:spring-test:${springVersion}")
 }
-
-gretty {
-    contextPath = 'mobshop'
-    servletContainer = 'jetty9'
-}
-
 

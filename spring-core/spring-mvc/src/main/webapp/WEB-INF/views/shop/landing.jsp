@@ -22,15 +22,19 @@ href="<c:url value="/resources/style.css" />" >
 
 <c:forEach items="${inventory}" var="item" >
     <tr>
-        <td><c:out value="item.id"/></td>
-        <td><c:out value="item.name"/></td>
-        <td><c:out value="item.description"/></td>
-        <td><c:out value="item.damageIndicator"/></td>
-        <td><c:out value="item.price"/></td>
-        <td><c:out value="item.inStock"/></td>
+        <td><c:out value="${item.id}"/></td>
+        <td><c:out value="${item.name}"/></td>
+        <td><c:out value="${item.description}"/></td>
+        <td><c:out value="${item.damageIndicator}"/></td>
+        <td><c:out value="${item.price}"/></td>
+        <td><c:out value="${item.inStock}"/></td>
     </tr>
 
 </c:forEach>
+</table>
+
+<br/>
+<a href="<c:url value="/" />">Home</a>
 
 </body>
 </html>
