@@ -1,5 +1,6 @@
 package com.seedollar.sandbox.springcore.web.controller;
 
+import com.google.common.collect.Lists;
 import com.seedollar.sandbox.springcore.domain.Weapon;
 import com.seedollar.sandbox.springcore.service.ShopService;
 import io.vavr.Function6;
@@ -17,7 +18,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import static org.hamcrest.CoreMatchers.hasItems;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
@@ -59,5 +60,45 @@ public class ShopControllerTest {
                 .andExpect(view().name("shop/landing"))
                 .andExpect(model().attributeExists("inventory"))
                 .andExpect(model().attribute("inventory", hasItems(mockWeapons.toArray())));
+    }
+
+    @Test
+    public void testShowDiscountedInventory() throws Exception {
+        List<Weapon> discountedWeapons = Lists.newArrayList(
+                createMockWeaponFunction.apply(1l, "weapon1", "description1", 1, 1000f, true),
+                createMockWeaponFunction.apply(2l, "weapon2", "description2", 1, 1100f, true),
+                createMockWeaponFunction.apply(3l, "weapon3", "description3", 4, 2000f, false),
+                createMockWeaponFunction.apply(4l, "weapon4", "description4", 1, 1470f, true),
+                createMockWeaponFunction.apply(5l, "weapon5", "description5", 3, 1600f, false),
+                createMockWeaponFunction.apply(6l, "weapon6", "description6", 5, 640f, true),
+                createMockWeaponFunction.apply(7l, "weapon7", "description7", 1, 400f, true)
+        );
+
+        when(shopService.getDiscounted(any())).thenReturn(discountedWeapons);
+
+        ShopController shopController = new ShopController(shopService);
+
+        MockMvc mockMvc = MockMvcBuilders.standaloneSetup(shopController).setSingleView(new InternalResourceView("/WEB-INF/view/shop/discounted.jsp")).build();
+
+        mockMvc.perform(get("/shop/discounts?amount=866"))
+                .andExpect(view().name("shop/discounted"))
+                .andExpect(model().attributeExists("discountedItems"))
+                .andExpect(model().attribute("discountedItems", hasItems(discountedWeapons.toArray())));
+    }
+
+    @Test
+    public void testViewItem() throws Exception {
+        Weapon targetWeapon = createMockWeaponFunction.apply(943l, "Silencer", "Whisper Slaughter", 2, 1600F, true);
+
+        when(shopService.getItemForId(any())).thenReturn(targetWeapon);
+
+        ShopController shopController = new ShopController(shopService);
+
+        MockMvc mockMvc = MockMvcBuilders.standaloneSetup(shopController).build();
+
+        mockMvc.perform(get("/shop/view/943"))
+                .andExpect(view().name("shop/item"))
+                .andExpect(model().attributeExists("targetItem"))
+                .andExpect(model().attribute("targetItem", targetWeapon));
     }
 }

@@ -21,3 +21,4 @@ INSERT INTO weapon (id, name, description, damage_indicator, price, in_stock) VA
 INSERT INTO weapon (id, name, description, damage_indicator, price, in_stock) VALUES(3, 'AK 47', 'Never jams', 3, 2480.40, true);
 INSERT INTO weapon (id, name, description, damage_indicator, price, in_stock) VALUES(4, 'Chainsaw', 'Cut his head off!', 5, 3790.56, false);
 INSERT INTO weapon (id, name, description, damage_indicator, price, in_stock) VALUES(5, 'Desert Eagle', 'Put some holes in em', 2, 1799.00, true);
+INSERT INTO weapon (id, name, description, damage_indicator, price, in_stock) VALUES(6, 'Grenade', 'Torso Ripper', 4, 700.00, false);

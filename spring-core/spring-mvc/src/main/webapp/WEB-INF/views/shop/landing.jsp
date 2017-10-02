@@ -22,7 +22,7 @@ href="<c:url value="/resources/style.css" />" >
 
 <c:forEach items="${inventory}" var="item" >
     <tr>
-        <td><a href="<c:url value="/shop/view-item?itemId=1" />"><c:out value="${item.id}"/></a></td>
+        <td><a href="<c:url value="/shop/view/" /><c:out value="${item.id}"/>"><c:out value="${item.id}"/></td>
         <td><c:out value="${item.name}"/></td>
         <td><c:out value="${item.description}"/></td>
         <td><c:out value="${item.damageIndicator}"/></td>
