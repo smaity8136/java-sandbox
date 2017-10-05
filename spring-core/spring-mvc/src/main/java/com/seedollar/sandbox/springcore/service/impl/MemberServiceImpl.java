@@ -23,4 +23,9 @@ public class MemberServiceImpl implements MemberService {
     public boolean deleteMember(Long memberId) {
         return memberRepository.remove(memberId);
     }
+
+    @Override
+    public Member findMemberByUserName(String username) {
+        return memberRepository.findByUsername(username);
+    }
 }

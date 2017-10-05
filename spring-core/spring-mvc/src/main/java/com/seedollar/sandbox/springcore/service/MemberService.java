@@ -8,5 +8,7 @@ public interface MemberService {
 
     boolean deleteMember(Long memberId);
 
+    Member findMemberByUserName(String username);
+
 
 }

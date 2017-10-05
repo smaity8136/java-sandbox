@@ -18,7 +18,8 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import static org.hamcrest.CoreMatchers.hasItems;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
@@ -100,5 +101,23 @@ public class ShopControllerTest {
                 .andExpect(view().name("shop/item"))
                 .andExpect(model().attributeExists("targetItem"))
                 .andExpect(model().attribute("targetItem", targetWeapon));
+    }
+
+    @Test
+    public void testInStockItems() throws Exception {
+        List<Weapon> inStockWeapons = IntStream.range(1, 5).mapToObj(val ->
+                createMockWeaponFunction.apply(new Long(val), "weapon" + val, "description" + val, val, new Float(val * 2), true)
+        ).collect(Collectors.toList());
+
+        when(shopService.getInStock(true)).thenReturn(inStockWeapons);
+
+        ShopController shopController = new ShopController(shopService);
+
+        MockMvc mockMvc = MockMvcBuilders.standaloneSetup(shopController).build();
+        mockMvc.perform(get("/shop/stocks/true"))
+                .andExpect(view().name("shop/stock"))
+                .andExpect(model().attributeExists("stockItems"))
+                .andExpect(model().attribute("stockItems", hasItems(inStockWeapons.toArray())));
+
     }
 }

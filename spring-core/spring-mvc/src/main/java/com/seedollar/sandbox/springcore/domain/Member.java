@@ -1,6 +1,7 @@
 package com.seedollar.sandbox.springcore.domain;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 public class Member {
 
@@ -12,7 +13,7 @@ public class Member {
 
     private String email;
 
-    private LocalDateTime registrationDate;
+    private Date registrationDate;
 
     private boolean active;
 
@@ -48,11 +49,11 @@ public class Member {
         this.email = email;
     }
 
-    public LocalDateTime getRegistrationDate() {
+    public Date getRegistrationDate() {
         return registrationDate;
     }
 
-    public void setRegistrationDate(LocalDateTime registrationDate) {
+    public void setRegistrationDate(Date registrationDate) {
         this.registrationDate = registrationDate;
     }
 

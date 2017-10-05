@@ -16,5 +16,5 @@ The life of a HTTP request using Spring MVC can be summed up in the following 7 
 
 If your Spring Web Configuration (WebMvcConfigurerAdapter) does specify a view resolver, the default implementation is the BeanNameViewResolver.
 
-
+You can also use apply Validation to your domain entity beans and get Spring MVC to implicitly execute validation on required annotations from the Java Validaton API.
 

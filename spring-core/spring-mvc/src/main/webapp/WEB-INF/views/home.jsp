@@ -13,6 +13,6 @@ href="<c:url value="/resources/style.css" />" >
 <a href="<c:url value="/shop/discounts?amount=2000" />">Discounts</a> |
 <a href="<c:url value="/shop/stocks/true" />">In-Stock</a> |
 <a href="<c:url value="/shop/stocks/false" />">Out-Stock</a> |
-<a href="<c:url value="/member/register" />">Register</a>
+<a href="<c:url value="/member/registration" />">Register</a>
 </body>
 </html>
