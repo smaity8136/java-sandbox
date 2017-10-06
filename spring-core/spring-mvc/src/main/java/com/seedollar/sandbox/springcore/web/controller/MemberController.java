@@ -4,10 +4,14 @@ import com.seedollar.sandbox.springcore.domain.Member;
 import com.seedollar.sandbox.springcore.service.MemberService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/member")
@@ -21,12 +25,16 @@ public class MemberController {
 
 
     @RequestMapping(path = "/registration", method = RequestMethod.GET)
-    public String showRegistrationForm() {
+    public String showRegistrationForm(Model model) {
+        model.addAttribute("regForm", new Member());
         return "member/register";
     }
 
     @RequestMapping(path = "/register", method = RequestMethod.POST)
-    public String registration(Member member) {
+    public String registration(@Valid @ModelAttribute("regForm") Member member, Errors errors) {
+        if (errors.hasErrors()) {
+            return "member/register";
+        }
         memberService.addMember(member);
         return "redirect:/member/profile/" + member.getUsername();
     }

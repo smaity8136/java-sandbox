@@ -15,6 +15,7 @@ dependencies {
     compile("org.springframework:spring-webmvc:${springVersion}")
     compile("org.springframework:spring-jdbc:${springVersion}")
     compile("org.hsqldb:hsqldb:${hsqldbVersion}")
+    compile("javax.validation:validation-api:${javaBeanValidationVersion}")
     testCompile("junit:junit:${junitVersion}")
     testCompile("org.mockito:mockito-core:${mockitoVersion}")
     testCompile("org.springframework:spring-test:${springVersion}")
