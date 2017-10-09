@@ -18,3 +18,20 @@ If your Spring Web Configuration (WebMvcConfigurerAdapter) does specify a view r
 
 You can also use apply Validation to your domain entity beans and get Spring MVC to implicitly execute validation on required annotations from the Java Validaton API.
 
+To build and package the example, execute the following command: gradle clean build
+
+Then deploy the war file to a application container (JBOSS, Tomcat etc). The following request handlers are mapped:
+
+HOME: http://localhost:8080/mobshop/
+
+List view: http://localhost:8080/mobshop/shop
+
+@PathVariable: http://localhost:8080/mobshop/shop/view/1
+
+@RequestParam: http://localhost:9080/mobshop/shop/discounts?amount=2000
+
+@Valid @ModelAttriubte: http://localhost:9080/mobshop/member/registration
+
+
+
+
