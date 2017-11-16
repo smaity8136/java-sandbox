@@ -1,0 +1,5 @@
+rootProject.name = 'algorithms'
+
+include 'sequential-search'
+include 'binary-search'
+include 'bubblesort'
