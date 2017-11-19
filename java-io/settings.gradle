@@ -1,3 +1,5 @@
 rootProject.name = 'java-io'
 
 include 'stdin-read'
+include 'file-read'
+include 'csv-file-read'
