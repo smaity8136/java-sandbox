@@ -29,5 +29,4 @@ public class SpringCloudStreamMultipleBindersDefaultInputOutputApplication {
         SpringApplication.run(SpringCloudStreamMultipleBindersDefaultInputOutputApplication.class, args);
     }
 
-    @InboundChannelAdapter(channel = )
 }

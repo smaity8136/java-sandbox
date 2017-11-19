@@ -7,5 +7,37 @@ jar {
 
 dependencies {
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb'
-    test group: 'de.flapdoodle.embed', name: 'de.flapdoodle.embed.mongo', version: "$embedMongoVersion"
+//    test group: 'de.flapdoodle.embed', name: 'de.flapdoodle.embed.mongo', version: "$embedMongoVersion"
+}/**
+ * This custom task will create a Java sub-module, passing in the module name and group name via the parameters
+ * e.g.: gradle createJavaModule -PmoduleName=<new module name>.
+ * You will still need to add an entry into the settings.gradle file for this module to be a sub-project.
+ */
+task createJavaModule << {
+    createJavaModule.description = 'createJavaModule -PmoduleName=<new module name>'
+
+    def moduleName = "$moduleName"
+    def moduleDirSrc = new File(moduleName + '/src/main/java')
+    def moduleDirSrcResources = new File(moduleName + '/src/main/resources')
+    def moduleDirTest = new File(moduleName + '/src/test/java')
+    def moduleDirTestResources = new File(moduleName + '/src/test/resources')
+    def moduleDirIntegrationTest = new File(moduleName + '/src/integration-test/java')
+    def moduleDirIntegrationTestResources = new File(moduleName + '/src/integration-test/resources')
+    moduleDirSrc.mkdirs();
+    moduleDirSrcResources.mkdirs();
+    moduleDirTest.mkdirs();
+    moduleDirTestResources.mkdirs();
+    moduleDirIntegrationTest.mkdirs();
+    moduleDirIntegrationTestResources.mkdirs();
+// Create the build.gradle file with defaults
+    def file = new File(moduleName + '/build.gradle')
+    file.createNewFile();
+    java.io.FileWriter writer = new FileWriter(file);
+    writer.write("apply plugin: 'spring-boot'")
+    writer.write("\n")
+    writer.write("\njar {")
+    writer.write("\n    archivesBaseName = '" + moduleName + "'")
+    writer.write("\n    version = '1.0.0-SNAPSHOT'")
+    writer.write("\n}")
+    writer.close()
 }
