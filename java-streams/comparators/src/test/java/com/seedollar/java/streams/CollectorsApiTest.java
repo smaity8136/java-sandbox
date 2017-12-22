@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import java.util.*;
 import java.util.function.BinaryOperator;
 import java.util.stream.Collectors;
-import java.util.stream.DoubleStream;
 
 public class CollectorsApiTest {
 
@@ -52,7 +51,7 @@ public class CollectorsApiTest {
         Set<Double> discountedAmounts = prices.stream().collect(
                 Collectors.mapping(p -> p.getActualPrice() * p.getDiscountRate() / 100, Collectors.toSet()));
         // We sum the discounted amounts
-        Assertions.assertEquals(2.8190999999999997d, discountedAmounts.stream().reduce(0d, (a,b) -> a +b), 0.0001);
+        Assertions.assertEquals(2.8190999999999997d, discountedAmounts.stream().reduce(0d, (a, b) -> a + b), 0.0001);
     }
 
     @Test
