@@ -1,6 +1,6 @@
 apply plugin: 'org.springframework.boot'
 
 jar {
-    archivesBaseName = 'comparators'
+    archivesBaseName = 'collectors'
     version = '1.0.0-SNAPSHOT'
 }
