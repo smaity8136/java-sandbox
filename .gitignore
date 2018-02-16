@@ -23,7 +23,15 @@ build/
 .idea/
 .gradle/
 
+# Gradle Wrapper
+gradle/
+gradlew
+gradlew.bat
+
+
 **/log
 *.log
 out/
 generated/
+classes/
+temp/

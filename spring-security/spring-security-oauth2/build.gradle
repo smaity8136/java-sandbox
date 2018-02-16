@@ -1,0 +1,20 @@
+apply plugin: 'org.springframework.boot'
+
+jar {
+    archivesBaseName = 'spring-security-oauth2'
+    version = '1.0.0-SNAPSHOT'
+}
+
+ext['thymeleaf.version'] = '3.0.9.RELEASE'
+
+dependencies {
+	compile("org.springframework.security:spring-security-config:${springVersion}")
+	compile("org.springframework.security:spring-security-oauth2-client:${springVersion}")
+	compile("org.springframework.security:spring-security-oauth2-jose:${springVersion}")
+	compile("org.springframework:spring-webflux:${springVersion}")
+	compile("org.springframework.boot:spring-boot-starter-thymeleaf")
+	compile("org.springframework.boot:spring-boot-starter-web")
+	compile("org.thymeleaf.extras:thymeleaf-extras-springsecurity4")
+	compile("io.projectreactor.ipc:reactor-netty:${reactorNettyVersion}")
+	compile("io.projectreactor:reactor-core:${reactorCoreVersion}")
+}

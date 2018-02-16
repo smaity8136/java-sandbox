@@ -1,0 +1,4 @@
+rootProject.name = 'money-exchange'
+
+include 'forex-service'
+include 'currency-conversion-service'

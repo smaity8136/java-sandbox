@@ -1,0 +1,11 @@
+apply plugin: 'org.springframework.boot'
+
+jar {
+    archivesBaseName = 'cloud-config-server'
+    version = '1.0.0-SNAPSHOT'
+}
+
+	dependencies {
+
+}
+
