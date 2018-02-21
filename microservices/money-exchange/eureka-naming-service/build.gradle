@@ -1,0 +1,23 @@
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+jar {
+    archivesBaseName = 'eureka-naming-service'
+    version = '1.0.0-SNAPSHOT'
+}
+
+configurations.all {
+    exclude group: 'org.bouncycastle', module: 'bcprov-jdk15on'
+}
+
+dependencies {
+    compile("org.springframework.cloud:spring-cloud-starter-netflix-eureka-server")
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+}
+
+dependencyManagement {
+    imports {
+	mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+

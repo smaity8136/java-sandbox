@@ -19,7 +19,6 @@ public class ForexController {
     @Autowired
     ExchangePairRepository exchangePairRepository;
 
-
     @GetMapping("/currency-exchange/from/{from}/to/{to}")
     public ExchangePair retrieveExchangePair(@PathVariable String from, @PathVariable String to) {
         ExchangePair exchangePair = exchangePairRepository.findByFromAndTo(from, to);

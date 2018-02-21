@@ -2,6 +2,7 @@ package com.seedollar.sandbox.moneyexchange.conversion.controller;
 
 import com.google.common.collect.Maps;
 import com.seedollar.sandbox.moneyexchange.conversion.dto.CurrencyConversionDTO;
+import com.seedollar.sandbox.moneyexchange.conversion.proxy.CurrencyExchangeServiceProxy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,12 @@ public class CurrencyConversionController {
 
     private static final Logger logger = LoggerFactory.getLogger(CurrencyConversionController.class);
 
+    private CurrencyExchangeServiceProxy currencyExchangeServiceProxy;
+
+    public CurrencyConversionController(CurrencyExchangeServiceProxy currencyExchangeServiceProxy) {
+        this.currencyExchangeServiceProxy = currencyExchangeServiceProxy;
+    }
+
     @GetMapping("/currency-converter/from/{from}/to/{to}/quantity/{quantity}")
     public CurrencyConversionDTO convertCurrency(@PathVariable String from, @PathVariable String to, @PathVariable BigDecimal quantity) {
         HashMap<String, String> uriVariables = Maps.newHashMap();
@@ -31,6 +38,18 @@ public class CurrencyConversionController {
 
         return new CurrencyConversionDTO(response.getId(), response.getFrom(), response.getTo(),
                 response.getConversionMultiple(), quantity, quantity.multiply(response.getConversionMultiple()), response.getPort());
+    }
+
+    @GetMapping("/currency-converter-feign/from/{from}/to/{to}/quantity/{quantity}")
+    public CurrencyConversionDTO convertCurrencyFeign(@PathVariable String from, @PathVariable String to, @PathVariable BigDecimal quantity) {
+        CurrencyConversionDTO response = currencyExchangeServiceProxy.retrieveCurrencyPair(from, to);
+
+        logger.info("{}", response);
+
+        return new CurrencyConversionDTO(response.getId(), response.getFrom(), response.getTo(),
+                response.getConversionMultiple(), quantity,
+                quantity.multiply(response.getConversionMultiple()),
+                response.getPort());
     }
 
 }
