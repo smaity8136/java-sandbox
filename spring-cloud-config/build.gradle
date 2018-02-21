@@ -80,7 +80,6 @@ subprojects {
         compile("org.apache.logging.log4j:log4j-core:${log4jVersion}")
         compile("org.apache.logging.log4j:log4j-jul:${log4jVersion}")
         compile("io.vavr:vavr:${vavrVersion}")
-        compile("org.springframework.cloud:spring-cloud-stream:${springCloudStreamVersion}")
         compile("com.google.guava:guava:${guavaVersion}")
 
         testCompile("org.junit.jupiter:junit-jupiter-api:${junitJupiterVersion}")
