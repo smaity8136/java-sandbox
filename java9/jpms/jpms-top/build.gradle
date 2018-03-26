@@ -1,0 +1,4 @@
+jar {
+    archivesBaseName = 'jpms-top'
+    version = '1.0.0-SNAPSHOT'
+}

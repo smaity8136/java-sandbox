@@ -1,0 +1,45 @@
+allprojects {
+
+    apply plugin: "java"
+    apply plugin: "idea"
+    apply plugin: "maven"
+
+    group = "com.seedollar.java.sandbox.java9.jpms"
+    version = "1.0"
+
+    sourceCompatibility = 1.9
+    targetCompatibility = 1.9
+
+    defaultTasks 'clean', 'build', 'install'
+
+    install.dependsOn ':build'
+}
+
+subprojects {
+
+    buildscript {
+        repositories {
+            maven { url 'http://repo.spring.io/libs-release' }
+            maven { url 'http://repo.spring.io/libs-milestone' }
+            maven { url 'http://repo.spring.io/libs-snapshot' }
+            jcenter { url 'http://jcenter.bintray.com/' }
+            mavenLocal()
+            maven { url 'http://internal.hl.fnb.co.za/artifactory/repo' }
+            mavenCentral()
+
+        }
+    }
+
+    // ===========================================================================================================================================================================
+    //  Closure to specify local and remote repositories of module dependencies
+    // ===========================================================================================================================================================================
+    repositories {
+        maven { url 'http://repo.spring.io/libs-release' }
+        maven { url 'http://repo.spring.io/libs-milestone' }
+        maven { url 'http://repo.spring.io/libs-snapshot' }
+        jcenter { url 'http://jcenter.bintray.com/' }
+        mavenLocal()
+        mavenCentral()
+    }
+
+}

@@ -1,0 +1,13 @@
+This example shows the basics of the JPMS system. We have 3 modules, namely:
+
+- jpms-top
+- jpms-sub
+- jpms-client
+
+The jpms-top module defines 2 interfaces, JPMSTopAPI and InternalTopAPI. The JPMSTopAPI interface is exported in the module-info.java, which allows downstream dependencies to see the and use the interface.
+
+The jpms-sub depends on jpms-top, and also explicitly uses the 'transitive' keyword to ensure that any downstream modules that depend on jpms-sub also require jpms-top.
+
+Thus the jpms-bottom module has a dependency on jpms-sub and transitivly on jpms-top. 
+
+

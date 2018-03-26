@@ -1,0 +1,8 @@
+jar {
+    archivesBaseName = 'jpms-bottom'
+    version = '1.0.0-SNAPSHOT'
+}
+
+dependencies {
+	compile project(":jpms-sub")
+}
