@@ -10,6 +10,8 @@ The jpms-sub depends on jpms-top, and also explicitly uses the 'transitive' keyw
 
 The jpms-top module also defines a qualified export on the com.seedollar.java.sandbox.java9.jpms.top.internal package, and only allows the jpms-bottom module to see the InternalTopAPI.java interface.
 
+The jpms-sub module defines a ReflectionFactory.java class which creates an instance of SubReflection.java. We define the module to only expose the SubReflection.java class to be accessible at runtime for reflection using the 'opens' keyword in the module-info.java
+
 Thus the jpms-bottom module has a dependency on jpms-sub and transitivly on jpms-top. 
 
 
