@@ -1,3 +1,3 @@
-module com.seedollar.java.sandbox.java9.jpms.client {
+module com.seedollar.java.sandbox.java9.jpms.bottom {
     requires com.seedollar.java.sandbox.java9.jpms.sub;
 }

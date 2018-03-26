@@ -8,6 +8,8 @@ The jpms-top module defines 2 interfaces, JPMSTopAPI and InternalTopAPI. The JPM
 
 The jpms-sub depends on jpms-top, and also explicitly uses the 'transitive' keyword to ensure that any downstream modules that depend on jpms-sub also require jpms-top.
 
+The jpms-top module also defines a qualified export on the com.seedollar.java.sandbox.java9.jpms.top.internal package, and only allows the jpms-bottom module to see the InternalTopAPI.java interface.
+
 Thus the jpms-bottom module has a dependency on jpms-sub and transitivly on jpms-top. 
 
 
