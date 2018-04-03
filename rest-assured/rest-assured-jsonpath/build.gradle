@@ -1,0 +1,10 @@
+apply plugin: 'org.springframework.boot'
+
+jar {
+    archivesBaseName = 'rest-assured-jsonpath'
+    version = '1.0.0-SNAPSHOT'
+}
+
+dependencies {
+    compile group: "io.rest-assured", name: "json-path", version: "${restAssuredVersion}"
+}

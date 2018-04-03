@@ -1,0 +1,10 @@
+apply plugin: 'org.springframework.boot'
+
+jar {
+    archivesBaseName = 'rest-assured-xmlpath'
+    version = '1.0.0-SNAPSHOT'
+}
+
+dependencies {
+	compile("io.rest-assured:xml-path:${restAssuredVersion}")
+}

@@ -1,0 +1,4 @@
+rootProject.name = 'rest-assured'
+
+include 'rest-assured-jsonpath'
+include 'rest-assured-xmlpath'
