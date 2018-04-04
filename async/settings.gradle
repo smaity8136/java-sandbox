@@ -2,3 +2,4 @@ rootProject.name = 'async'
 
 include 'fork-join-pool'
 include 'completable-future'
+include 'ea-async'

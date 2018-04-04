@@ -1,0 +1,10 @@
+apply plugin: 'org.springframework.boot'
+
+jar {
+    archivesBaseName = 'ea-async'
+    version = '1.0.0-SNAPSHOT'
+}
+
+dependencies {
+    compile("com.ea.async:ea-async:1.0.6")
+}
