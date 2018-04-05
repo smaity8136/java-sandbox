@@ -7,8 +7,8 @@ allprojects {
     group = "com.seedollar.java.sandbox.java9"
     version = "1.0"
 
-    sourceCompatibility = 1.8
-    targetCompatibility = 1.8
+    sourceCompatibility = 1.9
+    targetCompatibility = 1.9
 
     defaultTasks 'clean', 'build', 'install'
 
@@ -24,7 +24,6 @@ subprojects {
             maven { url 'http://repo.spring.io/libs-snapshot' }
             jcenter { url 'http://jcenter.bintray.com/' }
             mavenLocal()
-            maven { url 'http://internal.hl.fnb.co.za/artifactory/repo' }
             mavenCentral()
 
         }
@@ -43,7 +42,6 @@ subprojects {
         maven { url 'http://repo.spring.io/libs-snapshot' }
         jcenter { url 'http://jcenter.bintray.com/' }
         mavenLocal()
-        maven { url 'http://internal.hl.fnb.co.za/artifactory/repo' }
         mavenCentral()
     }
 
@@ -85,7 +83,6 @@ subprojects {
         compile("com.google.guava:guava:${guavaVersion}")
 
         testCompile("org.junit.jupiter:junit-jupiter-api:${junitJupiterVersion}")
-        testRuntime("org.junit.vintage:junit-vintage-engine:${junitVintageVersion}")
         testRuntime("org.junit.jupiter:junit-jupiter-engine:${junitJupiterVersion}")
         testRuntime("org.junit.platform:junit-platform-gradle-plugin:${junitPlatformVersion}")
     }
