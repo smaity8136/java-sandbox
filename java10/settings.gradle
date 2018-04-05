@@ -1,0 +1,4 @@
+rootProject.name = 'java10'
+
+include 'var-type-inference'
+include 'unmodifiable-collections'
