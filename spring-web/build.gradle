@@ -4,7 +4,7 @@ allprojects {
     apply plugin: "idea"
     apply plugin: "maven"
 
-    group = "com.seedollar.java.sandbox.springkafka"
+    group = "com.seedollar.java.sandbox.spring.web"
     version = "1.0"
 
     sourceCompatibility = 1.8
@@ -13,28 +13,34 @@ allprojects {
     defaultTasks 'clean', 'build', 'install'
 
     install.dependsOn ':build'
-
 }
 
 subprojects {
 
     buildscript {
         repositories {
-            maven { url "http://repo.spring.io/release" }
+            maven { url 'http://repo.spring.io/libs-release' }
+            maven { url 'http://repo.spring.io/libs-milestone' }
+            maven { url 'http://repo.spring.io/libs-snapshot' }
             jcenter { url 'http://jcenter.bintray.com/' }
             mavenLocal()
             mavenCentral()
 
         }
+
         dependencies {
-            classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootGradlePluginVersion}")
-        }
+            classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+            classpath("org.akhikhl.gretty:gretty:+")
+        }       
     }
 
     // ===========================================================================================================================================================================
     //  Closure to specify local and remote repositories of module dependencies
     // ===========================================================================================================================================================================
     repositories {
+        maven { url 'http://repo.spring.io/libs-release' }
+        maven { url 'http://repo.spring.io/libs-milestone' }
+        maven { url 'http://repo.spring.io/libs-snapshot' }
         jcenter { url 'http://jcenter.bintray.com/' }
         mavenLocal()
         mavenCentral()
@@ -72,11 +78,16 @@ subprojects {
     //  Closure to define common dependencies for all sub projects
     // ===========================================================================================================================================================================
     dependencies {
-        compile group: 'ch.qos.logback', name: 'logback-classic', version: "$logbackVersion"
-        compile group: 'ch.qos.logback', name: 'logback-core', version: "$logbackVersion"
-        testCompile group: 'junit', name: 'junit', version: "$junitVersion"
-        compile group: "org.springframework.boot", name: "spring-boot-starter", version: "$springBootVersion"
-        compile group: "org.springframework.kafka", name: "spring-kafka", version: "$springKafkaVersion"
+        compile("commons-logging:commons-logging:${commonsLoggingVersion}")
+        compile("org.apache.logging.log4j:log4j-core:${log4jVersion}")
+        compile("org.apache.logging.log4j:log4j-jul:${log4jVersion}")
+        compile("io.vavr:vavr:${vavrVersion}")
+        compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
+        compile("com.google.guava:guava:${guavaVersion}")
+
+        testCompile("org.junit.jupiter:junit-jupiter-api:${junitJupiterVersion}")
+        testRuntime("org.junit.jupiter:junit-jupiter-engine:${junitJupiterVersion}")
+        testRuntime("org.junit.platform:junit-platform-gradle-plugin:${junitPlatformVersion}")
     }
 
     // ===========================================================================================================================================================================
@@ -119,9 +130,10 @@ task createJavaModule << {
     file.createNewFile();
     java.io.FileWriter writer = new FileWriter(file);
     writer.write("apply plugin: 'org.springframework.boot'")
-    writer.write("\nversion = '1.0.0-SNAPSHOT'")
+    writer.write("\n")
     writer.write("\njar {")
     writer.write("\n    archivesBaseName = '" + moduleName + "'")
+    writer.write("\n    version = '1.0.0-SNAPSHOT'")
     writer.write("\n}")
     writer.close()
 }

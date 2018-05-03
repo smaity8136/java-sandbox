@@ -1,0 +1,9 @@
+apply plugin: 'org.springframework.boot'
+version = '1.0.0-SNAPSHOT'
+jar {
+    archivesBaseName = 'request-reply'
+}
+
+dependencies {
+	compile("org.springframework.boot:spring-boot-starter-web:$springBootVersion")
+}
