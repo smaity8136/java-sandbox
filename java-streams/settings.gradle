@@ -1,3 +1,4 @@
 rootProject.name = 'java-streams'
 
+include 'collectors'
 include 'comparators'
