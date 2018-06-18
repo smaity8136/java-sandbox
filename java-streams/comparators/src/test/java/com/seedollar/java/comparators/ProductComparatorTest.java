@@ -22,10 +22,9 @@ public class ProductComparatorTest {
                 new Product("Tomatoes", "Red tomatoes", new Price(1.35d, 0d, 13d)),
                 new Product("Apples", "Royal Troon", new Price(2.5d, 0d, 13d)),
                 new Product("Carrots", "Large carrots", new Price(1.89d, 0d, 13d))
-
         );
 
-        Collections.sort(products, Comparator.comparing(byPrice).thenComparing(byName));
+        Collections.sort(products, Comparator.comparing(byPrice).thenComparing(byName).reversed());
         System.out.println("products = " + products);
     }
 }
