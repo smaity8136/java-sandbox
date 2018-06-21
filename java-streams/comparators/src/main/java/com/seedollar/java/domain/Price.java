@@ -47,13 +47,5 @@ public class Price {
         this.taxRate = taxRate;
     }
 
-    @Override
-    public String toString() {
-        return "Price{" +
-                "id=" + id +
-                ", actualPrice=" + actualPrice +
-                ", discountRate=" + discountRate +
-                ", taxRate=" + taxRate +
-                '}';
-    }
+
 }
