@@ -12,11 +12,14 @@ public class Price {
 
     private Double taxRate;
 
-    public Price(Double actualPrice, Double discountRate, Double taxRate) {
+    private Price.PriceType priceType;
+
+    public Price(Double actualPrice, Double discountRate, Double taxRate, PriceType priceType) {
         this.id = ThreadLocalRandom.current().nextLong();
         this.actualPrice = actualPrice;
         this.discountRate = discountRate;
         this.taxRate = taxRate;
+        this.priceType = priceType;
     }
 
     public Long getId() {
@@ -45,5 +48,17 @@ public class Price {
 
     public void setTaxRate(Double taxRate) {
         this.taxRate = taxRate;
+    }
+
+    public PriceType getPriceType() {
+        return priceType;
+    }
+
+    public void setPriceType(PriceType priceType) {
+        this.priceType = priceType;
+    }
+
+    public enum PriceType {
+        COST, SALE;
     }
 }

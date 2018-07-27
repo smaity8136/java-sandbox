@@ -13,11 +13,11 @@ import java.util.List;
 public class CustomCollectorTest {
 
     private List<Product> productList = Lists.newArrayList(
-            new Product("Ham", "Pork ham slices", new Price(30d, 25d, 8d)),
-            new Product("Apple", "Red shinny apple", new Price(4.75d, 2d, 4d)),
-            new Product("Pear", "A Juicy pear", new Price(3.5d, 0d, 4d)),
-            new Product("Bread", "Sliced loaf of bread", new Price(2.40d, 5d, 0d)),
-            new Product("Juice", "1L orange juice", new Price(13.26, 10d, 8d))
+            new Product("Ham", "Pork ham slices", new Price(30d, 25d, 8d, Price.PriceType.SALE)),
+            new Product("Apple", "Red shinny apple", new Price(4.75d, 2d, 4d, Price.PriceType.COST)),
+            new Product("Pear", "A Juicy pear", new Price(3.5d, 0d, 4d, Price.PriceType.SALE)),
+            new Product("Bread", "Sliced loaf of bread", new Price(2.40d, 5d, 0d, Price.PriceType.COST)),
+            new Product("Juice", "1L orange juice", new Price(13.26, 10d, 8d, Price.PriceType.COST))
     );
 
     @Test
