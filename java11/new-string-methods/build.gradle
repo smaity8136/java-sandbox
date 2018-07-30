@@ -1,0 +1,6 @@
+apply plugin: 'org.springframework.boot'
+
+jar {
+    archivesBaseName = 'new-string-methods'
+    version = '1.0.0-SNAPSHOT'
+}
