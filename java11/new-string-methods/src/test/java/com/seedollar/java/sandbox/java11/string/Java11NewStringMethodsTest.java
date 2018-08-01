@@ -1,5 +1,6 @@
 package com.seedollar.java.sandbox.java11.string;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -41,6 +42,11 @@ public class Java11NewStringMethodsTest {
         System.out.println("Is blankString1 blank = " + blankString1.isBlank());
         System.out.println("Is blankString2 blank = " + blankString2.isBlank());
         System.out.println("Is blankString3 blank = " + blankString3.isBlank());
+    }
+
+    @Test
+    public void testToStringCharacter() {
+        Assertions.assertEquals("A", Character.toString(65));
     }
 
     private String buildHeadingUnderscore(String heading) {

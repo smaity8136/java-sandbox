@@ -1,3 +1,4 @@
 rootProject.name = 'java11'
 
 include 'new-string-methods'
+include 'files'
