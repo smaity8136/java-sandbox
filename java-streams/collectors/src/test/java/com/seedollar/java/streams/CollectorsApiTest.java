@@ -12,6 +12,7 @@ import java.util.*;
 import java.util.function.BinaryOperator;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class CollectorsApiTest {
 
@@ -157,5 +158,39 @@ public class CollectorsApiTest {
         Map<Boolean, List<Price>> results = prices.stream().collect(Collectors.partitioningBy(price -> price.getActualPrice() > 60d));
         Assertions.assertEquals(1, results.get(Boolean.TRUE).size());
         Assertions.assertEquals(3, results.get(Boolean.FALSE).size());
+    }
+
+    @Test
+    @DisplayName("Test groupBy")
+    public void testGroupByAgain() {
+        List<List<Object>> results = Lists.newArrayList(
+                Lists.newArrayList("4011", "1111"),
+                Lists.newArrayList("4011", "2222"),
+                Lists.newArrayList("4011", "3333"),
+                Lists.newArrayList(null, "6666"),
+                Lists.newArrayList("4013", null),
+                Lists.newArrayList("4012", "4444"),
+                Lists.newArrayList("4012", "5555"),
+                Lists.newArrayList("", "7777"));
+
+        Set<Object> collect2 = results.stream().flatMap(List::stream).filter(Objects::nonNull).map(Object::toString).collect(Collectors.toSet());
+        Assertions.assertNotNull(collect2);
+
+//        results.stream().collect(Collectors.mapping(result -> result.))
+
+//        Map<Object, Stream> collect1 = results.stream().collect(Collectors.toMap(result -> result.get(0), result -> ((List) result.get(1)).stream()));
+//        Assertions.assertNotNull(collect1);
+
+//        Object collect1 = results.stream().flatMap(result -> ((List) result.get(1)).stream()).collect(Collectors.toList());
+//        Assertions.assertNotNull(collect1);
+
+        Map<Object, List<Object>> collect = results.stream().collect(Collectors.groupingBy(result -> result.get(0),
+                Collectors.mapping(res -> res.get(1), Collectors.toList())));
+//        collect.entrySet().stream().flatMap(res -> )
+
+        Assertions.assertNotNull(collect);
+        List<String> collect1 = collect.entrySet().stream().map(entry -> entry.getKey() + "," + entry.getValue().stream().map(Object::toString).collect(Collectors.joining(","))).collect(Collectors.toList());
+        Assertions.assertNotNull(collect1);
+
     }
 }

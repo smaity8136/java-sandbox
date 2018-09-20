@@ -1,7 +1,7 @@
 package com.seedollar.java9;
 
-import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
@@ -27,6 +27,15 @@ public class ObjectsTest {
             int i = ThreadLocalRandom.current().nextInt();
             return "deferredString" + i;
         }));
+    }
 
+    @Test
+    public void testToString() {
+        final String defaultAmount = "0.00";
+        final String word = "test";
+        final Float amount = null;
+        Assertions.assertEquals(word, Objects.toString(word));
+        Assertions.assertEquals(defaultAmount, Objects.toString(amount, defaultAmount));
+        Assertions.assertNull(Objects.toString(amount, null));
     }
 }

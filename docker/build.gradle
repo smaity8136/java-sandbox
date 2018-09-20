@@ -3,7 +3,7 @@ allprojects {
     apply plugin: "java"
     apply plugin: "idea"
 
-    group = "com.seedollar.java.sandbox.spring.web"
+    group = "com.seedollar.java.sandbox.docker"
     version = "1.0"
 
     sourceCompatibility = 1.8
@@ -15,6 +15,7 @@ allprojects {
 subprojects {
 
     buildscript {
+
         repositories {
             maven { url 'http://repo.spring.io/libs-release' }
             maven { url 'http://repo.spring.io/libs-milestone' }
@@ -27,7 +28,6 @@ subprojects {
 
         dependencies {
             classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-            classpath("org.akhikhl.gretty:gretty:+")
         }       
     }
 

@@ -1,0 +1,5 @@
+rootProject.name = 'cloudstreemarket-parent'
+
+include 'cloudstreetmarket-webapp'
+include 'cloudstreetmarket-core'
+include 'cloudstreetmarket-api'

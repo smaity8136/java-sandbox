@@ -1,12 +1,13 @@
-package com.seedollar.java.sandbox.spring.restdocs;
+package com.seedollar.sandbox.docker.springboot;
+
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringRestDocsApplication {
+public class DockerSpringBootApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringRestDocsApplication.class, args);
+        SpringApplication.run(DockerSpringBootApplication.class, args);
     }
 }

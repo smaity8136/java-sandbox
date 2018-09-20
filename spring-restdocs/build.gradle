@@ -1,0 +1,99 @@
+buildscript {
+    repositories {
+        maven { url 'http://repo.spring.io/libs-release' }
+        maven { url 'http://repo.spring.io/libs-milestone' }
+        maven { url 'http://repo.spring.io/libs-snapshot' }
+        jcenter { url 'http://jcenter.bintray.com/' }
+        mavenLocal()
+        maven { url 'http://internal.hl.fnb.co.za/artifactory/repo' }
+        mavenCentral()
+
+    }
+
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath("org.akhikhl.gretty:gretty:+")
+    }
+}
+
+plugins {
+    id "org.asciidoctor.convert" version "1.5.3"
+}
+
+apply plugin: "java"
+apply plugin: "idea"
+apply plugin: "maven"
+apply plugin: "org.springframework.boot"
+
+group = "com.seedollar.java.sandbox.spring-restdocs"
+version = "1.0"
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+defaultTasks 'clean', 'build', 'install'
+
+install.dependsOn ':build'
+
+// ===========================================================================================================================================================================
+//  Closure to specify local and remote repositories of module dependencies
+// ===========================================================================================================================================================================
+repositories {
+    maven { url 'http://repo.spring.io/libs-release' }
+    maven { url 'http://repo.spring.io/libs-milestone' }
+    maven { url 'http://repo.spring.io/libs-snapshot' }
+    jcenter { url 'http://jcenter.bintray.com/' }
+    mavenLocal()
+    maven { url 'http://internal.hl.fnb.co.za/artifactory/repo' }
+    mavenCentral()
+}
+
+ext {
+    snippetsDir = file('build/generated-snippets')
+}
+
+// ===========================================================================================================================================================================
+//  Closure to define common dependencies for all sub projects
+// ===========================================================================================================================================================================
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
+    compile("org.springframework.restdocs:spring-restdocs-asciidoctor:${springRestdocsVersion}")
+    compile("org.apache.logging.log4j:log4j-core:${log4jVersion}")
+    compile("org.apache.logging.log4j:log4j-jul:${log4jVersion}")
+    compile("io.vavr:vavr:${vavrVersion}")
+    compile("org.springframework:spring-context:${springVersion}")
+    compile("com.google.guava:guava:${guavaVersion}")
+
+    testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
+    testCompile("org.springframework.restdocs:spring-restdocs-mockmvc:${springRestdocsVersion}")
+    testCompile("org.hamcrest:hamcrest-junit:${hamcrestJunitVersion}")
+    testCompile("org.junit.jupiter:junit-jupiter-api:${junitJupiterVersion}")
+    testRuntime("org.junit.jupiter:junit-jupiter-engine:${junitJupiterVersion}")
+    testRuntime("org.junit.platform:junit-platform-gradle-plugin:${junitPlatformVersion}")
+}
+
+// ===========================================================================================================================================================================
+// Test closure to configure the testing JVM
+// ===========================================================================================================================================================================
+test {
+    outputs.dir snippetsDir
+}
+
+asciidoctor {
+    inputs.dir snippetsDir
+    dependsOn test
+}
+
+bootJar {
+    dependsOn asciidoctor
+    from("${asciidoctor.outputDir}") {
+        into 'static/docs'
+    }
+}
+
+// ===========================================================================================================================================================================
+// uploadArchives closure to configure where to deploy our artifacts to a remote repository
+// ===========================================================================================================================================================================
+uploadArchives {
+    /** repositories.mavenDeployer {repository(url: 'http://remoteurl') {authentication(username: 'admin', password: 'password')}} */
+}

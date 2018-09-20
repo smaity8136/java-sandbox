@@ -1,0 +1,4 @@
+rootProject.name = 'mockito2'
+
+include 'mockito2-example'
+
