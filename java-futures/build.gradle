@@ -6,8 +6,8 @@ apply plugin: 'org.junit.platform.gradle.plugin'
 group = "com.seedollar.java.sandbox.futures"
 version = "1.0"
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = JavaVersion.VERSION_1_10
+targetCompatibility = JavaVersion.VERSION_1_10
 
 buildscript {
     repositories {
@@ -49,12 +49,12 @@ dependencies {
     compile("io.javaslang:javaslang:${javaSlangVersion}")
     compile("io.javaslang:javaslang-match:${javaSlangVersion}")
 
-    testCompile("org.junit.platform:junit-platform-runner:${junitPlatformVersion}")
     testCompile("org.junit.jupiter:junit-jupiter-api:${junitJupiterVersion}")
-    testCompile("org.junit.jupiter:junit-jupiter-engine:${junitJupiterVersion}")
-
-    testRuntime("org.apache.logging.log4j:log4j-core:${log4jVersion}")
-    testRuntime("org.apache.logging.log4j:log4j-jul:${log4jVersion}")
+    testCompile("org.junit.jupiter:junit-jupiter-params:${junitJupiterVersion}")
+    testCompile("org.mockito:mockito-core:${mockito2Version}")
+    testCompile("org.mockito:mockito-junit-jupiter:${mockitoJunitJupiterVersion}")
+    testRuntime("org.junit.jupiter:junit-jupiter-engine:${junitJupiterVersion}")
+    testRuntime("org.junit.platform:junit-platform-gradle-plugin:${junitPlatformVersion}")
 }
 
 

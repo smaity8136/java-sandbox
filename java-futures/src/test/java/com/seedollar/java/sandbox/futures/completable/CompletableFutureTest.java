@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -82,6 +83,21 @@ public class CompletableFutureTest {
 
         Thread.sleep(1000);
         Assertions.assertFalse(booleanCompletableFuture.get());
+    }
+
+    @Test
+    @DisplayName("Java 9 Completable future using functional timeout method orTimeout()")
+    public void testCompletableFuture_orTimeout() {
+        // The timeout should be thrown after 1 second, throwing an ExecutionException.
+        Assertions.assertThrows(ExecutionException.class, () -> CompletableFuture.supplyAsync(this::sendMessage).orTimeout(1, TimeUnit.SECONDS).get());
+    }
+
+    @Test
+    @DisplayName("Java 9 Completable future using functional timeout with supplier for return value method completeOnTimeout()")
+    public void testCompletableFuture_completeOnTimeout() throws ExecutionException, InterruptedException {
+        // Timeout should happen after 1 second, returning a supplied string value instead of the sendMessage return value.
+        CompletableFuture<String> completableFuture = CompletableFuture.supplyAsync(this::sendMessage).completeOnTimeout("Timed out", 1, TimeUnit.SECONDS);
+        Assertions.assertEquals("Timed out", completableFuture.get());
     }
 
     private String sendMessage() {
