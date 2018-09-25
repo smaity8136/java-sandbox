@@ -1,0 +1,61 @@
+apply plugin: "java"
+apply plugin: "idea"
+apply plugin: "maven"
+apply plugin: 'org.junit.platform.gradle.plugin'
+
+group = "com.seedollar.java.sandbox.method.references"
+version = "1.0"
+
+sourceCompatibility = JavaVersion.VERSION_1_10
+targetCompatibility = JavaVersion.VERSION_1_10
+
+buildscript {
+    repositories {
+        maven { url 'http://fhlbuildl1:8081/artifactory/repo' }
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.0-M3'
+    }
+}
+
+repositories {
+    maven {url 'http://fhlbuildl1:8081/artifactory/repo'}
+    jcenter { url 'http://jcenter.bintray.com/' }
+    maven {url 'https://oss.sonatype.org/content/repositories/snapshots'}
+    mavenLocal()
+    mavenCentral()
+}
+
+junitPlatform {
+    // platformVersion '1.0.0-M3'
+    filters {
+        engines {
+            // include 'junit-jupiter', 'junit-vintage'
+            // exclude 'custom-engine'
+        }
+        tags {
+//            include 'tagged' // If you enable this, it will only execute the tests tagged with "tagged"
+            exclude 'slow'
+        }
+        // includeClassNamePattern '.*Test'
+    }
+    // enableStandardTestTask true
+    // reportsDir file('build/test-results/junit-platform') // this is the default
+    logManager 'org.apache.logging.log4j.jul.LogManager'
+}
+
+dependencies {
+    compile("io.javaslang:javaslang:${javaSlangVersion}")
+    compile("io.javaslang:javaslang-match:${javaSlangVersion}")
+
+    testCompile("org.junit.jupiter:junit-jupiter-api:${junitJupiterVersion}")
+    testCompile("org.junit.jupiter:junit-jupiter-params:${junitJupiterVersion}")
+    testCompile("org.mockito:mockito-core:${mockito2Version}")
+    testCompile("org.mockito:mockito-junit-jupiter:${mockitoJunitJupiterVersion}")
+    testRuntime("org.junit.jupiter:junit-jupiter-engine:${junitJupiterVersion}")
+    testRuntime("org.junit.platform:junit-platform-gradle-plugin:${junitPlatformVersion}")
+}
+
+
+
