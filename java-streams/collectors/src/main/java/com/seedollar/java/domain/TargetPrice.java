@@ -2,7 +2,7 @@ package com.seedollar.java.domain;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Price {
+public class TargetPrice {
 
     private Long id;
 
@@ -12,9 +12,11 @@ public class Price {
 
     private Double taxRate;
 
-    private Price.PriceType priceType;
+    private TargetPrice.PriceType priceType;
 
-    public Price(Double actualPrice, Double discountRate, Double taxRate, PriceType priceType) {
+    public TargetPrice() {}
+
+    public TargetPrice(Double actualPrice, Double discountRate, Double taxRate, PriceType priceType) {
         this.id = ThreadLocalRandom.current().nextLong();
         this.actualPrice = actualPrice;
         this.discountRate = discountRate;

@@ -1,3 +1,4 @@
 rootProject.name = 'spring-web'
 
 include 'rest-controller'
+include 'rest-versioning'

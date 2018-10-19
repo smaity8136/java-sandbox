@@ -10,13 +10,13 @@ public class Product {
 
     private String description;
 
-    private Price price;
+    private TargetPrice targetPrice;
 
-    public Product(String name, String description, Price price) {
+    public Product(String name, String description, TargetPrice targetPrice) {
         this.id = ThreadLocalRandom.current().nextLong();
         this.name = name;
         this.description = description;
-        this.price = price;
+        this.targetPrice = targetPrice;
     }
 
     public Long getId() {
@@ -39,11 +39,11 @@ public class Product {
         this.description = description;
     }
 
-    public Price getPrice() {
-        return price;
+    public TargetPrice getTargetPrice() {
+        return targetPrice;
     }
 
-    public void setPrice(Price price) {
-        this.price = price;
+    public void setTargetPrice(TargetPrice targetPrice) {
+        this.targetPrice = targetPrice;
     }
 }

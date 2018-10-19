@@ -30,8 +30,8 @@ public class CartCollector implements Collector<Product, Cart, Cart> {
     public BiConsumer<Cart, Product> accumulator() {
         return (c, p) -> {
             c = supplier().get();
-            c.setDiscountedAmount(c.getDiscountedAmount() + p.getPrice().getActualPrice() * p.getPrice().getDiscountRate() / 100);
-            c.setTaxedAmount(c.getTaxedAmount() + p.getPrice().getActualPrice() * p.getPrice().getTaxRate() / 100);
+            c.setDiscountedAmount(c.getDiscountedAmount() + p.getTargetPrice().getActualPrice() * p.getTargetPrice().getDiscountRate() / 100);
+            c.setTaxedAmount(c.getTaxedAmount() + p.getTargetPrice().getActualPrice() * p.getTargetPrice().getTaxRate() / 100);
             c.setSubTotalAmount(c.getSubTotalAmount() + c.getDiscountedAmount());
             c.setTotalAmount(c.getSubTotalAmount() + c.getTaxedAmount());
         };

@@ -1,12 +1,17 @@
 package com.seedollar.java.sandbox.async;
 
-import org.junit.Test;
-import org.junit.jupiter.api.Assertions;
-
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import org.junit.jupiter.api.Assertions;
+
+import com.google.common.collect.Lists;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 public class CompletableFutureTest {
 
@@ -105,6 +110,20 @@ public class CompletableFutureTest {
 //        }
 //        Assertions.assertEquals("message upon cancel", exceptionHandler.join());
     }
+
+    @Test
+    @DisplayName("Illustrates how you can join the results of 2 completable future tasks with a List of results")
+    public void testCompletableFutureJoiningToCompletableFutureListResults() {
+        CompletableFuture<List<String>> criminalNames = CompletableFuture.supplyAsync(() -> Lists.newArrayList("Venom", "The Joker", "Penguin"));
+        CompletableFuture<List<String>> mobNames = CompletableFuture.supplyAsync(() -> Lists.newArrayList("Soprano", "O'reilley", "Carlione", "Jackson"));
+        List<String> results = Stream.of(criminalNames, mobNames)
+                .map(CompletableFuture::join)
+                .flatMap(List::stream)
+                .collect(Collectors.toList());
+        Assertions.assertEquals(7, results.size());
+    }
+
+
 
 
 }

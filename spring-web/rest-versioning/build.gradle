@@ -1,0 +1,6 @@
+apply plugin: 'org.springframework.boot'
+
+jar {
+    archivesBaseName = 'rest-versioning'
+    version = '1.0.0-SNAPSHOT'
+}
