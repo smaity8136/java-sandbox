@@ -15,8 +15,8 @@ repositories {
 
 ext.junit4Version = '4.12'
 ext.junitVintageVersion = '4.12.0-M5'
-ext.junitPlatformVersion = '1.0.0-M5'
-ext.junitJupiterVersion = '5.0.0-M4'
+ext.junitPlatformVersion = '1.3.1'
+ext.junitJupiterVersion = '5.3.1'
 ext.log4jVersion = '2.6.2'
 ext.javaSlangVersion = '2.1.0-alpha'
 
@@ -36,7 +36,7 @@ compileTestJava {
 }
 
 junitPlatform {
-    platformVersion '1.0.0-M5'
+    platformVersion '1.0.0'
     filters {
         engines {
             // include 'junit-jupiter', 'junit-vintage'
@@ -57,8 +57,9 @@ dependencies {
     compile("io.javaslang:javaslang:${javaSlangVersion}")
     compile("io.javaslang:javaslang-match:${javaSlangVersion}")
 
-    testCompile("org.junit.platform:junit-platform-runner:1.0.0-M5") //Added this for IntelliJ 2.2016 Community so we can use "@RunWith(JunitPlatform.class)"
+    testCompile("org.junit.platform:junit-platform-runner:1.0.0") //Added this for IntelliJ 2.2016 Community so we can use "@RunWith(JunitPlatform.class)"
     testCompile("org.junit.jupiter:junit-jupiter-api:${junitJupiterVersion}")
+    testCompile("org.junit.jupiter:junit-jupiter-params:${junitJupiterVersion}")
     testRuntime("org.junit.jupiter:junit-jupiter-engine:${junitJupiterVersion}")
 
     // If you also want to support JUnit 3 and JUnit 4 tests
