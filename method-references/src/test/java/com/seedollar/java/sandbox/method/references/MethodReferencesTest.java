@@ -66,6 +66,38 @@ public class MethodReferencesTest {
         Assertions.assertEquals("Ola, Method reference", instance.apply("Method reference").decorate());
     }
 
+    @Test
+    @DisplayName("Illustrate that you can a method reference to an interface with matching method signature")
+    public void testMethodReferenceToInterface() {
+        Checker checker = this::isNumber;
+        Assertions.assertTrue(checker.check("565"));
+    }
+
+    @Test
+    @DisplayName("Illustrate a parameter method reference example")
+    public void testParameterMethodReference() {
+        ParameterChecker parameterChecker = MethodReferencesTest::isNumber;
+        parameterChecker.check(this, "454");
+    }
+
+    @Test
+    @DisplayName("Illustrate a constructor reference binded to an functional interface")
+    public void testConstructorReference() {
+        NumberObjectConsumer consumer = ConstructorReference::new;
+
+        ConstructorReference consume = consumer.consume(15);
+        Assertions.assertEquals(15, consume.getVal());
+    }
+
+    public boolean isNumber(String value) {
+        try {
+            Integer.parseInt(value);
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+        return true;
+    }
+
 
     public static final String upperCase(String value) {
         return value.toUpperCase();
@@ -95,5 +127,28 @@ public class MethodReferencesTest {
             return "Ola, " + value;
         }
 
+    }
+
+    interface Checker {
+        boolean check(String val);
+    }
+
+    interface ParameterChecker {
+        boolean check(MethodReferencesTest obj, String val);
+    }
+
+    interface NumberObjectConsumer {
+        ConstructorReference consume(int val);
+    }
+
+    class ConstructorReference {
+        final int val;
+        public ConstructorReference(int val) {
+            this.val = val;
+        }
+
+        public int getVal() {
+            return val;
+        }
     }
 }

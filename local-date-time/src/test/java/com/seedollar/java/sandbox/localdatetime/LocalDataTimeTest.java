@@ -64,11 +64,21 @@ public class LocalDataTimeTest {
         // Minus 2 months
         localDate = localDate.minus(2, ChronoUnit.MONTHS);
         Assertions.assertEquals(Month.AUGUST, localDate.getMonth());
+        localDate = localDate.plusDays(10);
+        Assertions.assertEquals(7, localDate.getDayOfMonth());
 
         LocalTime localTime = LocalTime.of(21, 40, 12).plusMinutes(20);
         Assertions.assertEquals(0, localTime.getMinute());
         localTime = localTime.plus(2, ChronoUnit.HOURS);
         Assertions.assertEquals(0, localTime.getHour());
+    }
+
+    @Test
+    @DisplayName("Test comparison methods")
+    public void testComparisonMethods() {
+        LocalDate localDate = LocalDate.of(2017, 11, 9);
+        LocalDate nowDate = LocalDate.now();
+        Assertions.assertTrue(localDate.isBefore(nowDate));
     }
 
     @Test

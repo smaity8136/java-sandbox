@@ -1,4 +1,6 @@
 rootProject.name = 'threads'
 
 include 'thread-dump'
+include 'executors'
+include 'fork-join-pool'
 
