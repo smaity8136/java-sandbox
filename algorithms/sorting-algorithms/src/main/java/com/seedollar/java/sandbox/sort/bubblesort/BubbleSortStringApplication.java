@@ -1,4 +1,4 @@
-package com.seedollar.java.sandbox.sort;
+package com.seedollar.java.sandbox.sort.bubblesort;
 
 public class BubbleSortStringApplication {
 

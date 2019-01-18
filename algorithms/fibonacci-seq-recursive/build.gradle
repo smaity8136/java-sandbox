@@ -1,6 +1,0 @@
-apply plugin: 'org.springframework.boot'
-
-jar {
-    archivesBaseName = 'fibonacci-seq-recursive'
-    version = '1.0.0-SNAPSHOT'
-}

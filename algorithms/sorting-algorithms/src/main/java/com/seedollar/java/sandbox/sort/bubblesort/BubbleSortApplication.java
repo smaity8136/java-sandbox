@@ -1,4 +1,4 @@
-package com.seedollar.java.sandbox.sort;
+package com.seedollar.java.sandbox.sort.bubblesort;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,14 +17,14 @@ public class BubbleSortApplication {
 
     private static void bubbleSort(int[] numbers) {
 
-        int n = numbers.length;
+        int size = numbers.length;
         int k;
 
-        for (int m=n; m >= 0; m--) {
-            for (int i=0; i < n-1; i++) {
-                k = i + 1;
-                if (numbers[i] > numbers[k]) {
-                    performSwap(i, k, numbers);
+        for (int x=0; x<size; x++) {
+            for (int y=0; y < size-1; y++) {
+                k = y + 1;
+                if (numbers[x] > numbers[k]) {
+                    performSwap(x, k, numbers);
                 }
             }
             printNumbers(numbers);
