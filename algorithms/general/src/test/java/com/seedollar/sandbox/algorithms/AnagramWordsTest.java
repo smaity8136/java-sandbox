@@ -24,19 +24,25 @@ public class AnagramWordsTest {
         char[] word2Array = word2.replaceAll(" ", "").toCharArray();
         Arrays.sort(word2Array);
 
-        boolean isAnagram = true;
-        for (int x = 0; x < word1Array.length; x++) {
-            if (word1Array[x] != word2Array[x]) {
-                System.out.println(String.format("Word 1: [%s] and Word 2: [%s] are NOT an anagram.", word1, word2));
-                isAnagram = false;
-                break;
-            }
-        }
-
-        if (isAnagram) {
+        if (Arrays.equals(word1Array, word2Array)) {
             System.out.println(String.format("Word 1: [%s] and Word 2: [%s] are an anagram.", word1, word2));
+        } else {
+            System.out.println(String.format("Word 1: [%s] and Word 2: [%s] are NOT an anagram.", word1, word2));
         }
+    }
 
+    @Test
+    public void test() {
+        String word = "hello";
+
+        System.out.println("word = " + recursiveReverse(word));
+    }
+
+    private String recursiveReverse(String word) {
+        if (word.isEmpty()) {
+            return word;
+        }
+        return recursiveReverse(word.substring(1)) + word.charAt(0);
     }
 
 }
