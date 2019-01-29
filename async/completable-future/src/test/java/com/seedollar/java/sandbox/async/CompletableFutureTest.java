@@ -1,19 +1,31 @@
 package com.seedollar.java.sandbox.async;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import java.util.function.BinaryOperator;
+import java.util.function.Function;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.hamcrest.CoreMatchers;
+import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 
 import com.google.common.collect.Lists;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestTemplate;
 
 public class CompletableFutureTest {
+
+    private static ExecutorService service = Executors.newCachedThreadPool();
 
     @Test
     public void testCompletedCompletableFuture() {
@@ -122,6 +134,68 @@ public class CompletableFutureTest {
                 .collect(Collectors.toList());
         Assertions.assertEquals(7, results.size());
     }
+
+    @Test
+    public void test_then_compose() throws Exception {
+
+        Function<Integer, Supplier<List<Integer>>> getFirstTenMultiples = num ->
+                ()->Stream.iterate(num, i -> i + num).limit(10).collect(Collectors.toList());
+
+        Supplier<List<Integer>> multiplesSupplier = getFirstTenMultiples.apply(13);
+
+        //Original CompletionStage
+        CompletableFuture<List<Integer>> getMultiples = CompletableFuture.supplyAsync(multiplesSupplier, service);
+
+        //Function that takes input from orignal CompletionStage
+        Function<List<Integer>, CompletableFuture<Integer>> sumNumbers = multiples ->
+                CompletableFuture.supplyAsync(() -> multiples.stream().mapToInt(Integer::intValue).sum());
+
+        //The final CompletableFuture composed of previous two.
+        CompletableFuture<Integer> summedMultiples = getMultiples.thenComposeAsync(sumNumbers, service);
+
+        Assert.assertThat(summedMultiples.get(), CoreMatchers.is(715));
+    }
+
+    @Test
+    public void testCombineWithBiFunction() {
+        CompletableFuture<String> determineFirstName = CompletableFuture.supplyAsync(() -> "Judy");
+        CompletableFuture<String> determineLastName = CompletableFuture.completedFuture("Greer");
+
+        BinaryOperator<String> determineFullName = (f, l) -> String.format("%s %s", f, l);
+        CompletableFuture<String> combined = determineFirstName.thenCombine(determineLastName, determineFullName);
+        Assertions.assertEquals(combined.join(), "Judy Greer");
+    }
+
+    @Test
+    public void testRunAfterAsync() {
+        List<String> results = new ArrayList<>();
+        CompletableFuture<Void> addFirstNameTask = CompletableFuture.runAsync(() -> {
+            pauseSeconds(2);
+            results.add("Samuel");
+
+        });
+        CompletableFuture<Void> addLastNameTask = CompletableFuture.runAsync(() -> {
+            pauseSeconds(3);
+            results.add("Jackson");
+        });
+
+        CompletableFuture<Void> combineNamesTask = addFirstNameTask.runAfterBothAsync(addLastNameTask, () -> results.add(String.format("%s %s %s", results.get(0), "L.", results.get(1))));
+        pauseSeconds(4);
+
+        Assertions.assertEquals(3, results.size());
+        Assertions.assertEquals("Samuel", results.get(0));
+        Assertions.assertEquals("Jackson", results.get(1));
+        Assertions.assertEquals("Samuel L. Jackson", results.get(2));
+    }
+
+    private static void pauseSeconds(int seconds) {
+        try {
+            Thread.sleep(seconds * 1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
 

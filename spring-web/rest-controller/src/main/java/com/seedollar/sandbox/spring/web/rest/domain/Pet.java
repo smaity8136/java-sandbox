@@ -1,5 +1,8 @@
 package com.seedollar.sandbox.spring.web.rest.domain;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
 import java.util.concurrent.ThreadLocalRandom;
@@ -7,13 +10,28 @@ import java.util.concurrent.ThreadLocalRandom;
 @XmlRootElement
 public class Pet {
 
+    @Getter
+    @Setter
     private Long id;
+
+    @Getter
+    @Setter
     private String name;
+
+    @Getter
+    @Setter
     private Integer age;
+
+    @Getter
+    @Setter
     private Date dateOfBirth;
+
+    @Getter
+    @Setter
     private Boolean fixed;
 
-    public Pet() {}
+    public Pet() {
+    }
 
     public Pet(String name, Integer age) {
         if (id == null) {
@@ -22,40 +40,6 @@ public class Pet {
         this.name = name;
         this.age = age;
     }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
-    public Date getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirth(Date dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
-    public Boolean isFixed() {
-        return fixed;
-    }
-
-    public void setFixed(Boolean fixed) {
-        this.fixed = fixed;
-    }
 }
+
+

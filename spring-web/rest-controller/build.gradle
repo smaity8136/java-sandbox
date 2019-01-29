@@ -4,3 +4,7 @@ jar {
     archivesBaseName = 'rest-controller'
     version = '1.0.0-SNAPSHOT'
 }
+
+dependencies {
+    compile("javax.xml.bind:jaxb-api:2.1")
+}

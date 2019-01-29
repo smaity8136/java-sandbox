@@ -2,6 +2,9 @@ package com.seedollar.sandbox.spring.web.rest.controller;
 
 import com.google.common.collect.Maps;
 import com.seedollar.sandbox.spring.web.rest.domain.Pet;
+import com.seedollar.sandbox.spring.web.rest.exception.CustomPetException;
+import com.seedollar.sandbox.spring.web.rest.exception.DuplicatePetException;
+import com.seedollar.sandbox.spring.web.rest.exception.PetNotFoundException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,7 +31,11 @@ public class PetController {
 
     @GetMapping("/{petId}")
     public Pet getPet(@PathVariable(name = "petId", required = true) final Long petId) {
-        return petMap.get(petId);
+        Pet pet = petMap.get(petId);
+        if (pet == null) {
+            throw new PetNotFoundException(String.format("Pet with id: [%s] not found.", petId));
+        }
+        return pet;
     }
 
     @PostMapping(value = "/add", consumes = "application/xml")
@@ -43,8 +50,10 @@ public class PetController {
     public Pet addPet(@RequestBody(required = true) Pet newPet) {
         if (!petMap.containsKey(newPet.getId())) {
             petMap.put(newPet.getId(), newPet);
+            return petMap.get(newPet.getId());
+        } else {
+           throw new DuplicatePetException(String.format("Pet already exists for pet ID: [%s]", newPet.getId()));
         }
-        return petMap.get(newPet.getId());
     }
 
     @PutMapping("/update")
@@ -58,5 +67,10 @@ public class PetController {
         Pet pet = petMap.get(petId);
         pet.setName(name);
         return pet;
+    }
+
+    @GetMapping("/custom")
+    public Pet custom() {
+        throw new CustomPetException("Pet custom endpoint not implemented yet");
     }
 }

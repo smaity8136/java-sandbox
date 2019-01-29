@@ -7,7 +7,7 @@ public class AllPermutationsStringRecursivelyTest {
 
     @Test
     @DisplayName("Illustrate how to print all- permutations of a string using recursion")
-    public void testP-rintAllPurmutationsOfStringRecursively() {
+    public void testPrintAllPurmutationsOfStringRecursively() {
         final String str = "XY";
         permutation("", str);
     }

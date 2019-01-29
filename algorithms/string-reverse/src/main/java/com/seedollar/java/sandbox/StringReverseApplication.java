@@ -14,7 +14,7 @@ public class StringReverseApplication {
             stringBuilder.append(value.toCharArray()[x]);
         }
 
-        System.out.println("stringBuilder = " + stringBuilder.toString()1);
+        System.out.println("stringBuilder = " + stringBuilder.toString());
 
     }
 }
