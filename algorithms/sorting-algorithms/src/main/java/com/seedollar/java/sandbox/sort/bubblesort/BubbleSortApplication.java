@@ -5,6 +5,8 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Created by seedollar on 11/16/17.
+ *
+ * The performance of a bubble sort algorithm is 0(n^2) which is very bad. As the data set increases in size, so the performance decreases quadratically.
  */
 public class BubbleSortApplication {
 

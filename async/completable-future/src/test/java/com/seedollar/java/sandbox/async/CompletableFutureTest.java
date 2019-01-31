@@ -1,6 +1,15 @@
 package com.seedollar.java.sandbox.async;
 
+import com.google.common.collect.Lists;
+import lombok.extern.slf4j.Slf4j;
+import org.hamcrest.CoreMatchers;
+import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
@@ -14,15 +23,7 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.hamcrest.CoreMatchers;
-import org.junit.Assert;
-import org.junit.jupiter.api.Assertions;
-
-import com.google.common.collect.Lists;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestTemplate;
-
+@Slf4j
 public class CompletableFutureTest {
 
     private static ExecutorService service = Executors.newCachedThreadPool();
@@ -136,10 +137,11 @@ public class CompletableFutureTest {
     }
 
     @Test
+    @DisplayName("Illustrate how to use thenComposeAsync()")
     public void test_then_compose() throws Exception {
 
         Function<Integer, Supplier<List<Integer>>> getFirstTenMultiples = num ->
-                ()->Stream.iterate(num, i -> i + num).limit(10).collect(Collectors.toList());
+                () -> Stream.iterate(num, i -> i + num).limit(10).collect(Collectors.toList());
 
         Supplier<List<Integer>> multiplesSupplier = getFirstTenMultiples.apply(13);
 
@@ -157,6 +159,7 @@ public class CompletableFutureTest {
     }
 
     @Test
+    @DisplayName("Illustrate how to use thenCombine(), allowing 2 seperate CompletionStage instances to finish, and then combine their results")
     public void testCombineWithBiFunction() {
         CompletableFuture<String> determineFirstName = CompletableFuture.supplyAsync(() -> "Judy");
         CompletableFuture<String> determineLastName = CompletableFuture.completedFuture("Greer");
@@ -167,6 +170,7 @@ public class CompletableFutureTest {
     }
 
     @Test
+    @DisplayName("Illustrate how to use runAfterBothAsync(), where we allow 2 CompletionStage instances to complete, and then apply another Runnable afterwards")
     public void testRunAfterAsync() {
         List<String> results = new ArrayList<>();
         CompletableFuture<Void> addFirstNameTask = CompletableFuture.runAsync(() -> {
@@ -188,6 +192,147 @@ public class CompletableFutureTest {
         Assertions.assertEquals("Samuel L. Jackson", results.get(2));
     }
 
+    @Test
+    @DisplayName("Illustrates how to use acceptEither(), which uses the first of 2 CompletionStages to finish")
+    public void testAcceptEither() {
+        CompletableFuture<String> runFirstTask = CompletableFuture.supplyAsync(() -> {
+            pauseSeconds(2);
+            return "FIRST";
+        });
+
+        CompletableFuture<String> runSecondTask = CompletableFuture.supplyAsync(() -> {
+            pauseSeconds(1);
+            return "SECOND";
+        });
+
+        List<String> printEntries = new ArrayList<>();
+        // Use the completion stage that finishes first and add it's answer to the printEntries list.
+        CompletableFuture<Void> printerTask = runFirstTask.acceptEither(runSecondTask, printEntries::add);
+
+        pauseSeconds(3);
+        Assertions.assertTrue(printerTask.isDone());
+        Assertions.assertEquals(1, printEntries.size());
+        Assertions.assertEquals("SECOND", printEntries.get(0));
+    }
+
+    @Test
+    @DisplayName("Illusrate the runAfterEitherAsync() which is analogous to the acceptEither() where it executes a Runnable after the first of either completionStages complete.")
+    public void testRunAfterEitherAsync() {
+        List<String> result = new ArrayList<>();
+        CompletableFuture<Void> firstTask = CompletableFuture.runAsync(() -> {
+            pauseSeconds(3);
+            result.add("FIRST");
+        });
+
+        CompletableFuture<Void> secondTask = CompletableFuture.runAsync(() -> {
+            pauseSeconds(1);
+            result.add("SECOND");
+        });
+
+        CompletableFuture<Void> showResultTask = firstTask.runAfterEitherAsync(secondTask, () -> result.add(0, result.get(0).toLowerCase()));
+        pauseSeconds(4);
+        Assertions.assertTrue(showResultTask.isDone());
+        Assertions.assertEquals("second", result.get(0));
+    }
+
+    @Test
+    @DisplayName("Illustrate applyToEither() which will apply a Function to the first result of either CompletionStages")
+    public void testApplyToEither() {
+        CompletableFuture<String> firstNameTask = CompletableFuture.supplyAsync(() -> {
+            pauseSeconds(3);
+            return "FIRST";
+        });
+
+        CompletableFuture<String> lastNameTask = CompletableFuture.supplyAsync(() -> {
+            pauseSeconds(2);
+            return "LAST";
+        });
+
+        CompletableFuture<Integer> countNameTask = firstNameTask.applyToEither(lastNameTask, String::length);
+        Assertions.assertEquals(Integer.valueOf(4), countNameTask.join());
+    }
+
+
+    @Test
+    @DisplayName("Illustration of allOf() which will wait for all CompletionStages to finish before evaluating further.")
+    public void testAllOf() {
+        List<String> entries = Lists.newArrayList();
+        CompletableFuture<Void> allOfTask = CompletableFuture.allOf(
+                CompletableFuture.runAsync(() -> {
+                    entries.add("cs1");
+                    pauseSeconds(2);
+                }),
+                CompletableFuture.runAsync(() -> {
+                    entries.add("cs2");
+                    pauseSeconds(3);
+                }),
+                CompletableFuture.runAsync(() -> {
+                    entries.add("cs3");
+                    pauseSeconds(4);
+                })
+        );
+
+        allOfTask.join();
+
+        Assertions.assertEquals(3, entries.size());
+    }
+
+    @Test
+    @DisplayName("Illustration of anyOf() which expect the integer result of the first CompletionStage that is done.")
+    public void testAnyOf() {
+        CompletableFuture<Object> anyOfTask = CompletableFuture.anyOf(
+                CompletableFuture.supplyAsync(() -> {
+                    pauseSeconds(2);
+                    return 1024;
+                }),
+                CompletableFuture.supplyAsync(() -> {
+                    pauseSeconds(1);
+                    return 2048;
+                })
+        );
+
+        // We expect the value to be 2048 because the second CompletionStage will finish first.
+        Assertions.assertEquals(2048, anyOfTask.join());
+    }
+
+
+    @Test
+    @DisplayName("Illustrate handle() to handle errors when any CompletionStage fails, or do something else if successful. handle() will always be called.")
+    public void testHandle() throws ExecutionException, InterruptedException {
+        CompletableFuture<String> stringTask = CompletableFuture.supplyAsync(() -> "john marston");
+        CompletableFuture<Integer> nameCountTask = stringTask.thenApply(name -> Character.toString(name.charAt(100)).length()); // Force exception
+        CompletableFuture<Integer> isCountEvenTask = nameCountTask.thenApply(length -> length * 2);
+
+        CompletableFuture<Integer> handle = isCountEvenTask.handle((res, ex) -> {
+            if (res == null) {
+                System.out.println("Handle Exception: " + ex.getMessage());
+                log.info("Exception thrown", ex);
+                return -5;
+            } else {
+                return 25;
+            }
+        });
+        Assertions.assertEquals(Integer.valueOf(-5), handle.get());
+    }
+
+    @Test
+    @DisplayName("Illustrate exceptionally(), which is allows us to handle the exception asynchronously")
+    public void testExceptionally() {
+        CompletableFuture<String> stringTask = CompletableFuture.supplyAsync(() -> "jim milton");
+        CompletableFuture<Integer> nameCountTask = stringTask.thenApply(name -> Character.toString(name.charAt(100)).length()); // Force exception
+        CompletableFuture<Integer> isCountEvenTask = nameCountTask.thenApply(length -> length * 2);
+
+        CompletableFuture<Integer> handle = isCountEvenTask.exceptionally(ex -> {
+            System.out.println("Failed Exceptionally: " + ex.getMessage());
+            log.info("Exception thrown", ex);
+            return -2;
+        });
+        Assertions.assertEquals(Integer.valueOf(-2), handle.join());
+    }
+
+    @Test
+    @DisplayName("Illustrate thenAccept`")
+
     private static void pauseSeconds(int seconds) {
         try {
             Thread.sleep(seconds * 1000);
@@ -195,9 +340,6 @@ public class CompletableFutureTest {
             e.printStackTrace();
         }
     }
-
-
-
 
 
 }
