@@ -197,6 +197,7 @@ public class CompletableFutureTest {
     public void testAcceptEither() {
         CompletableFuture<String> runFirstTask = CompletableFuture.supplyAsync(() -> {
             pauseSeconds(2);
+            pauseSeconds(2);
             return "FIRST";
         });
 
