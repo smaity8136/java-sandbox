@@ -1,0 +1,20 @@
+apply plugin: 'org.springframework.boot'
+
+jar {
+    archivesBaseName = 'ssl-tls-client'
+    version = '1.0'
+}
+
+dependencies {
+    compileOnly("org.projectlombok:lombok:${lombokVersion}")
+    annotationProcessor("org.projectlombok:lombok:${lombokVersion}")
+    implementation("org.springframework.boot:spring-boot-starter-security:${springBootVersion}")
+    implementation("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
+    implementation("org.apache.httpcomponents:httpclient:${httpClientVersion}")
+    testImplementation("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
+    testImplementation("org.springframework.security:spring-security-test:${springVersion}")
+}
+
+
+
+

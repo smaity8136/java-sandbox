@@ -1,0 +1,6 @@
+rootProject.name = 'ssl-tls-springboot'
+
+include 'ssl-tls-server'
+include 'ssl-tls-client'
+
+
