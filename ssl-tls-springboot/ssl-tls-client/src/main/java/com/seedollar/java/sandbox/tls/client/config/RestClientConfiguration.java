@@ -38,7 +38,8 @@ public class RestClientConfiguration {
         SSLContext sslContext = new SSLContextBuilder()
                 .loadTrustMaterial(trustStore.getURL(), trustStorePassword.toCharArray())
                 .build();
-        SSLConnectionSocketFactory socketFactory = new SSLConnectionSocketFactory(sslContext);
+        // Use the HostNameVerifier interface and always return true to diable the alias name matching for self-signed certificate
+        SSLConnectionSocketFactory socketFactory = new SSLConnectionSocketFactory(sslContext, (hostName, session) -> true);
         HttpClient httpClient = HttpClients.custom()
                 .setSSLSocketFactory(socketFactory)
                 .setSSLHostnameVerifier(NoopHostnameVerifier.INSTANCE)

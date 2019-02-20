@@ -21,6 +21,8 @@ _Make sure you enter: **localhost** for the first name so that you get CN=localh
 
 `keytool -genkeypair -alias seedollar -keyalg RSA -keysize 2048 -keystore seedollar.jks -validity 3650`
 
+Move the created keystore to the following temp folder: `/tmp/keystore/seedollar.p12`
+
 # Illustration
 
 Start up the **ssl-tls-server** module, as well as the **ssl-tls-client** module. Because both applications are pointing to the same
