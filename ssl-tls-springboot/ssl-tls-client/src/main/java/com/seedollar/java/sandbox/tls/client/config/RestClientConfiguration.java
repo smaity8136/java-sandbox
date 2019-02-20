@@ -5,6 +5,8 @@ import org.apache.http.conn.ssl.AllowAllHostnameVerifier;
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.ssl.PrivateKeyDetails;
+import org.apache.http.ssl.PrivateKeyStrategy;
 import org.apache.http.ssl.SSLContextBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -15,10 +17,12 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.net.ssl.SSLContext;
 import java.io.IOException;
+import java.net.Socket;
 import java.security.KeyManagementException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
+import java.util.Map;
 
 @Configuration
 public class RestClientConfiguration {

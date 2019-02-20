@@ -1,20 +1,15 @@
-package com.seedollar.java.sandbox.tls.server.model;
+package com.seedollar.java.sandbox.tls.client.model;
 
 import lombok.Getter;
 import lombok.Setter;
 
-@Setter
 @Getter
-public class Car {
+@Setter
+public class CarEntry {
 
     private Long carId;
-
     private String make;
-
     private String model;
-
     private String plate;
-
     private boolean isElectric;
-
 }
