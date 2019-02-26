@@ -16,5 +16,7 @@ public class Account {
 
     private AccountTypeEnum accountType;
 
+    private String description;
+
 
 }

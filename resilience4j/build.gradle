@@ -18,6 +18,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation "io.github.resilience4j:resilience4j-circuitbreaker:${resilience4jVersion}"
+	implementation "io.github.resilience4j:resilience4j-ratelimiter:${resilience4jVersion}"
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor "org.projectlombok:lombok"
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'

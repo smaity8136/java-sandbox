@@ -9,4 +9,6 @@ public interface AccountService {
     String createAccount();
 
     List<Account> getAllAccounts();
+
+    boolean resetRequestCount();
 }

@@ -28,4 +28,10 @@ public class AccountController {
     public ResponseEntity<List> getAllAccounts() {
         return ResponseEntity.ok(this.accountService.getAllAccounts());
     }
+
+    @PostMapping("/resetRequestCount")
+    public ResponseEntity<String> resetRequestCount() {
+        this.accountService.resetRequestCount();
+        return ResponseEntity.ok("Request Count reset back to 50");
+    }
 }
