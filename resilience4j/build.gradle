@@ -21,6 +21,9 @@ dependencies {
 	implementation "io.github.resilience4j:resilience4j-ratelimiter:${resilience4jVersion}"
 	implementation "io.github.resilience4j:resilience4j-bulkhead:${resilience4jVersion}"
 	implementation "io.github.resilience4j:resilience4j-retry:${resilience4jVersion}"
+	implementation "io.github.resilience4j:resilience4j-cache:${resilience4jVersion}"
+	implementation "io.github.resilience4j:resilience4j-timelimiter:${resilience4jVersion}"
+	implementation "org.ehcache:ehcache:${ehcacheVersion}"
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor "org.projectlombok:lombok"
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'

@@ -5,4 +5,6 @@ public interface MainframeService {
     String syncAccount(String accountId);
 
     String batchJobs();
+
+    long calculateBookValue();
 }

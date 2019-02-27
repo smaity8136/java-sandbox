@@ -4,6 +4,7 @@ import com.seedollar.java.sandbox.resilience4j.service.MainframeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,6 +36,10 @@ public class MainframeController {
         return ResponseEntity.ok(body);
     }
 
+    @GetMapping("/bookValue")
+    public ResponseEntity<Long> calculateBookValue() {
+        return ResponseEntity.ok(mainframeService.calculateBookValue());
+    }
 
 
 }

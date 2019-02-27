@@ -56,3 +56,41 @@ You will see on the third retry, we trigger a retry-on-result, which should then
 2019-02-27 11:43:53.397  INFO 192642 --- [nio-8080-exec-1] c.s.j.s.r.s.impl.MainframeServiceImpl    : Triggering batch jobs...
 2019-02-27 11:43:53.400  INFO 192642 --- [nio-8080-exec-1] c.s.j.s.r.c.MainframeController          : Batch Jobs Result: retryOnResultSuccess
 ```
+
+#Cache
+
+To confirm a cache hit or miss, execute the following curl command:
+
+`curl -X GET 'http://localhost:8080/branches/Carlton'`
+
+On first invocation, you should see that there is a **CACHE_MISS** event, and a log to indicating that a new branch is being created:
+
+```
+...
+2019-02-27 13:18:08.871  INFO 207671 --- [nio-8080-exec-2] c.s.j.s.r.config.CacheConfiguration      : Cache Miss - Event = CACHE_MISS, CacheKey = Carlton
+2019-02-27 13:18:08.871  INFO 207671 --- [nio-8080-exec-2] c.s.j.s.r.s.impl.BranchServiceImpl       : Building new branch with name: Carlton
+```
+
+On second invocation of the same curl command, you will see there is a **CACHE_HIT** event, and no log of a new branch being created:
+
+`curl -X GET 'http://localhost:8080/branches/Carlton'`
+
+```
+...
+2019-02-27 13:18:08.871  INFO 207671 --- [nio-8080-exec-2] c.s.j.s.r.config.CacheConfiguration      : Cache Miss - Event = CACHE_MISS, CacheKey = Carlton
+2019-02-27 13:18:08.871  INFO 207671 --- [nio-8080-exec-2] c.s.j.s.r.s.impl.BranchServiceImpl       : Building new branch with name: Carlton
+2019-02-27 13:18:56.836  INFO 207671 --- [nio-8080-exec-3] c.s.j.s.r.config.CacheConfiguration      : Cache Hit - Event = CACHE_HIT, CacheKey = Carlton
+```
+
+# TimeLimiter
+
+Given a `MainframeService.calculateBookValue()` method which takes 5 seconds to complete, and a timeLimiter with a timeout of 2 seconds, execute the following curl command:
+
+`curl -X GET 'http://localhost:8080/mainframe/bookValue'`
+
+You can confirm that the timeLimiter kicks in after 2 seconds and interrupts the calculation thread:
+
+```
+2019-02-27 14:03:18.639  INFO 215225 --- [pool-1-thread-1] c.s.j.s.r.s.impl.MainframeServiceImpl    : calculate book value process interrupted.
+2019-02-27 14:03:18.641  INFO 215225 --- [nio-8080-exec-1] c.s.j.s.r.s.impl.MainframeServiceImpl    : Calculating book value timed out, returning 9999 default.
+```
