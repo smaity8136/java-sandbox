@@ -1,0 +1,19 @@
+management.endpoint.health.show-details: always
+
+resilience4j.circuitbreaker:
+  backends:
+    createAccount:
+      ringBufferSizeInClosedState: 10
+      ringBufferSizeInHalfOpenState: 5
+      waitInterval: 5000
+      failureRateThreshold: 10
+      eventConsumerBufferSize: 10
+      registerHealthIndicator: true
+    updateAccount:
+      ringBufferSizeInClosedState: 10
+      ringBufferSizeInHalfOpenState: 2
+      waitInterval: 3000
+      failureRateThreshold: 30
+      eventConsumerBufferSize: 10
+      registerHealthIndicator: true
+

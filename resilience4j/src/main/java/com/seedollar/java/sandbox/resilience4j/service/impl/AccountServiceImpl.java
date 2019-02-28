@@ -5,6 +5,8 @@ import com.seedollar.java.sandbox.resilience4j.model.Account;
 import com.seedollar.java.sandbox.resilience4j.model.enumeration.AccountTypeEnum;
 import com.seedollar.java.sandbox.resilience4j.service.AccountService;
 import io.github.resilience4j.circuitbreaker.CircuitBreaker;
+import io.github.resilience4j.circuitbreaker.CircuitBreakerConfig;
+import io.github.resilience4j.circuitbreaker.CircuitBreakerRegistry;
 import io.github.resilience4j.ratelimiter.RateLimiter;
 import io.vavr.CheckedFunction0;
 import io.vavr.control.Try;
@@ -27,27 +29,41 @@ public class AccountServiceImpl implements AccountService {
     private static final Logger logger = LoggerFactory.getLogger(AccountServiceImpl.class);
 
     private final CircuitBreaker createAccountCircuitBreaker;
+    private final CircuitBreaker deleteAccountCircuitBreaker;
     private final RateLimiter getAllAccountsRateLimiter;
     private Map<String, Account> accountsMap = new ConcurrentHashMap<>();
 
     private CountDownLatch requestCounter = new CountDownLatch(50);
 
-    public AccountServiceImpl(CircuitBreaker createAccountCircuitBreaker, RateLimiter getAllAccountsRateLimiter) {
-        this.createAccountCircuitBreaker = createAccountCircuitBreaker;
+    public AccountServiceImpl(CircuitBreakerRegistry circuitBreakerRegistry, CircuitBreaker deleteAccountCircuitBreaker, RateLimiter getAllAccountsRateLimiter) {
+        this.deleteAccountCircuitBreaker = deleteAccountCircuitBreaker;
         this.getAllAccountsRateLimiter = getAllAccountsRateLimiter;
+        this.createAccountCircuitBreaker = circuitBreakerRegistry.circuitBreaker("createAccount");
+        this.createAccountCircuitBreaker.getEventPublisher()
+                .onStateTransition(evt -> logger.info("CIRCUIT BREAKER transition from {} to {}", evt.getStateTransition().getFromState(), evt.getStateTransition().getToState()));
+
+        this.deleteAccountCircuitBreaker.getEventPublisher()
+                .onError(evt -> logger.info("Delete Account Circuit Breaker FAILED"))
+                .onSuccess(evt -> logger.info("Delete Account Circuit Breaker SUCCEEDED"))
+                .onStateTransition(evt -> logger.info("CIRCUIT BREAKER transition from {} to {}", evt.getStateTransition().getFromState(), evt.getStateTransition().getToState()));
     }
 
     @Override
-    public String createAccount() {
-        logger.info("Request COUNT: " + requestCounter.getCount());
-        CheckedFunction0<Account> createNewAccountDecoratorFunction = CircuitBreaker.decorateCheckedSupplier(createAccountCircuitBreaker, this::createNewAccount);
+    public String createAccount(boolean active) {
+        CheckedFunction0<Account> createNewAccountDecoratorFunction = CircuitBreaker.decorateCheckedSupplier(createAccountCircuitBreaker, () -> createNewAccount(active));
         return Try.of(createNewAccountDecoratorFunction).map(Account::getAccountId)
-                .recover(ex -> "Attempting recovery....")
                 .getOrElseThrow(
-                ex -> {
-                    createAccountCircuitBreaker.onError(0, ex);
-                    return new AccountCreationException(String.format("Account creation failed. Circuit Breaker status: %s", createAccountCircuitBreaker.getState().name()), ex);
-                });
+                        ex -> new AccountCreationException(String.format("Account creation failed. Circuit Breaker status: %s", createAccountCircuitBreaker.getState().name()), ex));
+    }
+
+    @io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker(name = "updateAccount")
+    @Override
+    public String updateAccount(boolean active) {
+        if (!active) {
+            throw new RuntimeException("Update Account Mock failure");
+        } else {
+            return "Account update successful";
+        }
     }
 
     @Override
@@ -71,11 +87,21 @@ public class AccountServiceImpl implements AccountService {
         return true;
     }
 
+    @Override
+    public String deleteAccount(String accountId) {
+        CheckedFunction0<String> deleteAccountFunction = CircuitBreaker.decorateCheckedSupplier(deleteAccountCircuitBreaker, () -> {
+            if (accountId.equalsIgnoreCase("fail")) {
+                throw new RuntimeException("Delete Account Mock failure");
+            }
+            return "Account Deleted Successfully";
+        });
+        return Try.of(deleteAccountFunction).get();
+    }
 
-    private Account createNewAccount() {
-        boolean fail = ThreadLocalRandom.current().nextBoolean();
-        if (fail) {
-            throw new RuntimeException("Mock failure");
+
+    private Account createNewAccount(boolean active) {
+        if (!active) {
+            throw new RuntimeException("Create Account Mock failure");
         } else {
             Account newAccount = new Account();
             newAccount.setAccountId(UUID.randomUUID().toString());
@@ -83,7 +109,6 @@ public class AccountServiceImpl implements AccountService {
             newAccount.setAccountType(AccountTypeEnum.values()[(ThreadLocalRandom.current().nextInt(0, AccountTypeEnum.values().length))]);
             newAccount.setDescription(createAccountCircuitBreaker.getState().name()); // Record the circuit breaker state so that we know how this account was created
             accountsMap.put(newAccount.getAccountId(), newAccount);
-            createAccountCircuitBreaker.onSuccess(0);
             return newAccount;
         }
     }

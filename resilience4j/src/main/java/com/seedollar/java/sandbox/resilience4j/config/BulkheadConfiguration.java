@@ -18,7 +18,7 @@ public class BulkheadConfiguration {
     }
 
     @Bean
-    public BulkheadRegistry bulkheadRegistry() {
+    public BulkheadRegistry customBulkheadRegistry() {
         return BulkheadRegistry.of(customBulkHeadConfig());
     }
 

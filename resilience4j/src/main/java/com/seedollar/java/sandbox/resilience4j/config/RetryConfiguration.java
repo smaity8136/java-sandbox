@@ -23,7 +23,7 @@ public class RetryConfiguration {
     }
 
     @Bean
-    public RetryRegistry retryRegistry() {
+    public RetryRegistry customRetryRegistry() {
         return RetryRegistry.of(customRetryConfig());
     }
 

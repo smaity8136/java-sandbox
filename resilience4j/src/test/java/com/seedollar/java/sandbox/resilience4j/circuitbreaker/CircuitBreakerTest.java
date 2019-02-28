@@ -1,8 +1,11 @@
 package com.seedollar.java.sandbox.resilience4j.circuitbreaker;
 
+import com.seedollar.java.sandbox.resilience4j.config.CacheConfiguration;
 import io.github.resilience4j.circuitbreaker.CircuitBreaker;
 import io.github.resilience4j.circuitbreaker.CircuitBreakerConfig;
 import io.github.resilience4j.circuitbreaker.CircuitBreakerOpenException;
+import io.github.resilience4j.circuitbreaker.autoconfigure.CircuitBreakerAutoConfiguration;
+import io.github.resilience4j.ratelimiter.autoconfigure.RateLimiterAutoConfiguration;
 import io.vavr.CheckedFunction0;
 import io.vavr.CheckedFunction1;
 import io.vavr.control.Try;
@@ -10,8 +13,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.IOException;
@@ -25,15 +29,26 @@ import static io.vavr.Predicates.instanceOf;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
+@EnableAutoConfiguration(exclude= {CircuitBreakerAutoConfiguration.class, RateLimiterAutoConfiguration.class})
 public class CircuitBreakerTest {
 
-    @Autowired
     private CircuitBreakerConfig customCircuitBreakerConfig;
 
     private CircuitBreaker testCircuitBreaker;
 
     @Before
     public void init() {
+        customCircuitBreakerConfig = CircuitBreakerConfig.custom()
+                .failureRateThreshold(10.0f) // failure rate percentage, 10%
+                // the number of calls that need to be evaluated to calculate the failure rate. For example, if the buffer is 10, then 10 calls need to be evaluated before
+                // the failure rate can be calculated. So if 1 call out of 10 calls in the buffer have failed, the circuitbreaker will transition to OPEN.
+                .ringBufferSizeInClosedState(10)
+                // the number of calls that need to be evaluated to calculate the failure rate when the circuit breaker is in HALF-OPEN state. Meaning that 8 calls need to be
+                // recorded and the failure rate not at 50% or above before the circuitbreaker transitions from HALF-OPEN to CLOSED.
+                .ringBufferSizeInHalfOpenState(5)
+                .waitDurationInOpenState(Duration.ofSeconds(5)) // Defines how long the circuit breaker will remain OPEN before transitioning to HALF-OPEN state.
+                .build();
+
         this.testCircuitBreaker = CircuitBreaker.of("testCircuitBreaker", customCircuitBreakerConfig);
         testCircuitBreaker.getEventPublisher()
                 .onSuccess(evt -> System.out.println(evt.getEventType().name()))

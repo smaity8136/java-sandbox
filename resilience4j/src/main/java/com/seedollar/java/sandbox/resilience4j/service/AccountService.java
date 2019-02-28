@@ -6,7 +6,11 @@ import java.util.List;
 
 public interface AccountService {
 
-    String createAccount();
+    String createAccount(boolean active);
+
+    String updateAccount(boolean active);
+
+    String deleteAccount(String accountId);
 
     List<Account> getAllAccounts();
 

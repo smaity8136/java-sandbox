@@ -24,7 +24,7 @@ public class RateLimiterConfiguration {
     }
 
     @Bean
-    public RateLimiterRegistry rateLimiterRegistry() {
+    public RateLimiterRegistry customRateLimiterRegistry() {
         return RateLimiterRegistry.of(customRateLimitConfig());
     }
 

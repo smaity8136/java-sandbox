@@ -5,6 +5,60 @@ Resilience4J
 
 Check the `CircuitBreakerTest.java` for more details.
 
+There are a number of ways to implement a CircuitBreaker:
+
+- All java configuration. See `CircuitBreakerConfiguration`
+- `application.yml` configuration and `@CircuitBreaker` annotation. _NOTE: In conjunction with **resilience4j-spring-boot2** module, only circuitbreakers and ratelimters defined in the application.yml file will correctly integrate with the health actuator endpoint at: `http://localhost:8080/actuator/health` or `http://localhost:8080/actuator/circuitbreakers` or `http://localhost:8080/actuator/circuitbreaker-events`_
+
+The example defines 3 circuit breaker instances:
+
+### createAccount
+
+You can test the circuitbreaker by invoking the following curl commands to simulate failures and successes:
+
+To simulate a successful call: 
+
+`curl -X POST 'http://localhost:8080/accounts/create/true'`
+
+To simulate a failed call: 
+
+`curl -X POST 'http://localhost:8080/accounts/create/false'`
+
+To monitor the circuitbreaker:
+
+`http://localhost:8080/actuator/health`
+
+### updateAccount
+
+You can test the circuitbreaker by invoking the following curl commands to simulate failures and successes:
+
+To simulate a successful call: 
+
+`curl -X PUT 'http://localhost:8080/accounts/update/true'`
+
+To simulate a failed call: 
+
+`curl -X PUT 'http://localhost:8080/accounts/update/false'`
+
+To monitor the circuitbreaker:
+
+`http://localhost:8080/actuator/health`
+
+### deleteAccount
+
+You can test the circuitbreaker by invoking the following curl commands to simulate failures and successes:
+
+To simulate a successful call: 
+
+`curl -X DELETE 'http://localhost:8080/accounts/pass'`
+
+To simulate a failed call: 
+
+`curl -X DELETE 'http://localhost:8080/accounts/fail'`
+
+The deleteAccount circuit breaker is not registered with the spring boot actuator, so you will have to monitor
+the logs to see the circuit breaker transtions.
+
 # RateLimiter
 
 - Start up the spring boot app `gradle bootRun`

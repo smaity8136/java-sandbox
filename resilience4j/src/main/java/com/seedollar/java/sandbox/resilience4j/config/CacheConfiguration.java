@@ -30,7 +30,10 @@ public class CacheConfiguration {
     @Bean
     public Cache branchCacheContext() {
         // Create an JCache implementation
-        javax.cache.Cache branchCache = cacheManager().createCache("branchCache", new MutableConfiguration());
+        javax.cache.Cache<String, String> branchCache = cacheManager().getCache("branchCache");
+        if (branchCache == null) {
+            branchCache = cacheManager().createCache("branchCache", new MutableConfiguration());
+        }
         // Wrap the cache implementation in a CacheContext
         Cache branchCacheContext = Cache.of(branchCache);
         branchCacheContext.getEventPublisher()

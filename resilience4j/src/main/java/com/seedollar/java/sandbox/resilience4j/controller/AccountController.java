@@ -3,9 +3,11 @@ package com.seedollar.java.sandbox.resilience4j.controller;
 import com.seedollar.java.sandbox.resilience4j.service.AccountService;
 import com.seedollar.java.sandbox.resilience4j.service.PaymentsService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,9 +25,19 @@ public class AccountController {
         this.paymentsService = paymentsService;
     }
 
-    @PostMapping
-    public ResponseEntity<String> createAccount() {
-        return ResponseEntity.ok(accountService.createAccount());
+    @PostMapping("/create/{active}")
+    public ResponseEntity<String> createAccount(@PathVariable("active") boolean active) {
+        return ResponseEntity.ok(accountService.createAccount(active));
+    }
+
+    @PutMapping("/update/{active}")
+    public ResponseEntity<String> updateAccount(@PathVariable("active") boolean active) {
+        return ResponseEntity.ok(accountService.updateAccount(active));
+    }
+
+    @DeleteMapping("/{accountId}")
+    public ResponseEntity<String> deleteAccount(@PathVariable("accountId") String accountId) {
+        return ResponseEntity.ok(accountService.deleteAccount(accountId));
     }
 
     @GetMapping
