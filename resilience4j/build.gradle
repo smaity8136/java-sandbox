@@ -25,6 +25,9 @@ dependencies {
 	implementation "io.github.resilience4j:resilience4j-cache:${resilience4jVersion}"
 	implementation "io.github.resilience4j:resilience4j-timelimiter:${resilience4jVersion}"
 	implementation "io.github.resilience4j:resilience4j-spring-boot2:${resilience4jVersion}"
+	implementation "io.github.resilience4j:resilience4j-metrics:${resilience4jVersion}"
+	implementation "io.dropwizard.metrics:metrics-jmx:${dropwizardMetricsVersion}"
+	implementation "io.dropwizard.metrics:metrics-servlets:${dropwizardMetricsVersion}"
 	implementation "org.ehcache:ehcache:${ehcacheVersion}"
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor "org.projectlombok:lombok"

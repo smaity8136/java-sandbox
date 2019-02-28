@@ -1,13 +1,15 @@
 package com.seedollar.java.sandbox.resilience4j.config;
 
+import com.codahale.metrics.MetricRegistry;
 import io.github.resilience4j.circuitbreaker.CircuitBreaker;
 import io.github.resilience4j.circuitbreaker.CircuitBreakerConfig;
 import io.github.resilience4j.circuitbreaker.CircuitBreakerRegistry;
+import io.github.resilience4j.metrics.CircuitBreakerMetrics;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.annotation.PostConstruct;
 import java.time.Duration;
 
 @Configuration
@@ -17,7 +19,7 @@ public class CircuitBreakerConfiguration {
     private CircuitBreakerRegistry circuitBreakerRegistry;
 
     @Autowired
-    private ConfigurableBeanFactory beanFactory;
+    private MetricRegistry metricRegistry;
 
     private static final String DELETE_ACCOUNT_CIRCUIT_BREAKER_NAME = "deleteAccount";
 
@@ -47,5 +49,11 @@ public class CircuitBreakerConfiguration {
     @Bean
     public CircuitBreaker deleteAccountCircuitBreaker() {
         return circuitBreakerRegistry.circuitBreaker("deleteAccount", customCircuitBreakerConfig());
+    }
+
+    @PostConstruct
+    public void registerMetrics() {
+        metricRegistry.registerAll(CircuitBreakerMetrics.ofCircuitBreakerRegistry(circuitBreakerRegistry));
+        metricRegistry.registerAll(CircuitBreakerMetrics.ofCircuitBreaker(deleteAccountCircuitBreaker()));
     }
 }

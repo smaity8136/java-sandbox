@@ -1,7 +1,7 @@
 Resilience4J
 ============
 
-# CircuitBreaker
+## CircuitBreaker
 
 Check the `CircuitBreakerTest.java` for more details.
 
@@ -59,7 +59,7 @@ To simulate a failed call:
 The deleteAccount circuit breaker is not registered with the spring boot actuator, so you will have to monitor
 the logs to see the circuit breaker transtions.
 
-# RateLimiter
+## RateLimiter
 
 - Start up the spring boot app `gradle bootRun`
 - Execute the Apache Batch command to invoke calls to the spring boot REST endpoint:
@@ -80,9 +80,9 @@ We are using a CountdownLatch which starts at 50, and whenever a GET request is 
 we countdown the latch. When the latch reaches 0, we dynamically update the RateLimiter to process
 100 requests/per second.
 
-# Bulkhead
+## Bulkhead
 
-# Retry
+## Retry
 
 To confirm that a retry policy is working, execute the following curl command:
 
@@ -111,7 +111,7 @@ You will see on the third retry, we trigger a retry-on-result, which should then
 2019-02-27 11:43:53.400  INFO 192642 --- [nio-8080-exec-1] c.s.j.s.r.c.MainframeController          : Batch Jobs Result: retryOnResultSuccess
 ```
 
-#Cache
+## Cache
 
 To confirm a cache hit or miss, execute the following curl command:
 
@@ -136,7 +136,7 @@ On second invocation of the same curl command, you will see there is a **CACHE_H
 2019-02-27 13:18:56.836  INFO 207671 --- [nio-8080-exec-3] c.s.j.s.r.config.CacheConfiguration      : Cache Hit - Event = CACHE_HIT, CacheKey = Carlton
 ```
 
-# TimeLimiter
+## TimeLimiter
 
 Given a `MainframeService.calculateBookValue()` method which takes 5 seconds to complete, and a timeLimiter with a timeout of 2 seconds, execute the following curl command:
 
@@ -148,3 +148,60 @@ You can confirm that the timeLimiter kicks in after 2 seconds and interrupts the
 2019-02-27 14:03:18.639  INFO 215225 --- [pool-1-thread-1] c.s.j.s.r.s.impl.MainframeServiceImpl    : calculate book value process interrupted.
 2019-02-27 14:03:18.641  INFO 215225 --- [nio-8080-exec-1] c.s.j.s.r.s.impl.MainframeServiceImpl    : Calculating book value timed out, returning 9999 default.
 ```
+
+# Dropwizard Metrics Integration
+
+To integrate your resilience components with dropwizard's metrics framework, you need to add the following dependency:
+
+`implementation "io.github.resilience4j:resilience4j-metrics:${resilience4jVersion}"`
+
+Then you can register the following types of resilience components:
+
+- CircuitBreakers
+- RateLimiters
+- Bulkheads
+- Retry
+
+# Dropwizard JMX Reporter Integration
+
+To integrate resilience metrics into JMX Reporter, include the following dependency:
+
+`implementation "io.dropwizard.metrics:metrics-jmx:${dropwizardMetricsVersion}"`
+
+Then you can startup the `./jvisualvm` tool and install the `VisualVM-MBeans` plugin to see the dropwizard metrics under the **MBeans** tab.
+
+# Dropwizard Metric Servlet Integration
+
+Dropwizard has a feature which allows its metric components to serve JSON output via configured servlets.
+
+To use this feature, you need to include the following dependency:
+
+`implementation "io.dropwizard.metrics:metrics-servlets:${dropwizardMetricsVersion}"`
+
+Then you need to configure an `AdminServet` and corresponding servlet mapping `/dropwizardAdmin/*` via `ServletConfiguration.java`
+
+The AdminServlet requires the `HealthCheckRegistry` and `MetricRegistry` to be added as servlet context attributes. You can achieve this by
+using the `@ServletComponentScan` in the Spring main Application class and then defining the following `@WebListener` classes:
+
+- DropwizardMetricServletContextListener.java
+- DropwizardHealthCheckServletContextListener.java
+
+To register your resilience4j components to the dropwizard MetricsRegistry, you can do so by defining the following example:
+
+`
+@PostConstruct
+ public void registerMetrics() {
+     metricRegistry.registerAll(CircuitBreakerMetrics.ofCircuitBreakerRegistry(circuitBreakerRegistry));
+     metricRegistry.registerAll(CircuitBreakerMetrics.ofCircuitBreaker(deleteAccountCircuitBreaker()));
+ }
+`
+
+Now you can view the resilience4j components in the dropwizard metrics servlet at:
+
+`http://localhost:8080/dropwizardAdmin/metrics?pretty=true`
+
+
+
+
+
+
