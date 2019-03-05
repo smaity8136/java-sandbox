@@ -28,9 +28,12 @@ dependencies {
 	implementation "io.github.resilience4j:resilience4j-metrics:${resilience4jVersion}"
 	implementation "io.dropwizard.metrics:metrics-jmx:${dropwizardMetricsVersion}"
 	implementation "io.dropwizard.metrics:metrics-servlets:${dropwizardMetricsVersion}"
+	implementation "io.dropwizard.metrics:metrics-graphite:${dropwizardMetricsVersion}"
 	implementation "org.ehcache:ehcache:${ehcacheVersion}"
 	compileOnly 'org.projectlombok:lombok'
+	testCompileOnly "org.projectlombok:lombok"
 	annotationProcessor "org.projectlombok:lombok"
+	testAnnotationProcessor "org.projectlombok:lombok"
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 }

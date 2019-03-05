@@ -17,3 +17,13 @@ resilience4j.circuitbreaker:
       eventConsumerBufferSize: 10
       registerHealthIndicator: true
 
+resilience4j.ratelimiter:
+  limiters:
+    transferFunds:
+      limitForPeriod: 2
+      limitRefreshPeriodInMillis: 10000
+      timeoutInMillis: 0
+      subscribeForEvents: true
+      registerHealthIndicator: true
+      eventConsumerBufferSize: 100
+

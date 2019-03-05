@@ -51,9 +51,15 @@ public class AccountController {
         return ResponseEntity.ok("Request Count reset back to 50");
     }
 
-    @PostMapping("payments/{sourceAccountId}/{targetAccountId}/{amount}")
+    @PostMapping("/payments/{sourceAccountId}/{targetAccountId}/{amount}")
     public ResponseEntity<String> makePayment(@PathVariable("sourceAccountId") String sourceAccountId, @PathVariable("targetAccountId") String targetAccountId, @PathVariable("amount") Double amount) {
         paymentsService.payAccount(sourceAccountId, targetAccountId, amount);
         return ResponseEntity.ok("Payment made successfully");
+    }
+
+    @PostMapping("/transfer/{targetAccountId}/{amount}")
+    public ResponseEntity<String> transferFunds(@PathVariable("targetAccountId") String targetAccountId, @PathVariable("amount") Double amount) {
+        paymentsService.transferFunds(targetAccountId, amount);
+        return ResponseEntity.ok().build();
     }
 }

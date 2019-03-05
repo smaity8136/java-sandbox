@@ -1,14 +1,20 @@
 package com.seedollar.java.sandbox.resilience4j.config;
 
+import com.codahale.metrics.MetricRegistry;
 import io.github.resilience4j.timelimiter.TimeLimiter;
 import io.github.resilience4j.timelimiter.TimeLimiterConfig;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.annotation.PostConstruct;
 import java.time.Duration;
 
 @Configuration
 public class TimeLimiterConfiguration {
+
+    @Autowired
+    private MetricRegistry metricRegistry;
 
     @Bean
     public TimeLimiterConfig customTimeLimiterConfig() {

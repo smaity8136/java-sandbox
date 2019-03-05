@@ -9,6 +9,7 @@ import io.github.resilience4j.ratelimiter.autoconfigure.RateLimiterAutoConfigura
 import io.vavr.CheckedFunction0;
 import io.vavr.CheckedFunction1;
 import io.vavr.control.Try;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,6 +31,7 @@ import static io.vavr.Predicates.instanceOf;
 @SpringBootTest
 @RunWith(SpringRunner.class)
 @EnableAutoConfiguration(exclude= {CircuitBreakerAutoConfiguration.class, RateLimiterAutoConfiguration.class})
+@Slf4j
 public class CircuitBreakerTest {
 
     private CircuitBreakerConfig customCircuitBreakerConfig;
@@ -38,6 +40,7 @@ public class CircuitBreakerTest {
 
     @Before
     public void init() {
+        log.info("initializing test");
         customCircuitBreakerConfig = CircuitBreakerConfig.custom()
                 .failureRateThreshold(10.0f) // failure rate percentage, 10%
                 // the number of calls that need to be evaluated to calculate the failure rate. For example, if the buffer is 10, then 10 calls need to be evaluated before
@@ -61,6 +64,7 @@ public class CircuitBreakerTest {
 
     @Test
     public void testCircuitBreaker_OPEN() {
+        log.info("Testing testCircuitBreaker_OPEN");
         // Simulate 9 successful events
         IntStream.range(0, 9).forEach(num -> testCircuitBreaker.onSuccess(0));
         Assert.assertEquals(CircuitBreaker.State.CLOSED, testCircuitBreaker.getState());

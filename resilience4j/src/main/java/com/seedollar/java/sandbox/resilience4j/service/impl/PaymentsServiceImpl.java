@@ -2,6 +2,7 @@ package com.seedollar.java.sandbox.resilience4j.service.impl;
 
 import com.seedollar.java.sandbox.resilience4j.service.PaymentsService;
 import io.github.resilience4j.bulkhead.Bulkhead;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import io.vavr.CheckedRunnable;
 import io.vavr.control.Try;
 import org.slf4j.Logger;
@@ -30,5 +31,11 @@ public class PaymentsServiceImpl implements PaymentsService {
 
         });
         Try.run(makePaymentTask).onSuccess(ignore -> paymentServiceBulkhead.onComplete());
+    }
+
+    @RateLimiter(name = "transferFunds")
+    @Override
+    public void transferFunds(String target, Double amount) {
+        logger.info("Transferring funds to account: {} with amount: {}", target, amount);
     }
 }

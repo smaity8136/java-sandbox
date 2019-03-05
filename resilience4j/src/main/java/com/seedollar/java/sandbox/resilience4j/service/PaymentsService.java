@@ -7,4 +7,6 @@ import org.springframework.stereotype.Service;
 public interface PaymentsService {
 
     void payAccount(String source, String target, Double amount);
+
+    void transferFunds(String target, Double amount);
 }
