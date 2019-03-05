@@ -1,0 +1,20 @@
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'org.springframework.boot'
+
+jar {
+    archivesBaseName = 'scather-gather-demo'
+    version = '1.0'
+}
+
+dependencies {
+    compileOnly("org.projectlombok:lombok:${lombokVersion}")
+    annotationProcessor("org.projectlombok:lombok:${lombokVersion}")
+
+    implementation("org.springframework.boot:spring-boot-starter-security:${springBootVersion}")
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+	implementation 'org.springframework.boot:spring-boot-starter-integration'
+    testImplementation("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
+    testImplementation("org.springframework.security:spring-security-test:${springVersion}")
+	testImplementation 'io.projectreactor:reactor-test'
+}
