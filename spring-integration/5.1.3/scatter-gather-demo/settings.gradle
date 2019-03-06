@@ -1,6 +1,5 @@
-pluginManagement {
-	repositories {
-		gradlePluginPortal()
-	}
-}
 rootProject.name = 'scatter-gather-demo'
+
+include 'orchestrator-scatter-gather'
+include 'capulet-service'
+include 'montague-service'
