@@ -1,0 +1,34 @@
+allprojects {
+
+    apply plugin: "java"
+    apply plugin: "idea"
+
+    group = "com.seedollar.java.sandbox.spring.webflux"
+    version = "1.0"
+    sourceCompatibility = 11
+
+    repositories {
+        mavenCentral()
+        maven { url 'http://repo.spring.io/libs-release' }
+        maven { url 'http://repo.spring.io/libs-milestone' }
+        maven { url 'http://repo.spring.io/libs-snapshot' }
+        jcenter { url 'http://jcenter.bintray.com/' }
+        mavenLocal()
+    }
+}
+
+subprojects {
+
+    buildscript {
+        repositories {
+            maven { url "http://repo.spring.io/release" }
+            jcenter { url 'http://jcenter.bintray.com/' }
+            mavenLocal()
+            mavenCentral()
+        }
+
+		dependencies {
+            classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        }
+    }
+}

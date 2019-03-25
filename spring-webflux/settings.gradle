@@ -1,0 +1,4 @@
+rootProject.name = 'spring-webflux'
+
+include 'reactive-backend'
+include 'reactive-producer'
