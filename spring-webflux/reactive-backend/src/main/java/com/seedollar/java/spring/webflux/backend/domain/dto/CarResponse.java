@@ -1,7 +1,9 @@
-package com.seedollar.java.spring.webflux.producer.domain;
+package com.seedollar.java.spring.webflux.backend.domain.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
@@ -9,7 +11,9 @@ import java.util.List;
 @Setter
 @Getter
 @Builder
-public class Car {
+@NoArgsConstructor
+@AllArgsConstructor
+public class CarResponse {
 
     private Long carId;
 

@@ -1,4 +1,4 @@
-package com.seedollar.java.spring.webflux.producer.domain;
+package com.seedollar.java.spring.webflux.backend.domain;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -6,8 +6,8 @@ import lombok.Setter;
 
 import java.util.List;
 
-@Setter
 @Getter
+@Setter
 @Builder
 public class Car {
 
@@ -22,6 +22,8 @@ public class Car {
     private boolean isElectric;
 
     private double purchasePrice;
+
+    private List<Accessory> accessories;
 
     private List<Long> accessoryIds;
 }

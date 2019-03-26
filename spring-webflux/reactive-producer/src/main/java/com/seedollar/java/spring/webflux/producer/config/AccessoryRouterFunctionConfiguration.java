@@ -35,7 +35,7 @@ public class AccessoryRouterFunctionConfiguration {
                 })
                 .GET("/accessories", request -> Optional.ofNullable(ACCESSORIES_MAP.values()).map(accessories -> ServerResponse.ok().syncBody(accessories)).orElse(ServerResponse.notFound().build()))
                 .filter((request, next) -> {
-                    Duration duration = Duration.ofSeconds(2);
+                    Duration duration = Duration.ofSeconds(1);
                     return Mono.delay(duration).flatMap(aLong -> next.handle(request));
                 })
                 .build();
