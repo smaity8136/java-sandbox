@@ -40,6 +40,15 @@ public class WebClientConfiguration {
     }
 
     @Bean
+    public WebClient workshopWebClient(TcpClient webClientTcpClient, ExchangeStrategies exchangeStrategies) {
+        return WebClient.builder()
+            .exchangeStrategies(exchangeStrategies)
+            .clientConnector(new ReactorClientHttpConnector(HttpClient.from(webClientTcpClient)))
+            .baseUrl("http://localhost:8082")
+            .build();
+    }
+
+    @Bean
     public SslContext sslContext() throws SSLException {
         return SslContextBuilder.forClient().build();
     }

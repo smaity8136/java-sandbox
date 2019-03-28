@@ -26,4 +26,8 @@ public class Car {
     private List<Accessory> accessories;
 
     private List<Long> accessoryIds;
+
+    private List<Workshop> workshops;
+
+    private List<Long> workshopIds;
 }
