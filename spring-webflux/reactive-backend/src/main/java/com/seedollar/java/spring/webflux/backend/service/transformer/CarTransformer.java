@@ -17,6 +17,7 @@ public class CarTransformer implements Transformer1<CarResponse, Car> {
                 .model(carResponse.getModel())
                 .plate(carResponse.getPlate())
                 .purchasePrice(carResponse.getPurchasePrice())
+                .workshopIds(carResponse.getWorkshopIds())
                 .accessoryIds(carResponse.getAccessoryIds()).build();
     }
 }

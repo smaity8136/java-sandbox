@@ -1,0 +1,4 @@
+rootProject.name = 'java12'
+
+include 'collectors-teeing'
+include 'string-api-updates'

@@ -1,0 +1,4 @@
+jar {
+    archivesBaseName = 'string-api-updates'
+    version = '1.0.0-SNAPSHOT'
+}

@@ -35,3 +35,4 @@ out/
 generated/
 classes/
 temp/
+**/logs/

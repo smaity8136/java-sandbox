@@ -3,7 +3,7 @@
     <Appenders>
         <Console name="Console" target="SYSTEM_OUT">
             <PatternLayout
-                    pattern="%style{%d{ISO8601}}{black} %highlight{%-5level }[%style{%t}{bright,blue}] %style{%C{1.}}{bright,yellow}: %msg%n%throwable"/>
+                    pattern="%style{%d{ISO8601}}{black} %highlight{%-5level }[%style{%t}{bright,blue}] %style{[%X{correlationId}]}{green} %style{%C{1.}}{bright,yellow}: %msg%n%throwable"/>
         </Console>
 
         <RollingFile name="RollingFile"
@@ -21,6 +21,8 @@
                 <TimeBasedTriggeringPolicy/>
             </Policies>
         </RollingFile>
+
+        <TestLoggingAppender name="TestLoggingAppender"/>
     </Appenders>
 
     <Loggers>
@@ -28,6 +30,7 @@
         <Root level="info">
             <AppenderRef ref="Console"/>
             <AppenderRef ref="RollingFile"/>
+            <AppenderRef ref="TestLoggingAppender"/>
         </Root>
 
         <!-- LOG "com.seedollar.java" at TRACE level -->

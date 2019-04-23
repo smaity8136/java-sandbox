@@ -1,0 +1,4 @@
+jar {
+    archivesBaseName = 'collectors-teeing'
+    version = '1.0.0-SNAPSHOT'
+}

@@ -24,4 +24,6 @@ public class Car {
     private double purchasePrice;
 
     private List<Long> accessoryIds;
+
+    private List<Long> workshopIds;
 }

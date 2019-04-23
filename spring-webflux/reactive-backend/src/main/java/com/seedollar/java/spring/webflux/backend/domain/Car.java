@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -23,11 +24,11 @@ public class Car {
 
     private double purchasePrice;
 
-    private List<Accessory> accessories;
+    private List<Accessory> accessories = new ArrayList<>();
 
     private List<Long> accessoryIds;
 
-    private List<Workshop> workshops;
+    private List<Workshop> workshops = new ArrayList<>();
 
     private List<Long> workshopIds;
 }

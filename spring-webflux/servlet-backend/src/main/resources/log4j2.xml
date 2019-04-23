@@ -7,8 +7,8 @@
         </Console>
 
         <RollingFile name="RollingFile"
-                     fileName="./logs/orchestrator.log"
-                     filePattern="./logs/$${date:yyyy-MM}/orchestrator-%d{-dd-MMMM-yyyy}-%i.log.gz">
+                     fileName="./logs/servlet-backend.log"
+                     filePattern="./logs/$${date:yyyy-MM}/servlet-backend-%d{-dd-MMMM-yyyy}-%i.log.gz">
             <PatternLayout>
                 <pattern>%d %p %C{1.} [%t] WTF %m%n</pattern>
             </PatternLayout>

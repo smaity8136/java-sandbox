@@ -1,0 +1,34 @@
+apply plugin: "java"
+apply plugin: "idea"
+
+group = "com.seedollar.java.sandbox.map"
+version = "1.0"
+
+sourceCompatibility = 11
+targetCompatibility = 11
+
+// ===========================================================================================================================================================================
+//  Closure to specify local and remote repositories of module dependencies
+// ===========================================================================================================================================================================
+repositories {
+    maven { url 'http://repo.spring.io/libs-release' }
+    maven { url 'http://repo.spring.io/libs-milestone' }
+    maven { url 'http://repo.spring.io/libs-snapshot' }
+    jcenter { url 'http://jcenter.bintray.com/' }
+    mavenLocal()
+    mavenCentral()
+}
+
+// ===========================================================================================================================================================================
+//  Closure to define common dependencies for all sub projects
+// ===========================================================================================================================================================================
+dependencies {
+    compile("org.apache.logging.log4j:log4j-core:${log4jVersion}")
+    compile("org.apache.logging.log4j:log4j-jul:${log4jVersion}")
+    compile("io.vavr:vavr:${vavrVersion}")
+    compile("com.google.guava:guava:${guavaVersion}")
+
+    testImplementation("org.junit.jupiter:junit-jupiter-api:${junitJupiterVersion}")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitJupiterVersion}")
+}
+

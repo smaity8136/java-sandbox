@@ -43,7 +43,6 @@ public class GetPersonIntegrationConfiguration {
         return IntegrationFlows.from(inputGetPersonChannel()).scatterGather(
                 scatter ->
                         scatter
-                                .defaultOutputChannel("outputPersonAggregationChannel")
                                 .applySequence(true)
                                 .recipient(inputCapuletPersonChannel())
                                 .recipient(inputMontaguePersonChannel()),
